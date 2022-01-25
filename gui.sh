@@ -21,4 +21,22 @@ apt -y install remmina remmina-plugin-vnc remmina-plugin-rdp chromium-l10n chrom
 ##安装多媒体工具
 apt -y install redshift gcolor3 obs-studio kdenlive audacity
 
+##安装所有的时区信息
+apt -y install locales-all
+cat <<EOF >/etc/default/locale
+LANG="zh_CN.UTF-8"
+LANGUAGE="zh_CN.UTF-8"
+LC_NUMERIC="zh_CN.UTF-8"
+LC_TIME="zh_CN.UTF-8"
+LC_MONETARY="zh_CN.UTF-8"
+LC_PAPER="zh_CN.UTF-8"
+LC_NAME="zh_CN.UTF-8"
+LC_ADDRESS="zh_CN.UTF-8"
+LC_TELEPHONE="zh_CN.UTF-8"
+LC_MEASUREMENT="zh_CN.UTF-8"
+LC_IDENTIFICATION="zh_CN.UTF-8"
+EOF
+
+
+
 
