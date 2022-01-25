@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # proxmox7初始化设置
 
 ##调整仓库源
