@@ -33,10 +33,9 @@ sed -i s'/precedence ::ffff:0:0/96 100/#precedence ::ffff:0:0/96 100/g' /etc/gai
 sysctl -p
 
 ##调整内核启动加载参数
-sed -i s'/quiet/quiet consoleblank=300 intel_iommu=on iommu=pt
-/g' /etc/kernel/cmdline
+##sed -i s'/zfsroot/zfsroot consoleblank=300 intel_iommu=on iommu=pt/g' /etc/kernel/cmdline
 
-proxmox-boot-tool refresh
+## proxmox-boot-tool refresh
 
 ##调整模块加载 
 echo vfio >> /etc/modules
