@@ -1,4 +1,5 @@
 #!/bin/bash
+# https://tinyurl.com/proxmoxgui
 
 ## 安装基本包
 apt install -y sudo net-tools neofetch
