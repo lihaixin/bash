@@ -1,5 +1,6 @@
 #!/bin/sh
 # proxmox7初始化设置
+# https://tinyurl.com/proxmoxinit
 
 ##调整仓库源
 sed -i 's|deb|# deb|g' /etc/apt/sources.list.d/pve-enterprise.list
