@@ -18,8 +18,6 @@ sed -i 's|http://download.proxmox.com|https://mirrors.ustc.edu.cn/proxmox|g' /us
 ## 升级到最新
 apt-get -y update && apt-get -y upgrade
 
-##删除订阅提醒
-sed -Ezi.bak "s/(Ext.Msg.show\(\{\s+title: gettext\('No valid sub)/void\(\{ \/\/\1/g" /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js && systemctl restart pveproxy.service
 
 ##调整内核参数
 ### 开启内核转发
@@ -65,3 +63,5 @@ EOF
 chmod +x /etc/rc.local
 systemctl start rc-local
 
+##删除订阅提醒
+sed -Ezi.bak "s/(Ext.Msg.show\(\{\s+title: gettext\('No valid sub)/void\(\{ \/\/\1/g" /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js && systemctl restart pveproxy.service
