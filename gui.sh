@@ -15,4 +15,9 @@ chmod u-w /etc/sudoers
 apt -y install task-xfce-desktop task-cinnamon-desktop task-chinese-s task-chinese-s-desktop task-laptop locales-all
 
 ##安装常用工具
-apt install remmina remmina-plugin-vnc remmina-plugin-rdp chromium-l10n chromium telegram-desktop firfox 
+apt -y install remmina remmina-plugin-vnc remmina-plugin-rdp chromium-l10n chromium telegram-desktop firfox 
+
+##安装多媒体工具
+apt -y install redshift gcolor3 obs-studio kdenlive audacity
+
+
