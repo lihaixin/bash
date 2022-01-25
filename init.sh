@@ -4,12 +4,13 @@
 ##调整仓库源
 sed -i 's|deb|# deb|g' /etc/apt/sources.list.d/pve-enterprise.list
 
-cat >/etc/apt/sources.list << TEMPEOF 
+cat <<EOF >/etc/apt/sources.list
 deb http://mirrors.ustc.edu.cn/debian bullseye main contrib
 deb http://mirrors.ustc.edu.cn/debian bullseye-updates main contrib
 deb https://mirrors.ustc.edu.cn/proxmox/debian bullseye pve-no-subscription
 deb https://mirrors.ustc.edu.cn/debian-security bullseye-security main contrib
-TEMPEOF
+
+EOF
 
 cp /usr/share/perl5/PVE/APLInfo.pm /usr/share/perl5/PVE/APLInfo.pm_back
 sed -i 's|http://download.proxmox.com|https://mirrors.ustc.edu.cn/proxmox|g' /usr/share/perl5/PVE/APLInfo.pm
