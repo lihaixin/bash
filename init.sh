@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # proxmox7初始化设置
 # https://tinyurl.com/proxmoxinit
 
