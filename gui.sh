@@ -2,7 +2,8 @@
 # https://tinyurl.com/proxmoxgui
 
 ## 安装基本包
-apt install -y sudo net-tools neofetch
+apt install -y sudo net-tools neofetch qemu-guest-agent
+systemctl start qemu-guest-agent
 
 ##添加普通用户
 useradd -m pve
@@ -37,6 +38,9 @@ LC_MEASUREMENT="zh_CN.UTF-8"
 LC_IDENTIFICATION="zh_CN.UTF-8"
 EOF
 
+##设置默认启动图像界面
+systemctl set-default graphical.target 
+systemctl get-default
 
 
 
