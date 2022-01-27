@@ -38,10 +38,10 @@ sysctl -p
 ## proxmox-boot-tool refresh
 
 ##调整模块加载 
-echo vfio >> /etc/modules
-echo vfio_iommu_type1 >> /etc/modules
-echo vfio_pci >> /etc/modules
-echo vfio_virqfd >> /etc/modules
+#echo vfio >> /etc/modules
+#echo vfio_iommu_type1 >> /etc/modules
+#echo vfio_pci >> /etc/modules
+#echo vfio_virqfd >> /etc/modules
 
 ##cpu频率调优
 cat <<EOF >/etc/rc.local
@@ -57,7 +57,7 @@ cat <<EOF >/etc/rc.local
 # bits.
 #
 # By default this script does nothing.
-echo "schedutil" | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+# echo "schedutil" | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 exit 0
 EOF
 
