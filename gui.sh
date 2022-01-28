@@ -21,7 +21,7 @@ chmod u-w /etc/sudoers
 # APT::Install-Suggests "0";
 apt-get -y install --no-install-recommends task-cinnamon-desktop
 apt-get -y install task-chinese-s task-chinese-s-desktop
-apt-get -y install task-laptop parprouted iperf3
+apt-get -y install task-laptop
 
 ##安装远程桌面
 apt -y install xrdp
