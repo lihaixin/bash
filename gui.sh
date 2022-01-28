@@ -2,8 +2,8 @@
 # curl -sSL https://tinyurl.com/proxmoxgui | bash -x
 
 ## 安装基本包
-apt install -y sudo net-tools neofetch qemu-guest-agent
-systemctl start qemu-guest-agent
+apt install -y sudo net-tools neofetch
+
 
 ##添加普通用户
 useradd -m pve
