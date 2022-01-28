@@ -19,8 +19,11 @@ cp /usr/share/perl5/PVE/APLInfo.pm /usr/share/perl5/PVE/APLInfo.pm_back
 sed -i 's|http://download.proxmox.com|https://mirrors.ustc.edu.cn/proxmox|g' /usr/share/perl5/PVE/APLInfo.pm
 
 ## 升级到最新
-apt-get -y update && apt-get -y upgrade
+apt -y update && apt-get -y upgrade
 
+## 安装基本包
+apt -y install net-tools qemu-guest-agent
+systemctl start qemu-guest-agent
 
 ##调整内核参数
 ### 开启内核转发
@@ -59,6 +62,7 @@ cat <<EOF >/etc/rc.local
 # bits.
 #
 # By default this script does nothing.
+# cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors
 # echo "schedutil" | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 exit 0
 EOF
