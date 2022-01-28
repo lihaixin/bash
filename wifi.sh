@@ -34,6 +34,9 @@ iface vmbr0 inet static
       address 192.168.2.107/24
 # wifi bridge' > /etc/network/interfaces
 
+##关闭NetworkManager
+systemctl disable NetworkManager
+
 ##------------------------------------------------------------------------------------------------
 echo 'auto lo
 iface lo inet loopback
