@@ -20,7 +20,7 @@ apt -y install task-xfce-desktop task-cinnamon-desktop task-chinese-s task-chine
 apt install -y remmina remmina-plugin-vnc remmina-plugin-rdp chromium-l10n chromium telegram-desktop firefox-esr firefox-esr-l10n-zh-cn
 
 ##安装多媒体工具
-apt -y install redshift gcolor3 obs-studio kdenlive audacity
+apt -y install redshift-gtk gcolor3 obs-studio kdenlive audacity
 
 ##安装所有的时区信息
 apt -y install locales-all
