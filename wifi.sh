@@ -38,6 +38,7 @@ iface vmbr0 inet static
 systemctl disable NetworkManager
 
 ##------------------------------------------------------------------------------------------------
+# 第二种方式
 echo 'auto lo
 iface lo inet loopback
 # 使用NetworkManager管理wifi链接和使用networking管理wifi
