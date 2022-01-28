@@ -39,6 +39,7 @@ apt -y install redshift-gtk gcolor3 obs-studio kdenlive audacity
 
 ##安装所有的时区信息
 apt -y install locales-all
+localectl set-locale LANG=zh_CN.UTF-8
 cat <<EOF >/etc/default/locale
 LANG="zh_CN.UTF-8"
 LANGUAGE="zh_CN.UTF-8"
