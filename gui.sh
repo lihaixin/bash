@@ -14,8 +14,21 @@ echo "pve ALL=(ALL:ALL) ALL" >>/etc/sudoers
 chmod u-w /etc/sudoers
 
 ##安装桌面环境
-apt -y install task-xfce-desktop task-cinnamon-desktop task-chinese-s task-chinese-s-desktop task-laptop locales-all
-#apt-get install --no-install-recommends task-cinnamon-desktop
+# apt -y install task-xfce-desktop task-cinnamon-desktop task-chinese-s task-chinese-s-desktop task-laptop locales-all
+# apt-config dump | grep -we Recommends -e Suggests
+# 默认安装推荐包，不安装建议建议包，迷你安装ba推荐包也不安装
+# APT::Install-Recommends "1";
+# APT::Install-Suggests "0";
+apt-get -y install --no-install-recommends task-cinnamon-desktop task-chinese-s task-chinese-s-desktop locales-all
+apt-get -y install task-laptop task-chinese-s task-chinese-s-desktop
+
+##安装远程桌面
+apt -y install xrdp
+adduser xrdp ssl-cert
+systemctl enable xrdp
+systemctl start xrdp
+systemctl status xrdp
+
 
 ##安装常用工具
 apt install -y remmina remmina-plugin-vnc remmina-plugin-rdp chromium-l10n chromium telegram-desktop firefox-esr firefox-esr-l10n-zh-cn
