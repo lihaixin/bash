@@ -34,6 +34,7 @@ iface vmbr0 inet static
       address 192.168.2.107/24
 # wifi bridge' > /etc/network/interfaces
 
+##------------------------------------------------------------------------------------------------
 echo 'auto lo
 iface lo inet loopback
 # 使用NetworkManager管理wifi链接和使用networking管理wifi
@@ -55,3 +56,21 @@ iface vmbr0 inet static
       post-up /usr/sbin/parprouted vmbr0 wlxc8e7d8cbf183
       post-down /usr/bin/killall /usr/sbin/parprouted
 # wifi bridge' > /etc/network/interfaces
+
+/etc/network/if-up.d/ARP.sh
+#!/bin/sh
+if [ "$IFACE" = wlxc8e7d8cbf183 ]; then
+        /usr/sbin/parprouted vmbr0 wlxc8e7d8cbf183
+        exit 0
+fi
+
+
+/etc/network/if-down.d/ARP.sh
+#!/bin/sh
+if [ "$IFACE" = wlxc8e7d8cbf183 ]; then
+        /usr/bin/killall /usr/sbin/parprouted
+        exit 0
+fi
+
+
+
