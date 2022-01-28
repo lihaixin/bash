@@ -7,6 +7,7 @@ wpa_passphrase $1 $2 > /etc/wpa_supplicant/wpa_supplicant.conf
 
 echo 'auto lo
 iface lo inet loopback
+# 使用networking服务管理wifi静态链接和wifi桥接
 #iface ens18 inet manual
 
 #auto vmbr0
@@ -35,7 +36,7 @@ iface vmbr0 inet static
 
 echo 'auto lo
 iface lo inet loopback
-
+# 使用NetworkManager管理wifi链接和使用networking管理wifi
 #iface ens18 inet manual
 
 #auto vmbr0
