@@ -1,5 +1,5 @@
 #!/bin/bash
-# https://tinyurl.com/proxmoxgui
+# curl -sSL https://tinyurl.com/proxmoxgui | bash -x
 
 ## 安装基本包
 apt install -y sudo net-tools neofetch qemu-guest-agent
@@ -15,6 +15,7 @@ chmod u-w /etc/sudoers
 
 ##安装桌面环境
 apt -y install task-xfce-desktop task-cinnamon-desktop task-chinese-s task-chinese-s-desktop task-laptop locales-all
+#apt-get install --no-install-recommends task-cinnamon-desktop
 
 ##安装常用工具
 apt install -y remmina remmina-plugin-vnc remmina-plugin-rdp chromium-l10n chromium telegram-desktop firefox-esr firefox-esr-l10n-zh-cn
