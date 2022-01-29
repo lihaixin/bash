@@ -22,7 +22,7 @@ chmod u-w /etc/sudoers
 # apt -y install task-xfce-desktop
 apt-get -y install task-cinnamon-desktop
 apt-get -y install task-chinese-s task-chinese-s-desktop
-apt-get -y install task-laptop
+# apt-get -y install task-laptop
 
 ##安装远程桌面
 apt -y install xrdp
@@ -34,10 +34,10 @@ systemctl status xrdp
 
 ##安装常用工具
 # chromium-l10n chromium
-apt install -y remmina remmina-plugin-vnc remmina-plugin-rdp telegram-desktop firefox-esr firefox-esr-l10n-zh-cn
+# apt install -y remmina remmina-plugin-vnc remmina-plugin-rdp telegram-desktop firefox-esr firefox-esr-l10n-zh-cn
 
 ##安装多媒体工具
-apt -y install redshift-gtk gcolor3 obs-studio kdenlive audacity
+# apt -y install redshift-gtk gcolor3 obs-studio kdenlive audacity
 
 ##安装所有的时区信息
 apt -y install locales-all
