@@ -17,9 +17,10 @@ chmod u-w /etc/sudoers
 # apt -y install task-xfce-desktop task-cinnamon-desktop task-chinese-s task-chinese-s-desktop task-laptop locales-all
 # apt-config dump | grep -we Recommends -e Suggests
 # 默认安装推荐包，不安装建议建议包，迷你安装ba推荐包也不安装
-# APT::Install-Recommends "1";
+# APT::Install-Recommends "1"; --no-install-recommends
 # APT::Install-Suggests "0";
-apt-get -y install --no-install-recommends task-cinnamon-desktop
+# apt -y install task-xfce-desktop
+apt-get -y install task-cinnamon-desktop
 apt-get -y install task-chinese-s task-chinese-s-desktop
 apt-get -y install task-laptop
 
@@ -32,7 +33,8 @@ systemctl status xrdp
 
 
 ##安装常用工具
-apt install -y remmina remmina-plugin-vnc remmina-plugin-rdp chromium-l10n chromium telegram-desktop firefox-esr firefox-esr-l10n-zh-cn
+# chromium-l10n chromium
+apt install -y remmina remmina-plugin-vnc remmina-plugin-rdp telegram-desktop firefox-esr firefox-esr-l10n-zh-cn
 
 ##安装多媒体工具
 apt -y install redshift-gtk gcolor3 obs-studio kdenlive audacity
