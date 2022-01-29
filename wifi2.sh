@@ -22,8 +22,9 @@ apt install -y parprouted
 DEBIAN_FRONTEND=noninteractive apt -y install isc-dhcp-relay
 ## 关闭dhcp中继
 /lib/systemd/systemd-sysv-install disable isc-dhcp-relay
+
 ##------------------------------------------------------------------------------------------------
-# 第二种方式
+# 创建网卡桥接信息
 cat <<EOF >/etc/network/interfaces
 auto lo
 iface lo inet loopback
@@ -36,6 +37,8 @@ iface vmbr0 inet static
 #wifi bridge
 
 EOF
+
+# 配置网络启动自动加载dhcp中继和arp代理
 
 cat <<EOF >/etc/network/if-up.d/networking.sh
 #!/bin/sh
