@@ -60,5 +60,6 @@ EOF
 systemctl set-default graphical.target 
 systemctl get-default
 
-
+##重启
+reboot
 
