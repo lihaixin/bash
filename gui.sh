@@ -28,11 +28,16 @@ apt-get -y install task-chinese-s task-chinese-s-desktop
 
 
 ##安装远程桌面
-cat <<EOF >>/etc/apt/sources.list
+
+echo "APT::Default-Release "stable";" >/etc/apt/apt.conf.d/99defaultrelease
+
+cat <<EOF >/etc/apt/sources.list.d/testing.list
 deb http://mirrors.ustc.edu.cn/debian testing main contrib
 EOF
+
 apt -y update
-apt -y install xrdp --install-suggests
+apt -y install xrdp
+apt -y install -t testing xrdp-pulseaudio-installer
 adduser xrdp ssl-cert
 systemctl enable xrdp
 systemctl start xrdp
