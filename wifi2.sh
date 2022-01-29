@@ -19,7 +19,7 @@ apt install wpasupplicant  iw net-tools wireless-tools iperf3
 
 apt install parprouted
 
-apt install isc-dhcp-relay
+DEBIAN_FRONTEND=noninteractive apt install isc-dhcp-relay
 
 ##------------------------------------------------------------------------------------------------
 # 第二种方式
