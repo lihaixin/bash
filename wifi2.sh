@@ -10,6 +10,17 @@ IPADDRESS=192.168.2.107/24
 DHCPSERVER=192.168.2.254
 GATEWAY=192.168.2.254
 
+# 启用内核转发
+echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
+sysctl -p
+
+# 安装无线链接需要的包
+apt install wpasupplicant  iw net-tools wireless-tools iperf3 
+
+apt install parprouted
+
+apt install isc-dhcp-relay
+
 ##------------------------------------------------------------------------------------------------
 # 第二种方式
 echo 'auto lo
