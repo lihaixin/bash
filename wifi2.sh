@@ -14,9 +14,9 @@ echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
 sysctl -p
 
 # 安装无线链接需要的包
-apt install wpasupplicant  iw net-tools wireless-tools iperf3 
+apt install -y wpasupplicant  iw net-tools wireless-tools iperf3 
 
-apt install parprouted
+apt install -y parprouted
 
 DEBIAN_FRONTEND=noninteractive apt -y install isc-dhcp-relay
 ## 关闭dhcp中继
