@@ -29,7 +29,7 @@ apt-get -y install task-chinese-s task-chinese-s-desktop
 
 ##安装远程桌面
 cat <<EOF >>/etc/apt/sources.list
-deb http://mirrors.ustc.edu.cn/debian/testing bullseye main contrib
+deb http://mirrors.ustc.edu.cn/debian testing main contrib
 EOF
 
 apt -y install xrdp --install-suggests
