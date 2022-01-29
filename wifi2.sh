@@ -1,5 +1,6 @@
 #!/bin/bash
 # proxmox7初始化WIFI桥接
+# 使用NetworkManager管理wifi链接和使用networking管理wifi 桥接
 # curl -sSL https://tinyurl.com/proxmoxwifi2 | bash -x
 
 # 根据自己的网络修改下面变量
@@ -26,15 +27,7 @@ DEBIAN_FRONTEND=noninteractive apt -y install isc-dhcp-relay
 cat <<EOF >/etc/network/interfaces
 auto lo
 iface lo inet loopback
-# 使用NetworkManager管理wifi链接和使用networking管理wifi
-#iface ens18 inet manual
-#auto vmbr0
-#iface vmbr0 inet static
-#        address 192.168.2.107/24
-#        gateway 192.168.2.254
-#        bridge-ports ens18
-#        bridge-stp off
-#        bridge-fd 0
+
 auto vmbr0
 iface vmbr0 inet static
       bridge_ports none
