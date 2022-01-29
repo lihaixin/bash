@@ -54,3 +54,5 @@ EOF
 
 chmod +x /etc/network/if-up.d/networking.sh
 chmod +x /etc/network/if-down.d/networking.sh
+
+# 重启后使用root帐号登陆，设置wifi帐号和秘密
