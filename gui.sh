@@ -20,8 +20,8 @@ chmod u-w /etc/sudoers
 # APT::Install-Recommends "1"; --no-install-recommends
 # APT::Install-Suggests "0";
 # task-xfce-desktop task-cinnamon-desktop task-laptop
-apt -y install --no-install-recommends task-cinnamon-desktop cinnamon-l10n
-
+# apt -y install --no-install-recommends task-cinnamon-desktop cinnamon-l10n
+apt -y install task-cinnamon-desktop
 # 
 apt-get -y install task-chinese-s task-chinese-s-desktop
 
