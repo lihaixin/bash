@@ -39,11 +39,8 @@ auto vmbr0
 iface vmbr0 inet static
       bridge_ports none
       address $IPADDRESS
-      post-up /usr/sbin/parprouted vmbr0 $WIFI_INTERFACE
-      post-up /usr/sbin/dhcrelay -q $DHCPSERVER
-      post-down /usr/bin/killall /usr/sbin/parprouted
-      post-down /usr/bin/killall /usr/sbin/dhcrelay
- wifi bridge
+
+#wifi bridge
 
 EOF
 
