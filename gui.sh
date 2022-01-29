@@ -5,7 +5,7 @@
 apt install -y sudo net-tools neofetch
 
 
-##添加普通用户
+##添加普通用户,平常使用普通用户登陆
 useradd -m pve
 usermod -s /bin/bash pve
 echo -e "pve\npve" | (passwd pve)
