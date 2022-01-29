@@ -19,10 +19,12 @@ chmod u-w /etc/sudoers
 # 默认安装推荐包，不安装建议建议包，迷你安装ba推荐包也不安装
 # APT::Install-Recommends "1"; --no-install-recommends
 # APT::Install-Suggests "0";
-apt -y install --no-install-recommends task-xfce-desktop
-# apt-get -y install task-cinnamon-desktop
+# task-xfce-desktop task-cinnamon-desktop task-laptop
+apt -y install --no-install-recommends task-cinnamon-desktop
+
+# 
 apt-get -y install task-chinese-s task-chinese-s-desktop
-# apt-get -y install task-laptop
+
 
 ##安装远程桌面
 apt -y install xrdp
