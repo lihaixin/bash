@@ -4,10 +4,10 @@
 
 # 根据自己的网络修改下面变量
 
-WIFI_ESSID=406_2.4G
+WIFI_ESSID=406_5G
 WIFI_PASSWD=*
-WIFI_INTERFACE=wlxc8e7d8cbf183
-IPADDRESS=192.168.2.107/24
+WIFI_INTERFACE=wlp2s0
+IPADDRESS=192.168.2.204/24
 DHCPSERVER=192.168.2.254
 GATEWAY=192.168.2.254
 
@@ -20,7 +20,8 @@ apt install wpasupplicant  iw net-tools wireless-tools iperf3
 
 apt install parprouted
 
-apt install isc-dhcp-relay
+DEBIAN_FRONTEND=noninteractive apt install isc-dhcp-relay
+
 
 #创建无线链接信息
 wpa_passphrase $WIFI_ESSID $WIFI_PASSWD > /etc/wpa_supplicant/wpa_supplicant.conf
@@ -43,7 +44,7 @@ iface lo inet loopback
 #add wifi interface for intel
 allow-hotplug $WIFI_INTERFACE
 auto $WIFI_INTERFACE
-ifacewlxc8e7d8cbf183 inet static
+iface $WIFI_INTERFACE inet static
         address $IPADDRESS
         gateway $GATEWAY
         post-up wpa_supplicant -B -c /etc/wpa_supplicant/wpa_supplicant.conf -i $WIFI_INTERFACE
