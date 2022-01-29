@@ -1,6 +1,6 @@
 #!/bin/bash
 # proxmox7初始化WIFI桥接
-# curl -sSL https://tinyurl.com/proxmoxwifi | bash -x
+# curl -sSL https://tinyurl.com/proxmoxwifi2 | bash -x
 
 # 根据自己的网络修改下面变量
 
