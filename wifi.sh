@@ -16,7 +16,11 @@ echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
 sysctl -p
 
 #安装无线链接需要的包
-apt install wpasupplicant parprouted iw net-tools wireless-tools iperf3 isc-dhcp-relay
+apt install wpasupplicant  iw net-tools wireless-tools iperf3 
+
+apt install parprouted
+
+apt install isc-dhcp-relay
 
 #创建无线链接信息
 wpa_passphrase $WIFI_ESSID $WIFI_PASSWD > /etc/wpa_supplicant/wpa_supplicant.conf
