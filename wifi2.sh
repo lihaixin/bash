@@ -58,7 +58,3 @@ EOF
 
 chmod +x /etc/network/if-up.d/networking.sh
 chmod +x /etc/network/if-down.d/networking.sh
-
-
-## 重启
-reboot
