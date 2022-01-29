@@ -15,7 +15,7 @@ echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
 sysctl -p
 
 # 安装无线链接需要的包
-apt install -y wpasupplicant  iw net-tools wireless-tools iperf3 
+apt install -y wpasupplicant  iw net-tools wireless-tools iperf3 task-laptop
 
 apt install -y parprouted
 
