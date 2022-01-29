@@ -47,11 +47,20 @@ iface vmbr0 inet static
 
 EOF
 
-echo '#!/bin/sh
-systemctl restart networking' >/etc/network/if-up.d/networking.sh
+cat <<EOF >/etc/network/if-up.d/networking.sh
+#!/bin/sh
+/usr/sbin/parprouted vmbr0 $WIFI_INTERFACE
+/usr/sbin/dhcrelay -q $DHCPSERVER
+EOF
+
+cat <<EOF >/etc/network/if-down.d/networking.sh
+#!/bin/sh
+/usr/bin/killall /usr/sbin/parprouted
+/usr/bin/killall /usr/sbin/dhcrelay
+EOF
 
 chmod +x /etc/network/if-up.d/networking.sh
-
+chmod +x /etc/network/if-down.d/networking.sh
 
 
 
