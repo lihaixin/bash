@@ -26,7 +26,8 @@ apt install isc-dhcp-relay
 wpa_passphrase $WIFI_ESSID $WIFI_PASSWD > /etc/wpa_supplicant/wpa_supplicant.conf
 
 #
-echo 'auto lo
+cat <<EOF > /etc/network/interfaces
+auto lo
 iface lo inet loopback
 # 使用networking服务管理wifi静态链接和wifi桥接
 #iface ens18 inet manual
@@ -55,7 +56,9 @@ auto vmbr0
 iface vmbr0 inet static
       bridge_ports none
       address $IPADDRESS
-# wifi bridge' > /etc/network/interfaces
+# wifi bridge
+
+EOF
 
 ##关闭NetworkManager
 systemctl disable NetworkManager
