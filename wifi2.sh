@@ -3,12 +3,11 @@
 # curl -sSL https://tinyurl.com/proxmoxwifi | bash -x
 
 # 根据自己的网络修改下面变量
-WIFI_ESSID=406_2.4G
-WIFI_PASSWD=*
+
 WIFI_INTERFACE=wlxc8e7d8cbf183
 IPADDRESS=192.168.2.107/24
 DHCPSERVER=192.168.2.254
-GATEWAY=192.168.2.254
+
 
 # 启用内核转发
 echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
@@ -19,11 +18,13 @@ apt install wpasupplicant  iw net-tools wireless-tools iperf3
 
 apt install parprouted
 
-DEBIAN_FRONTEND=noninteractive apt install isc-dhcp-relay
-
+DEBIAN_FRONTEND=noninteractive apt -y install isc-dhcp-relay
+## 关闭dhcp中继
+/lib/systemd/systemd-sysv-install disable isc-dhcp-relay
 ##------------------------------------------------------------------------------------------------
 # 第二种方式
-echo 'auto lo
+cat <<EOF >/etc/network/interfaces
+auto lo
 iface lo inet loopback
 # 使用NetworkManager管理wifi链接和使用networking管理wifi
 #iface ens18 inet manual
@@ -42,7 +43,9 @@ iface vmbr0 inet static
       post-up /usr/sbin/dhcrelay -q $DHCPSERVER
       post-down /usr/bin/killall /usr/sbin/parprouted
       post-down /usr/bin/killall /usr/sbin/dhcrelay
- wifi bridge' > /etc/network/interfaces
+ wifi bridge
+
+EOF
 
 echo '#!/bin/sh
 systemctl restart networking' >/etc/network/if-up.d/networking.sh
