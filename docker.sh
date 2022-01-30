@@ -1,5 +1,6 @@
 #!/bin/bash
 # curl -sSL https://tinyurl.com/proxmoxdocker | bash -x
+# wget -qO - https://tinyurl.com/proxmoxdocker | bash -x
 
 ## 换成国内源
 cat >/etc/apt/sources.list << TEMPEOF
