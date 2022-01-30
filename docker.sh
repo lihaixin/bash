@@ -10,16 +10,21 @@ deb https://mirrors.tuna.tsinghua.edu.cn/debian-security bullseye-security main 
 TEMPEOF
 
 ## 升级系统到最新版
-apt update -y && apt upgrade -y && apt install -y curl 
+apt update -y && apt upgrade -y 
+apt-get -y install \
+     apt-transport-https \
+     ca-certificates \
+     curl \
+     gnupg \
+     lsb-release
 
 ## 安装docker-ce最新社区版
-curl -fsSL https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/debian/gpg | apt-key add -
+curl -fsSL https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 
-add-apt-repository \
-   "deb [arch=amd64] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/debian \
-   $(lsb_release -cs) \
-   stable"
-
+echo \
+  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://mirrors.tuna.tsinghua.edu.cn/docker-ce/linux/debian \
+  $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+  
 apt-get update && apt-get install -y docker-ce
 
 ## 下载docker两个超实用的工具
