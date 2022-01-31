@@ -1,7 +1,7 @@
 #!/bin/bash
 # proxmox7初始化WIFI桥接
 # 使用NetworkManager管理wifi链接和使用networking管理wifi 桥接
-# curl -sSL https://tinyurl.com/proxmoxwifi2 | bash -x
+# curl -sSL https://15099.net/proxmox.wifi2 | bash -x
 
 # 根据自己的网络修改下面变量
 
