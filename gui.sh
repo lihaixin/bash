@@ -41,7 +41,7 @@ systemctl status xrdp
 # apt install -y remmina remmina-plugin-vnc remmina-plugin-rdp telegram-desktop firefox-esr firefox-esr-l10n-zh-cn
 
 ##安装多媒体工具
-# apt -y install redshift-gtk gcolor3 obs-studio kdenlive audacity
+# apt -y install redshift-gtk gcolor3 obs-studio kdenlive audacity 
 
 ##安装所有的时区信息
 apt -y install locales-all
