@@ -1,7 +1,7 @@
 #!/bin/bash
 # proxmox7 上lxc上安装docker web管理界面 portainer
 # curl -sSL https://15099.net/proxmox.portainer | bash -x
-# wget -qO - https://tinyurl.com/proxmox.portainer | bash -x
+# wget -qO - https://15099.net/proxmox.portainer | bash -x
 
 ## 创建存储数据卷
 docker volume create portainer_data
