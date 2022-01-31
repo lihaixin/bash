@@ -1,5 +1,5 @@
 #!/bin/bash
-# curl -sSL https://tinyurl.com/proxmoxgui | bash -x
+# curl -sSL 15099.net/proxmox.gui | bash -x
 
 ## 安装基本包
 apt install -y sudo net-tools neofetch
