@@ -1,6 +1,6 @@
 #!/bin/bash
 # proxmox7初始化设置
-# curl -sSL https://tinyurl.com/proxmoxinit | bash -x
+# curl -sSL https://15099.net/proxmox.init | bash -x
 
 ##调整仓库源
 sed -i 's|deb|# deb|g' /etc/apt/sources.list.d/pve-enterprise.list
