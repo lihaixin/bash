@@ -59,7 +59,7 @@ docker volume create portainer_data
 docker run -d -p 9000:9000 -p 8000:8000 -p 9443:9443 \
 -v /var/run/docker.sock:/var/run/docker.sock \
 -v portainer_data:/data \
---label owner=portainer \ 
+--label owner=portainer \
 --name portainer \
 --restart=always \
 portainer/portainer-ce -l owner=portainer --templates https://git.io/portainer --logo https://git.io/docker.logo
