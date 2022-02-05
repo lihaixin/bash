@@ -54,6 +54,27 @@ cd
 ## 调整docker tls端口监听
 sed -i s'/containerd.sock/containerd.sock -H 0.0.0.0:2376 --tls --tlsverify --tlscacert=\/root\/.docker\/ca.pem --tlscert=\/root\/.docker\/server.pem --tlskey=\/root\/.docker\/server-key.pem/g' /lib/systemd/system/docker.service
 
+## 安装ui管理面版
+docker volume create portainer_data
+docker run -d -p 9000:9000 -p 8000:8000 -p 9443:9443 \
+-v /var/run/docker.sock:/var/run/docker.sock \
+-v portainer_data:/data \
+--label owner=portainer \ 
+--name portainer \
+--restart=always \
+portainer/portainer-ce -l owner=portainer --templates https://git.io/portainer --logo https://git.io/docker.logo
+
+# 添加自动更新
+docker run -d \
+    --name watchtower \
+    --restart always \
+    -e TZ=Asia/Shanghai \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    containrrr/watchtower \
+    --cleanup \
+    -s "0 0 1 * * *" \
+    portainer
+
 ##重启docker
 systemctl daemon-reload
 systemctl restart docker
