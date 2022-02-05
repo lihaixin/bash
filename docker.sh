@@ -47,8 +47,11 @@ EOF
 cd /root && mkdir .docker
 cd .docker
 wget https://ghproxy.com/https://raw.githubusercontent.com/lihaixin/portainer/master/ca.pem
+sleep 1
 wget https://ghproxy.com/https://raw.githubusercontent.com/lihaixin/portainer/master/server.pem
+sleep 1
 wget https://ghproxy.com/https://raw.githubusercontent.com/lihaixin/portainer/master/server-key.pem
+sleep 1
 cd
 
 ## 调整docker tls端口监听
