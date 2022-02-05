@@ -67,6 +67,7 @@ portainer/portainer-ce -l owner=portainer --templates https://git.io/portainer -
 # 添加自动更新
 docker run -d \
     --name watchtower \
+    --label owner=portainer \
     --restart always \
     -e TZ=Asia/Shanghai \
     -v /var/run/docker.sock:/var/run/docker.sock \
