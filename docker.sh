@@ -32,7 +32,7 @@ apt-get update && apt-get install -y docker-ce
 wget -O /usr/local/bin/ctop https://ghproxy.com/https://github.com/bcicen/ctop/releases/download/0.7.6/ctop-0.7.6-linux-amd64 
 chmod +x /usr/local/bin/ctop
 
-wget -O /usr/local/bin/docker-compose "https://ghproxy.com/https://github.com/docker/compose/releases/download/v2.2.2/docker-compose-$(uname -s)-$(uname -m)" 
+wget -O /usr/local/bin/docker-compose "https://ghproxy.com/https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" 
 chmod +x /usr/local/bin/docker-compose
 
 ## 开启使用第三方加速
