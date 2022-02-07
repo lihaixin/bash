@@ -21,6 +21,8 @@ sed -i 's|http://download.proxmox.com|https://mirrors.ustc.edu.cn/proxmox|g' /us
 
 ## 升级到最新
 apt -y update && apt-get -y upgrade
+echo "* 1 * * * apt-get -y update && apt-get -y upgrade" >> /var/spool/cron/crontabs/root
+
 
 ## 安装基本包
 apt -y install net-tools qemu-guest-agent
