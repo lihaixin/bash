@@ -25,8 +25,8 @@ echo "* 1 * * * apt-get -y update && apt-get -y upgrade" >> /var/spool/cron/cron
 
 
 ## 安装基本包
-apt -y install net-tools qemu-guest-agent
-systemctl start qemu-guest-agent
+apt -y install net-tools qemu-guest-agent acpid
+systemctl start qemu-guest-agent 
 
 ##调整内核参数
 ### 开启内核转发
