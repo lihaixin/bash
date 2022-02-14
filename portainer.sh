@@ -24,6 +24,7 @@ docker run -d \
     --name watchtower \
     --restart always \
     -e TZ=Asia/Shanghai \
+    --label owner=portainer \
     -v /var/run/docker.sock:/var/run/docker.sock \
     containrrr/watchtower \
     --cleanup \
