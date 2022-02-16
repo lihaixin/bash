@@ -62,5 +62,7 @@ cd
 sed -i s'/containerd.sock/containerd.sock -H 0.0.0.0:2376 --tls --tlsverify --tlscacert=\/root\/.docker\/ca.pem --tlscert=\/root\/.docker\/server.pem --tlskey=\/root\/.docker\/server-key.pem/g' /lib/systemd/system/docker.service
 
 
-
+##重启docker
+systemctl daemon-reload
+systemctl restart docker
 
