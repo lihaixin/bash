@@ -28,12 +28,12 @@ apt-get -y install task-chinese-s task-chinese-s-desktop
 
 
 ##安装远程桌面
-apt -y update
-apt -y install xrdp
-adduser xrdp ssl-cert
-systemctl enable xrdp
-systemctl start xrdp
-systemctl status xrdp
+#apt -y update
+#apt -y install xrdp
+#adduser xrdp ssl-cert
+#systemctl enable xrdp
+#systemctl start xrdp
+#systemctl status xrdp
 
 
 ##安装常用工具
@@ -41,7 +41,8 @@ systemctl status xrdp
 # apt install -y remmina remmina-plugin-vnc remmina-plugin-rdp telegram-desktop firefox-esr firefox-esr-l10n-zh-cn
 
 ##安装多媒体工具
-# apt -y install redshift-gtk gcolor3 obs-studio kdenlive audacity 
+# redshift-gtk 
+# apt -y install gcolor3 obs-studio kdenlive audacity shutcat
 
 ##安装所有的时区信息
 apt -y install locales-all
