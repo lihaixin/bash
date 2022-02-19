@@ -42,7 +42,7 @@ apt-get -y install task-chinese-s task-chinese-s-desktop
 
 ##安装多媒体工具
 # redshift-gtk 
-# apt -y install gcolor3 obs-studio kdenlive audacity shutcat
+# apt -y install gcolor3 obs-studio kdenlive audacity shotcut
 
 ##安装所有的时区信息
 apt -y install locales-all
