@@ -14,7 +14,7 @@ deb https://mirrors.ustc.edu.cn/debian-security bullseye-security main contrib
 
 EOF
 
-echo "deb http://mirrors.ustc.edu.cn/proxmox/debian/ceph-pacific bullseye main" >/etc/apt/sources.list.d/ceph.list
+echo "deb http://mirrors.ustc.edu.cn/proxmox/debian/ceph-pacific bullseye main" >/etc/apt/sources.list.d/cephcn.list
 
 cp /usr/share/perl5/PVE/APLInfo.pm /usr/share/perl5/PVE/APLInfo.pm_back
 sed -i 's|http://download.proxmox.com|https://mirrors.ustc.edu.cn/proxmox|g' /usr/share/perl5/PVE/APLInfo.pm
