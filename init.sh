@@ -34,6 +34,9 @@ echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
 # 开启物理内存剩余10%才开始调用虚拟内存
 echo "vm.swappiness=10" >> /etc/sysctl.conf
 
+# 开启内核软死锁
+echo "kernel.watchdog_thresh=30" >> /etc/sysctl.conf
+
 ###优先使用ipv4
 sed -i s'/precedence ::ffff:0:0/96 100/#precedence ::ffff:0:0/96 100/g' /etc/gai.conf
 #### 保存运行下面命令生效
