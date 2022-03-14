@@ -34,6 +34,9 @@ echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
 # 开启物理内存剩余10%才开始调用虚拟内存
 echo "vm.swappiness=10" >> /etc/sysctl.conf
 
+#调整zfs内存使用量
+echo "options zfs zfs_arc_max=8589934592" > /etc/modprobe.d/zfs.conf
+
 # 开启内核软死锁
 echo "kernel.watchdog_thresh=30" >> /etc/sysctl.conf
 
@@ -53,6 +56,8 @@ sysctl -p
 #echo vfio_iommu_type1 >> /etc/modules
 #echo vfio_pci >> /etc/modules
 #echo vfio_virqfd >> /etc/modules
+
+update-initramfs -u
 
 ##cpu频率调优
 cat <<EOF >/etc/rc.local
