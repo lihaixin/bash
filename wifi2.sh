@@ -9,6 +9,10 @@ WIFI_INTERFACE=wlxc8e7d8cbf183
 IPADDRESS=192.168.2.11/24
 DHCPSERVER=192.168.2.254
 
+# 配置网卡模式
+ifconfig $WIFI_INTERFACE down
+iwconfig $WIFI_INTERFACE mode managed
+ifconfig $WIFI_INTERFACE up
 
 # 启用内核转发
 echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
