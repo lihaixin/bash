@@ -24,6 +24,7 @@ DEBIAN_FRONTEND=noninteractive apt install isc-dhcp-relay
 
 
 #创建无线链接信息
+# iwlist $WIFI_INTERFACE scan
 wpa_passphrase $WIFI_ESSID $WIFI_PASSWD > /etc/wpa_supplicant/wpa_supplicant.conf
 
 #
