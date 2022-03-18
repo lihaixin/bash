@@ -11,9 +11,14 @@ IPADDRESS=192.168.2.203/24
 DHCPSERVER=192.168.2.254
 GATEWAY=192.168.2.254
 
-#启用内核转发
+# 启用内核转发
 echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
 sysctl -p
+
+# 配置网卡模式
+ifconfig $WIFI_INTERFACE down
+iwconfig $WIFI_INTERFACE mode managed
+ifconfig $WIFI_INTERFACE up
 
 #安装无线链接需要的包
 apt install wpasupplicant  iw net-tools wireless-tools iperf3 
@@ -42,7 +47,7 @@ iface lo inet loopback
 #        bridge-stp off
 #        bridge-fd 0
 
-#add wifi interface for intel
+#add wifi interface
 allow-hotplug $WIFI_INTERFACE
 auto $WIFI_INTERFACE
 iface $WIFI_INTERFACE inet static
