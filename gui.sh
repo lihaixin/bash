@@ -22,8 +22,8 @@ chmod u-w /etc/sudoers
 # task-xfce-desktop task-cinnamon-desktop task-laptop
 # apt -y install --no-install-recommends task-cinnamon-desktop cinnamon-l10n
 # 使用完整的桌面环境，网卡可以自动开机联网
-apt -y install task-cinnamon-desktop
-# apt -y install task-gnome-desktop
+# apt -y install task-cinnamon-desktop
+apt -y install task-gnome-desktop
 # 
 apt-get -y install task-chinese-s task-chinese-s-desktop
 
