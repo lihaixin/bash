@@ -39,7 +39,7 @@ chmod +x /usr/local/bin/docker-compose
 mkdir -p /etc/docker 
 tee /etc/docker/daemon.json <<-'EOF'
 {
-  "registry-mirrors": ["https://hub.testsanjin.xyz"],
+  "registry-mirrors": ["https://hub.15099.net"],
   "log-driver": "json-file", 
   "log-opts": { 
   "max-size": "20m", "max-file": "3" 
