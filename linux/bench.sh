@@ -6,7 +6,7 @@
 # Thanks: LookBack <admin@dwhd.org>
 # URL: https://teddysun.com/444.html
 # https://github.com/teddysun/across/blob/master/bench.sh
-#
+# short url: wget -qO- https://15099.net/cn/linux.bench | bash
 trap _exit INT QUIT TERM
 
 _red() {
