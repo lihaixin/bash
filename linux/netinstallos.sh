@@ -5,7 +5,7 @@
 ## Default root password: MoeClub.org
 ## Blog: https://moeclub.org
 ## sourser: https://raw.githubusercontent.com/MoeClub/Note/master/InstallNET.sh
-## short url: bash <(wget --no-check-certificate -qO- 'https://15099.net/cn/linux/netinstallos') -d 11 -v 64 -p "rootpassword" --mirror 'http://mirrors.aliyun.com/debian/'
+## short url: bash <(wget --no-check-certificate -qO- 'https://15099.net/cn/linux.netinstallos') -d 11 -v 64 -p "rootpassword" --mirror 'http://mirrors.aliyun.com/debian/'
 
 
 ## Written By MoeClub.org
