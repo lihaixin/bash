@@ -4,6 +4,7 @@
 ## It can reinstall Debian, Ubuntu, CentOS system with network.
 ## Default root password: MoeClub.org
 ## Blog: https://moeclub.org
+## sourser: https://raw.githubusercontent.com/MoeClub/Note/master/InstallNET.sh
 ## Written By MoeClub.org
 
 export tmpVER=''
