@@ -15,8 +15,8 @@ docker run -d -p 8000:8000 -p 9443:9443 -p 9000:9000 --name portainer \
     -v portainer_data:/data \
     portainer/portainer-ce \
     -l owner=portainer \
-    --templates https://raw.githubusercontent.com/lihaixin/dockerfile/master/templates-2.0.json \
-    --logo https://raw.githubusercontent.com/lihaixin/portainer/master/docker.png
+    --templates https://git.io/portainer \
+    --logo https://git.io/docker.logo
 
 
 ## 添加自动更新
