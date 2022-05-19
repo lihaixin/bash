@@ -1,6 +1,7 @@
 #!/bin/bash
 # curl -sSL https://15099.net/proxmox.docker | bash -x
 # wget -qO - https://15099.net/proxmox.docker | bash -x
+# wget -qO - https://15099.net/cn/proxmox.docker | bash -x
 
 ## 换成国内源
 cat >/etc/apt/sources.list << TEMPEOF
