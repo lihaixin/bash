@@ -1,4 +1,3 @@
-#!/bin/bash
 
 # 列出所有块设备
 echo "可用磁盘列表:"
@@ -54,26 +53,31 @@ read -p "请输入镜像编号: " choice
 # 检查输入是否有效
 if ((choice > 0 &&choice <= ${#images_urls[@]})); then
     url=${images_urls[$((choice-1))]}
-    
-    # 下载镜像文件
     filename=$(basename "$url")
-    wget -c "$url" -O "$filename"
+
+    # 检查镜像文件是否已下载
+    if [ -f "$filename" ]; then
+        echo "镜像文件 $filename 已经存在本地，跳过下载。"
+    else
+        # 下载镜像文件
+        wget -c "$url" -O "$filename"
+        if [ $? -ne 0 ]; then
+            echo "下载镜像文件失败。"
+            exit 1
+        fi
+        echo "镜像文件下载完成。"
+    fi
+    
+    # 开始执行前同步文件系统缓存
+    sync
+    # 执行写入操作到磁盘
+    echo "正在将 $filename 写入磁盘 $target_disk，请稍候..."
+    sudo dd if="$filename" of="$target_disk" bs=4M status=progress oflag=direct conv=fdatasync
     
     if [ $? -eq 0 ]; then
-        echo "镜像文件下载完成。"
-        # 开始执行前同步文件系统缓存
-        sync
-        # 执行写入操作到磁盘
-        echo "正在将 $filename 写入磁盘 $target_disk，请稍候..."
-        sudo dd if="$filename" of="$target_disk" bs=4M status=progress oflag=direct conv=fdatasync
-        
-        if [ $? -eq 0 ]; then
-            echo "写入操作完成。"
-        else
-            echo "写入过程中发生错误。"
-        fi
+        echo "写入操作完成。"
     else
-        echo "下载镜像文件失败。"
+        echo "写入过程中发生错误。"
     fi
 else
     echo "无效的输入。"
