@@ -2,7 +2,7 @@
 echo "准备安装Portainer 图像界面..."
 
 #######################################################install_portainer########################################################################################
-install_docker() {
+install_portainer() {
 echo "开始安装Portainer 图像界面"
 DEFAULT_VALUE="@china1234567"
 prompt="请输入admin密码，20秒内无输入将采用默认值( $DEFAULT_VALUE ): "
@@ -25,4 +25,4 @@ docker run -d \
 --restart=always \
 lihaixin/portainer:ce-2.19.5
 }
-install_docker
+install_portainer
