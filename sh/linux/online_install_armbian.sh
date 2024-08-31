@@ -36,8 +36,8 @@ fi
 
 # 镜像文件在线地址列表
 images_urls=(
-    "http://example.com/mirror1.iso"
-    "http://example.com/mirror2.iso"
+    "https://pan-1.15099.net/d/L/Armbian_24.5.1_Uefi-x86_noble_current_6.6.31.img.xz"
+    "https://pan-1.15099.net/d/L/Armbian_24.5.5_Uefi-x86_noble_current_6.6.42.img.xz"
     "http://example.com/mirror3.iso"
 )
 
