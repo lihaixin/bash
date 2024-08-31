@@ -68,33 +68,37 @@ main_menu() {
 }
 
 run_script1() {
-    echo "正在运行在线脚本1..."
+    echo "正在运行在线脚本1...在线更换系统"
     # 这里放置执行脚本1的代码，例如通过curl或wget获取并执行
     # 示例：curl -sL https://someurl/script1.sh | bash
+    curl -sL https://bash.15099.net/linux/os.sh | bash
     echo "脚本1执行完毕，按回车键继续。"
     read
     main_menu
 }
 
 run_script2() {
-    echo "正在运行在线脚本2..."
+    echo "正在运行在线脚本2...Linux初始化"
     # 同样，这里插入脚本2的执行逻辑
+    curl -sL https://bash.15099.net/linux/init.sh | bash
     echo "脚本2执行完毕，按回车键继续。"
     read
     main_menu
 }
 
 run_script3() {
-    echo "正在运行在线脚本3..."
+    echo "正在运行在线脚本3...Docker环境初始化"
     # 插入脚本3的执行逻辑
+    curl -sL https://bash.15099.net/linux/docker.sh | bash
     echo "脚本3执行完毕，按回车键继续。"
     read
     main_menu
 }
 
 run_script4() {
-    echo "正在运行在线脚本4..."
+    echo "正在运行在线脚本4...Portainer中文图像界面安装"
     # 插入脚本3的执行逻辑
+    curl -sL https://bash.15099.net/linux/portainer.sh | bash
     echo "脚本3执行完毕，按回车键继续。"
     read
     main_menu
