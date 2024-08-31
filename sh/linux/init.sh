@@ -3,7 +3,7 @@ echo "准备初始化linux"
 
 #######################################################chang_repo########################################################################################
 chang_repo() {
-echo "调正仓库信息"
+echo "调整仓库信息和系统升级"
 DEFAULT_VALUE="Y"
 prompt="请输入内容(Y/N)，20秒内无输入将采用默认值( $DEFAULT_VALUE ): "
 # 使用read的-t选项及命令替换特性
@@ -15,9 +15,13 @@ if [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" = "cn" ];; then
     case $OS in
         debian)
             echo "执行针对Debian的操作..."
+            sed -i.bak 's#http://deb.debian.org#https://mirrors.tuna.tsinghua.edu.cn/debian#g' /etc/apt/sources.list
+            apt update -y && apt upgrade -y
             ;;
         ubuntu)
             echo "执行针对Ubuntu的操作..."
+            sed -i.bak 's#http://archive.ubuntu.com#https://mirrors.tuna.tsinghua.edu.cn#g' /etc/apt/sources.list.d/sources.list
+            apt update -y && apt upgrade -y
             ;;
         armbian)
             echo "执行针对Armbian的操作..."
