@@ -1,4 +1,5 @@
- echo "获取系统信息中..."
+get_system_info () {
+echo "获取系统信息中..."
 
     # 获取公网IP地址
     export WANIP=""
@@ -38,7 +39,7 @@
         VIRTUAL_PLATFORM="否 物理机"
         echo "虚拟平台: $VIRTUAL_PLATFORM "
     fi
-    
+  } 
     echo "脚本1执行完毕，按回车键继续。"
     read
     main_menu
