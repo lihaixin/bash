@@ -31,7 +31,7 @@ if [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" = "cn" ]; then
 else
     echo "现在安装docker.io"
     apt install docker.io
-    echo "成功安装docker.io"
+    echo "成功安装docker.io,可使用docker info查看版本信息"
     mkdir -p /etc/docker 
     tee /etc/docker/daemon.json <<-'EOF'
     	{
