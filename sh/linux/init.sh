@@ -10,7 +10,7 @@ prompt="请输入内容(Y/N)，20秒内无输入将采用默认值( $DEFAULT_VAL
 read -t 20 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
 : ${USER_INPUT:$DEFAULT_VALUE}"
 
-if [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" = "cn" ];; then
+if [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" = "cn" ]; then
     echo "现在调出仓库和升级"
     case $OS in
         debian)
