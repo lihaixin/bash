@@ -21,7 +21,7 @@ prompt="请输入内容Y/N，10秒内无输入将采用默认值(Y): "
 
 # 使用read的-t选项及命令替换特性
 read -t 10 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
-echo "${USER_INPUT:-$DEFAULT_VALUE}"
+: ${USER_INPUT:$DEFAULT_VALUE}"
 
 if [ "$USER_INPUT" = "Y" ]; then
     echo "正在重启系统..."
