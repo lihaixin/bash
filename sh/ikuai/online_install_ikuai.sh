@@ -29,7 +29,7 @@ if [ "$USER_INPUT" = "Y" ]; then
 elif [ "$USER_INPUT" = "N" ]; then
     echo "返回主菜单..."
     # 这里假设main_menu是一个可执行脚本或命令
-    main_menu
+    sub_main_menu
 else
     echo "无效的输入，请输入 Y 或 N"
 fi
