@@ -99,7 +99,7 @@ run_script4() {
     echo "正在运行在线脚本4...Portainer中文图像界面安装"
     # 插入脚本3的执行逻辑
     curl -sL https://bash.15099.net/linux/portainer.sh | bash
-    echo "脚本3执行完毕，按回车键继续。"
+    echo "脚本4执行完毕，按回车键继续。"
     read
     main_menu
 }
