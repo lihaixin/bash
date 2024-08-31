@@ -40,13 +40,30 @@ echo "获取系统信息中..."
         VIRTUAL_PLATFORM="否 物理机"
         echo "虚拟平台: $VIRTUAL_PLATFORM "
     fi
+
+    # 检测本机系统
+    source /etc/os-release
+    OS=""
+    if [[ $ID == "debian" ]]; then
+        echo "当前系统是Debian"
+        OS=debian
+    elif [[ $ID == "ubuntu" ]]; then
+        echo "当前系统是Ubuntu"
+        OS=ubuntu
+    elif grep -q "Armbian" /etc/*release*; then
+        echo "当前系统是Armbian"
+        OS=armbian
+    else
+        echo "未能直接识别系统类型，本脚本不支持，程序退出"
+        exit 1
+    fi
   }
 
 main_menu() {
     clear
     echo "################################################################"
     echo "#   欢迎访问  https://bash.15099.net 脚本管理系统                #"
-    echo "#   主机是否为虚拟平台：$VIRTUAL_PLATFORM                        #"
+    echo "#   主机是否为虚拟平台：$VIRTUAL_PLATFORM  系统：$OS              #"
     echo "#   主机内存大小(MB): $MEM_TOTAL 磁盘大小: $DISK_TOTAL           #"
     echo "#   主机IP地址: $WANIP        IP所属国家: $COUNTRY               #"
     echo "################################################################"
