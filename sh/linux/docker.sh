@@ -19,13 +19,11 @@ if [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" = "cn" ]; then
     mkdir -p /etc/docker 
     tee /etc/docker/daemon.json <<-'EOF'
     	{
+    	  "registry-mirrors": ["https://hub.15099.net"],
     	  "log-driver": "json-file", 
     	  "log-opts": { 
     	  "max-size": "20m", "max-file": "3" 
-    	  },
-          "dns" : [
-            "8.8.8.8"
-          ]
+    	  }
     	}
     EOF
 else
@@ -34,12 +32,14 @@ else
     echo "成功安装docker.io,可使用docker info查看版本信息"
     mkdir -p /etc/docker 
     tee /etc/docker/daemon.json <<-'EOF'
-    	{
-    	  "registry-mirrors": ["https://hub.15099.net"],
+    {
     	  "log-driver": "json-file", 
     	  "log-opts": { 
     	  "max-size": "20m", "max-file": "3" 
-    	  }
+    	  },
+          "dns" : [
+            "8.8.8.8"
+          ]
     	}
     EOF
 fi
