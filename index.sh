@@ -72,7 +72,7 @@ main_menu() {
     echo "1) 在线更换系统|Linux换其他版本、灌爱快系统、一键物理机安装armbian"
     echo "2) Linux初始化|升级、repo、时区、时间、主机名等"
     echo "3) Docker环境初始化| 版本、代理、日志等设置"
-    echo "4) Portainer中文图像界面安装 | agent安装、edge安装"
+    echo "4) Portainer中文图像界面安装"
     echo "0) 返回上级菜单"
     read -p "输入选项: " choice
     case $choice in
@@ -80,6 +80,7 @@ main_menu() {
         2) run_script2 ;;
         3) run_script3 ;;
         4) run_script4 ;;
+        5) run_script5 ;;
         0) exit 0 ;;
         *) echo "无效的选项，请重新选择。"; sleep 2; main_menu ;;
     esac
@@ -115,13 +116,21 @@ run_script3() {
 
 run_script4() {
     echo "正在运行在线脚本4...Portainer中文图像界面安装"
-    # 插入脚本3的执行逻辑
+    # 插入脚本4的执行逻辑
     curl -sL https://bash.15099.net/linux/portainer.sh | bash
     echo "脚本4执行完毕，按回车键继续。"
     read
     main_menu
 }
 
+run_script5() {
+    echo "正在运行在线脚本5...主机压力测试"
+    # 插入脚本5的执行逻辑
+    curl -sL https://bash.15099.net/linux/bench.sh | bash
+    echo "脚本5执行完毕，按回车键继续。"
+    read
+    main_menu
+}
 # 主程序开始
 get_system_info
 clear
