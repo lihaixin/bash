@@ -51,9 +51,10 @@ main_menu() {
     echo "#   主机IP地址: $WANIP        IP所属国家: $COUNTRY               #"
     echo "################################################################"
     echo "请选择一个操作:"
-    echo "1) 运行在线脚本1"
-    echo "2) 运行在线脚本2"
-    echo "3) 运行在线脚本3"
+    echo "1) 在线更换系统|Linux换其他版本、灌爱快系统、一键物理机安装armbian"
+    echo "2) Linux初始化|升级、repo、时区、时间、主机名等"
+    echo "3) Docker环境初始化| 版本、代理、日志等设置"
+    echo "4) Portainer中文图像界面安装 | agent安装、edge安装"
     echo "0) 返回上级菜单"
     read -p "输入选项: " choice
     case $choice in
@@ -84,6 +85,14 @@ run_script2() {
 
 run_script3() {
     echo "正在运行在线脚本3..."
+    # 插入脚本3的执行逻辑
+    echo "脚本3执行完毕，按回车键继续。"
+    read
+    main_menu
+}
+
+run_script4() {
+    echo "正在运行在线脚本4..."
     # 插入脚本3的执行逻辑
     echo "脚本3执行完毕，按回车键继续。"
     read
