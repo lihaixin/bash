@@ -63,6 +63,7 @@ main_menu() {
     clear
     echo "################################################################"
     echo "#   欢迎访问  https://bash.15099.net 脚本管理系统                #"
+    echo "#   当前程序只支持debian | ubutun | armbian 其他发行版未适配      #"
     echo "#   主机是否为虚拟平台：$VIRTUAL_PLATFORM  系统：$OS              #"
     echo "#   主机内存大小(MB): $MEM_TOTAL 磁盘大小: $DISK_TOTAL           #"
     echo "#   主机IP地址: $WANIP        IP所属国家: $COUNTRY               #"
