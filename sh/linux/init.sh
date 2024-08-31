@@ -58,7 +58,7 @@ else
 fi
 }
 
-
+chang_repo
 #######################################################chang_dns_time########################################################################################
 chang_dns_time() {
 echo "调整系统DNS和时区和时间"
@@ -89,7 +89,7 @@ else
     cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
     ntpdate cn.pool.ntp.org
 }
-
+chang_dns_time
 #######################################################chang_hostname########################################################################################
 chang_hostname() {
 echo "调整系统主机名"
@@ -102,7 +102,7 @@ HNAME=$USER_INPUT
 echo $HNAME > /etc/hostname
 hostname $HNAME
 }
-
+chang_hostname
 #######################################################chang_ssh########################################################################################
 chang_ssh() {
 echo "调整系统SSH配置信息"
@@ -122,7 +122,7 @@ sed -i s'/^PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_
 service ssh restart
 echo "成功调整SSH端口为32123，密码为：$USER_INPUT 开启主机密码登录"
 }
-
+chang_ssh
 
 #######################################################chang_wireguard########################################################################################
 chang_wireguard() {
@@ -177,3 +177,47 @@ else
     esac
 fi
 }
+chang_wireguard
+#######################################################chang_sysctl########################################################################################
+chang_sysctl() {
+echo "调整系统sysctl信息"
+cat >> /etc/sysctl.conf << TEMPEOF
+##提高整个系统的文件限制
+fs.file-max = 35525
+net.core.rmem_max = 67108864
+net.core.wmem_max = 67108864
+net.core.netdev_max_backlog = 250000
+net.core.somaxconn = 32400
+##调整内核打开数
+net.ipv4.tcp_syncookies = 1
+net.ipv4.ip_forward=1
+net.ipv4.tcp_tw_reuse = 1
+##net.ipv4.tcp_tw_recycle = 0
+net.ipv4.tcp_fin_timeout = 30
+net.ipv4.tcp_keepalive_time = 1200
+net.ipv4.ip_local_port_range = 40000 65000
+net.ipv4.tcp_max_syn_backlog = 8192
+#net.ipv4.tcp_max_tw_buckets = 5000
+#net.netfilter.nf_conntrack_max=1048576
+#net.nf_conntrack_max=1048576
+##开启TCP Fast Open
+net.ipv4.tcp_fastopen = 3
+net.ipv4.tcp_rmem = 4096 87380 67108864
+net.ipv4.tcp_wmem = 4096 65536 67108864
+net.ipv4.tcp_mtu_probing = 1
+##开启bbr
+net.core.default_qdisc=fq
+net.ipv4.tcp_congestion_control=bbr
+##虚拟内存优化
+vm.swappiness=10
+##关闭IPV6
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1
+
+
+TEMPEOF
+sysctl -p
+echo "成功调整SSH端口为32123，密码为：$USER_INPUT 开启主机密码登录"
+}
+chang_sysctl
