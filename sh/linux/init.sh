@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "准备初始化linux"
 
 DEFAULT_VALUE="默认值"
 prompt="请输入内容，10秒内无输入将采用默认值: "
