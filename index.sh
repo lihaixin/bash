@@ -91,6 +91,7 @@ run_script3() {
 }
 
 # 主程序开始
+get_system_info
 clear
 while true; do
     main_menu
