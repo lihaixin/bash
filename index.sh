@@ -1,4 +1,5 @@
 #!/bin/bash
+export TERM=xterm-256color
 get_system_info () {
     echo "获取系统信息中..."
 
