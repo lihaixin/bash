@@ -46,7 +46,9 @@ run_script1() {
     echo "正在运行在线脚本1...在线更换系统"
     # 这里放置执行脚本1的代码，例如通过curl或wget获取并执行
     # 示例：curl -sL https://someurl/script1.sh | bash
-    curl -sL https://bash.15099.net/linux/os.sh | bash
+    curl -sL https://bash.15099.net/linux/os.sh > /tmp/os.sh
+    bash /tmp/os.sh
+    rm -rf /tmp/os.sh
     echo "脚本1执行完毕，按回车键继续。"
     read
     main_menu
@@ -55,7 +57,9 @@ run_script1() {
 run_script2() {
     echo "正在运行在线脚本2...Linux初始化"
     # 同样，这里插入脚本2的执行逻辑
-    curl -sL https://bash.15099.net/linux/init.sh | bash
+    curl -sL https://bash.15099.net/linux/init.sh > /tmp/init.sh
+    bash /tmp/init.sh
+    rm -rf /tmp/init.sh
     echo "脚本2执行完毕，按回车键继续。"
     read
     main_menu
@@ -64,7 +68,9 @@ run_script2() {
 run_script3() {
     echo "正在运行在线脚本3...Docker环境初始化"
     # 插入脚本3的执行逻辑
-    curl -sL https://bash.15099.net/linux/docker.sh | bash
+    curl -sL https://bash.15099.net/linux/docker.sh > /tmp/docker.sh
+    bash /tmp/docker.sh
+    rm -rf /tmp/docker.sh
     echo "脚本3执行完毕，按回车键继续。"
     read
     main_menu
