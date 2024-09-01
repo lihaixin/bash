@@ -1,6 +1,6 @@
 #!/bin/bash
 get_system_info () {
-echo "获取系统信息中..."
+    echo "获取系统信息中..."
 
     # 获取公网IP地址
     export WANIP=""
@@ -57,7 +57,7 @@ echo "获取系统信息中..."
         echo "未能直接识别系统类型，本脚本不支持，程序退出"
         exit 1
     fi
-  }
+}
 
 main_menu() {
     clear
