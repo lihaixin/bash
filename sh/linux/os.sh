@@ -17,7 +17,7 @@ sub1_main_menu() {
         1) sub1_run_script1 ;;
         2) sub1_run_script2 ;;
         3) sub1_run_script3 ;;
-        0) main_menu ;;
+        0) exit 0 ;;
         *) echo "无效的选项，请重新选择。"; sleep 2; main_menu ;;
     esac
 }
