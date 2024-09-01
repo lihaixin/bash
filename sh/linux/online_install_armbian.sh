@@ -72,7 +72,8 @@ if ((choice > 0 &&choice <= ${#images_urls[@]})); then
     sync
     # 执行写入操作到磁盘
     echo "正在将 $filename 写入磁盘 $target_disk，请稍候..."
-    sudo dd if="$filename" of="$target_disk" bs=4M status=progress oflag=direct conv=fdatasync
+    unxz -c $filename > newfilename
+    sudo dd if=./newfilename of="$target_disk" bs=4M status=progress oflag=direct conv=fdatasync
     
     if [ $? -eq 0 ]; then
         echo "写入操作完成。"
@@ -84,7 +85,7 @@ else
 fi
 
 # 清理下载的镜像文件（可选）
-# rm "$filename"
+rm  newfilename
 
 # 记录操作日志（示例，实际需指定日志文件路径）
 echo "$(date) - 成功将$filename写入$target_disk" >> /var/log/image_writer.log
