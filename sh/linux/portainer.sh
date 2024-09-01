@@ -23,5 +23,6 @@ docker run -d \
 --name ui \
 --restart=always \
 lihaixin/portainer:ce-2.19.5
+echo "Portainer成功安装，访问：https://${WANIP}:9443 账号：admin 密码：${USER_INPUT} "
 }
 install_portainer
