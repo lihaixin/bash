@@ -3,7 +3,7 @@ echo "准备初始化docker..."
 
 #######################################################install_docker########################################################################################
 install_docker() {
-echo "准备安装doceker-io"
+echo "准备安装doceker-ce"
 # debian10/11 ver: 20.10 docker.io
 # armbian 24.5 ver: 20.10 docker.io
 DEFAULT_VALUE="Y"
@@ -13,7 +13,7 @@ read -t 20 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
 : ${USER_INPUT:$DEFAULT_VALUE}"
 
 if [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" = "cn" ]; then
-    echo "现在安装docker-ce"
+    echo "现在安装docker-ce 使用Aliyun镜像"
     curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun --version 24.0.9
     echo "成功安装docker-ce,可使用docker info查看版本信息"
     mkdir -p /etc/docker 
