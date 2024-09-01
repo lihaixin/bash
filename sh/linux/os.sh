@@ -23,11 +23,13 @@ sub1_main_menu() {
 }
 
 sub1_run_script1() {
-    echo "正在运行在线在线Linux换成Debian11纯版本系统"
+    echo "正在运行在线Linux换成Debian11纯版本系统"
     # 这里放置执行脚本1的代码，例如通过curl或wget获取并执行
     # 示例：curl -sL https://someurl/script1.sh | bash
-    curl -sL https://bash.15099.net/linux/online_install_linux.sh | bash
-    echo "脚本1执行完毕，按回车键继续。"
+    curl -sL https://bash.15099.net/linux/online_install_linux.sh > /tmp/online_install_linux.sh
+    bash /tmp/online_install_linux.sh
+    rm -rf /tmp/online_install_linux.sh
+    echo "Linux换成Debian11纯版本系统执行完毕，按回车键继续。"
     read
     sub1_main_menu
 }
@@ -35,8 +37,10 @@ sub1_run_script1() {
 sub1_run_script2() {
     echo "正在运行在线灌爱快系统"
     # 同样，这里插入脚本2的执行逻辑
-    curl -sL https://bash.15099.net/linux/online_install_ikuai.sh | bash
-    echo "脚本2执行完毕，按回车键继续。"
+    curl -sL https://bash.15099.net/linux/online_install_ikuai.sh > /tmp/online_install_ikuai.sh
+    bash /tmp/online_install_ikuai.sh
+    rm -rf //tmp/online_install_ikuai.sh
+    echo "在线灌爱快系统执行完毕，按回车键继续。"
     read
     sub1_main_menu
 }
@@ -44,8 +48,10 @@ sub1_run_script2() {
 sub1_run_script3() {
     echo "正在运行在线一键物理机安装armbian"
     # 插入脚本3的执行逻辑
-    curl -sL https://bash.15099.net/linux/online_install_armbian.sh | bash
-    echo "脚本3执行完毕，按回车键继续。"
+    curl -sL https://bash.15099.net/linux/online_install_armbian.sh > /tmp/online_install_armbian.sh
+    bash /tmp/online_install_armbian.sh
+    rm -rf /tmp/online_install_armbian.sh
+    echo "在线一键物理机安装armbian执行完毕，按回车键继续。"
     read
     sub1_main_menu
 }
