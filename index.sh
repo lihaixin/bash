@@ -81,7 +81,7 @@ main_menu() {
     echo "3) Docker环境初始化| 版本、代理、日志等设置"
     echo "4) Portainer中文图像界面安装"
     echo "0) 返回上级菜单"
-    read -p "输入选项: " choice
+    read -p "输入选项: " -r choice
     case $choice in
         1) run_script1 ;;
         2) run_script2 ;;
