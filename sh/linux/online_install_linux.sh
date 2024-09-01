@@ -2,7 +2,7 @@
 echo "准备在线安装Debian 11 纯系统"
 
 DEFAULT_VALUE="password"
-prompt="请输入安装后密码，10秒内无输入将采用默认值(password): "
+prompt="请输入安装后密码，10秒内无输入将采用默认值( $DEFAULT_VALUE ): "
 read -t 10 -p "$prompt" PASSWORD || PASSWORD=$DEFAULT_VALUE
 : ${PASSWORD:=$DEFAULT_VALUE}
 
