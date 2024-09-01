@@ -141,6 +141,4 @@ run_script5() {
 # 主程序开始
 get_system_info
 clear
-while true; do
-    main_menu
-done
+main_menu
