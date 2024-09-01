@@ -9,7 +9,6 @@ prompt="请输入admin密码，20秒内无输入将采用默认值( $DEFAULT_VAL
 # 使用read的-t选项及命令替换特性
 read -t 20 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
 : ${USER_INPUT:$DEFAULT_VALUE}"
-
 docker stop ui
 docker rm ui
 docker pull lihaixin/portainer:ce-2.19.5
