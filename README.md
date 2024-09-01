@@ -7,7 +7,7 @@ curl -sL https://bash.15099.net | bash
 
 ## 应用场景
 
-1. 更换系统（linux换其他版本、包含灌爱快系统、一键物理机安装armbian）
+1. 更换系统（linux换其他版本、灌爱快系统、一键物理机安装armbian）
 2. Linux初始化（升级、repo、时区、时间、主机名等）
 3. Docker环境初始化（版本、代理、日志等设置）
 4. Portainer中文图像界面安装（agent安装、edge安装）
