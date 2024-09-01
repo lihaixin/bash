@@ -72,7 +72,9 @@ run_script3() {
 run_script4() {
     echo "正在运行在线脚本4...Portainer中文图像界面安装"
     # 插入脚本4的执行逻辑
-    curl -sL https://bash.15099.net/linux/portainer.sh | bash
+    curl -sL https://bash.15099.net/linux/portainer.sh > /tmp/portainer.sh
+    bash /tmp/portainer.sh
+    rm -rf /tmp/portainer.sh
     echo "脚本4执行完毕，按回车键继续。"
     read
     main_menu
@@ -81,7 +83,9 @@ run_script4() {
 run_script5() {
     echo "正在运行在线脚本5...主机压力测试"
     # 插入脚本5的执行逻辑
-    curl -sL https://bash.15099.net/linux/bench.sh | bash
+    curl -sL https://bash.15099.net/linux/bench.sh > /tmp/bench.sh
+    bash /tmp/bench.sh
+    rm -rf /tmp/bench.sh
     echo "脚本5执行完毕，按回车键继续。"
     read
     main_menu
