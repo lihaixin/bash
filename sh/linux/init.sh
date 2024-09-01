@@ -30,7 +30,7 @@ if [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" = "cn" ]; then
         armbian)
             echo "执行针对Armbian的操作..."
             sed -i.bak 's#http://apt.armbian.com#https://mirrors.tuna.tsinghua.edu.cn/armbian#g' /etc/apt/sources.list.d/armbian.list
-            sed -i.bak 's#http://archive.ubuntu.com#https://mirrors.tuna.tsinghua.edu.cn#g' /etc/apt/sources.list
+            sed -i 's#http://archive.ubuntu.com#https://mirrors.tuna.tsinghua.edu.cn#g' /etc/apt/sources.list
             apt update -y && apt upgrade -y
             apt-get install net-tools wget ntpdate -y
             ;;
