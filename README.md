@@ -2,9 +2,7 @@
 个人收集整理的脚本，通过主菜单调用，方便快速部署
 
 ```
-curl -sL https://bash.15099.net | bash
-curl -sL https://bash.15099.net > my.sh
-bash my.sh
+curl -sL https://bash.15099.net > my.sh && bash my.sh;rm -rf my.sh
 ```
 ## 局限
 目前脚本只适配debian ubuntu armbian
