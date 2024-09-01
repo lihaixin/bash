@@ -84,7 +84,7 @@ main_menu() {
     echo "0) 返回上级菜单"
     read -p "输入选项: " -r choice
     case $choice in
-        1) 
+        1)
 		run_script1
  		;;
         2)
@@ -102,8 +102,8 @@ main_menu() {
 		exit 0 
   		;;
         *)
-		echo "无效的选项，请重新选择。"; 
-  		sleep 2;
+		echo "无效的选项，请重新选择。";
+  		sleep 2
     		main_menu
       		;;
     esac
