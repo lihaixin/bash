@@ -19,7 +19,7 @@ docker run -d \
 -v portainer_data:/data \
 -e TPORT=8000 \
 -e COUNTRY=cn \
--e PASSWORD="$USER_INPUT" \
+-e PASSWORD=${USER_INPUT} \
 --name ui \
 --restart=always \
 lihaixin/portainer:ce-2.19.5
