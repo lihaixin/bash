@@ -71,4 +71,5 @@ get_system_info () {
 # 主程序开始
 get_system_info
 curl -sL https://bash.15099.net/linux/index.sh > /tmp/index.sh
+sleep 2
 bash /tmp/index.sh
