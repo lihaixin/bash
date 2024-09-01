@@ -54,9 +54,16 @@ get_system_info () {
         echo "当前系统是Armbian"
         OS=armbian
     else
-        echo "未能直接识别系统类型，本脚本不支持，程序退出"
+        echo "错误：未能直接识别系统类型，本脚本不支持，脚本退出"
         exit 1
     fi
+
+    # 检测用户
+    user="$(id -un 2>/dev/null || true)"
+	if [ "$user" != 'root' ]; then
+	    echo "错误：本脚本只支持在root用户下运行，脚本退出"
+        exit 1      
+	fi
 }
 
 main_menu() {
