@@ -5,6 +5,12 @@
 curl -sL https://bash.15099.net | bash
 ```
 
+## 部署
+
+```
+docker run -d --name bash -p 90:80 lihaixin/bash
+```
+
 ## 应用场景
 
 1. 更换系统（linux换其他版本、灌爱快系统、一键物理机安装armbian）
