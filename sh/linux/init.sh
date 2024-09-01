@@ -15,6 +15,7 @@ if [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" = "cn" ]; then
     case $OS in
         debian)
             echo "执行针对Debian的操作..."
+            # https://mirrors.tuna.tsinghua.edu.cn/help/debian/
             sed -i.bak 's#http://deb.debian.org#https://mirrors.tuna.tsinghua.edu.cn/debian#g' /etc/apt/sources.list
             apt update -y && apt upgrade -y
             apt-get install net-tools wget ntpdate -y
