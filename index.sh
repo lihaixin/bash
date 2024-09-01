@@ -16,7 +16,7 @@ get_system_info () {
     # 获取IP所属国家，这里使用ipinfo.io和ipapi.co作为示例，需确保符合使用条款
     export COUNTRY=""
     COUNTRY=$(curl --max-time 5 ipinfo.io/country  2>/dev/null || curl --max-time 5 https://ipapi.co/country 2>/dev/null)
-    COUNTRY=`echo $COUNTRY | tr A-Z a-z`
+    COUNTRY=$(echo "$COUNTRY" | tr '[:upper:]' '[:lower:]')
     echo "IP所属国家: $COUNTRY"
 
     # 获取内存大小
