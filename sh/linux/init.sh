@@ -19,20 +19,20 @@ if [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" = "cn" ]; then
             sed -i.bak 's#http://deb.debian.org#https://mirrors.tuna.tsinghua.edu.cn/debian#g' /etc/apt/sources.list
             sed -i 's#http://security.debian.org#https://mirrors.tuna.tsinghua.edu.cn#g' /etc/apt/sources.list
             apt update -y && apt upgrade -y
-            apt-get install net-tools wget ntpdate -y
+            apt-get install net-tools wget ntpdate xz -y
             ;;
         ubuntu)
             echo "执行针对Ubuntu的操作..."
             sed -i.bak 's#http://archive.ubuntu.com#https://mirrors.tuna.tsinghua.edu.cn#g' /etc/apt/sources.list.d/sources.list
             apt update -y && apt upgrade -y
-            apt-get install net-tools wget ntpdate -y
+            apt-get install net-tools wget ntpdate xz -y
             ;;
         armbian)
             echo "执行针对Armbian的操作..."
             sed -i.bak 's#http://apt.armbian.com#https://mirrors.tuna.tsinghua.edu.cn/armbian#g' /etc/apt/sources.list.d/armbian.list
             sed -i 's#http://archive.ubuntu.com#https://mirrors.tuna.tsinghua.edu.cn#g' /etc/apt/sources.list
             apt update -y && apt upgrade -y
-            apt-get install net-tools wget ntpdate ntp -y
+            apt-get install net-tools wget ntpdate ntp xz -y
             systemctl enable armbian-resize-filesystem
             systemctl disable --now ssh.socket
             systemctl enable --now ssh.service
