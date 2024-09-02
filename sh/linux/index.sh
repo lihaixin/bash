@@ -13,7 +13,8 @@ main_menu() {
     echo "2) Linux初始化|升级、repo、时区、时间、主机名等"
     echo "3) Docker环境初始化| 版本、代理、日志等设置"
     echo "4) Portainer中文图像界面安装"
-    echo "5) 主机bench压力测试"
+    echo "5) 主机bench压力测试|磁盘、网速测试"
+    echo "6) 主机unixbench压力测试|cpu、内存测试"
     echo "0) 返回上级菜单"
     read -p "输入选项: " -r choice
     case $choice in
