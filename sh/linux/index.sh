@@ -105,8 +105,8 @@ run_script6() {
     echo "正在运行在线脚本5...主机压力测试"
     # 插入脚本5的执行逻辑
     curl -sL https://bash.15099.net/linux/unixbench.sh > /tmp/unixbench.sh
-    bash /tmp/unixbench
-    rm -rf /tmp/unixbench
+    bash /tmp/unixbench.sh
+    rm -rf /tmp/unixbench.sh
     echo "脚本6执行完毕，按回车键继续。"
     read
     main_menu
