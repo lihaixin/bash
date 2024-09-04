@@ -102,7 +102,7 @@ DEFAULT_VALUE="qq_hk20_000_gost"
 prompt="请输入内容(厂家_国别+编号_用户编号_用途 | qq_hk20_000_gost)，20秒内无输入将采用默认值( $DEFAULT_VALUE ): "
 # 使用read的-t选项及命令替换特性
 read -t 20 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
-: ${USER_INPUT:=$DEFAULT_VALUE}"
+: ${USER_INPUT:=$DEFAULT_VALUE}
 HNAME=$USER_INPUT
 echo $HNAME > /etc/hostname
 hostname $HNAME
@@ -115,7 +115,7 @@ DEFAULT_VALUE="!passWord"
 prompt="请输入root密码)，20秒内无输入将采用默认值( $DEFAULT_VALUE ): "
 # 使用read的-t选项及命令替换特性
 read -t 20 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
-: ${USER_INPUT:=$DEFAULT_VALUE}"
+: ${USER_INPUT:=$DEFAULT_VALUE}
 echo -e "$USER_INPUT\n$USER_INPUT" | (passwd root) 
 
 echo "关闭X11转发和修改端口"
@@ -136,7 +136,7 @@ DEFAULT_VALUE="N"
 prompt="请输入内容(Y/N)，20秒内无输入将采用默认值( $DEFAULT_VALUE ): "
 # 使用read的-t选项及命令替换特性
 read -t 20 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
-: ${USER_INPUT:=$DEFAULT_VALUE}"
+: ${USER_INPUT:=$DEFAULT_VALUE}
 
 if [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" = "cn" ]; then
     echo "现在调整仓库信息、系统升级、安装基本包"
