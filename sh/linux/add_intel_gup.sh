@@ -42,7 +42,7 @@ CMD ["clinfo"] # 或者其他测试GPU的命令
 
 
 docker build -t my-intel-gpu-test .
-docker run --rm --device=/dev/dri:/dev/dri my-intel-gpu-test
+docker run --rm --device=/dev/dri:/dev/dri my-intel-gpu-test | grep Device
 
 运行 clinfo：在已经配置好并运行了支持OpenCL的容器中，执行 clinfo 命令。2. 检查输出信息：观察 clinfo 的输出，寻找与GPU相关的信息。如果GPU已被成功直通，您应该能看到类似于以下的输出段落，其中列出了OpenCL平台和设备的详细信息：Platform ID #0
   Name          Intel(R) OpenCL HD Graphics
