@@ -26,6 +26,12 @@ tee /etc/docker/daemon.json <<-'EOF'
   }
 }
 EOF
+
+mkdir -p /etc/systemd/system/docker.service.d/
+cat <<EOF > /etc/systemd/system/docker.service.d/clear_mount_propagation_flags.conf
+[Service]
+MountFlags=shared
+EOF
     systemctl restart docker
 else
     echo "现在安装docker-ce"
@@ -42,6 +48,12 @@ tee /etc/docker/daemon.json <<-'EOF'
         "8.8.8.8"
       ]
 }
+EOF
+
+mkdir -p /etc/systemd/system/docker.service.d/
+cat <<EOF > /etc/systemd/system/docker.service.d/clear_mount_propagation_flags.conf
+[Service]
+MountFlags=shared
 EOF
     systemctl restart docker
 fi
