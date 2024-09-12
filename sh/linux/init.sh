@@ -77,20 +77,20 @@ if [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" = "cn" ]; then
     echo "现在调整DNS为国内DNS解析"
     #国内DNS
     rm -rf /etc/resolv.conf 
-    cat > /etc/resolv.conf << EOF 
-    nameserver 223.5.5.5 
-    nameserver 114.114.114.114
-    EOF
+cat > /etc/resolv.conf << EOF 
+nameserver 223.5.5.5 
+nameserver 114.114.114.114
+EOF
     cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
     ntpdate cn.pool.ntp.org
 else
     echo "现在调整DNS为国外DNS解析和时区"
     #国外DNS
     rm -rf /etc/resolv.conf 
-    cat > /etc/resolv.conf << EOF 
-    nameserver 8.8.8.8 
-    nameserver 1.1.1.1
-    EOF
+cat > /etc/resolv.conf << EOF 
+nameserver 8.8.8.8 
+nameserver 1.1.1.1
+EOF
     fi
     cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
     ntpdate cn.pool.ntp.org
