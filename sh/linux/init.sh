@@ -187,7 +187,7 @@ chang_wireguard
 #######################################################chang_sysctl########################################################################################
 chang_sysctl() {
 echo "调整系统sysctl信息"
-cat >> /etc/sysctl.conf << TEMPEOF
+cat > /etc/sysctl.conf << TEMPEOF
 ##提高整个系统的文件限制
 fs.file-max = 35525
 net.core.rmem_max = 67108864
@@ -220,8 +220,6 @@ vm.swappiness=10
 net.ipv6.conf.all.disable_ipv6 = 1
 net.ipv6.conf.default.disable_ipv6 = 1
 net.ipv6.conf.lo.disable_ipv6 = 1
-
-
 TEMPEOF
 sysctl -p
 echo "成功调整SSH端口为32123，密码为：$USER_INPUT 开启主机密码登录"
