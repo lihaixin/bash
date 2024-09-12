@@ -17,7 +17,7 @@ if [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" = "cn" ]; then
     curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun --version 24.0.9
     echo "成功安装docker-ce,可使用docker info查看版本信息"
     mkdir -p /etc/docker 
-tee /etc/docker/daemon.json <<-'EOF'
+cat <<EOF > /etc/docker/daemon.json
 {
   "registry-mirrors": ["https://hub.15099.net"],
   "log-driver": "json-file", 
@@ -38,7 +38,7 @@ else
     curl -fsSL https://get.docker.com | bash -s docker --version 24.0.9
     echo "成功安装docker-ce,可使用docker info查看版本信息"
     mkdir -p /etc/docker 
-tee /etc/docker/daemon.json <<-'EOF'
+cat <<EOF > /etc/docker/daemon.json
 {
       "log-driver": "json-file", 
       "log-opts": { 
