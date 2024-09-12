@@ -112,12 +112,12 @@ chang_hostname
 #######################################################chang_ssh########################################################################################
 chang_ssh() {
 echo "调整系统SSH配置信息"
-DEFAULT_VALUE="!passWord"
-prompt="请输入root密码)，20秒内无输入将采用默认值( $DEFAULT_VALUE ): "
+DEFAULT_PASSWD="!passWord"
+prompt="请输入root密码)，20秒内无输入将采用默认值( $DEFAULT_PASSWD ): "
 # 使用read的-t选项及命令替换特性
-read -t 20 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
-: ${USER_INPUT:=$DEFAULT_VALUE}
-echo -e "$USER_INPUT\n$USER_INPUT" | (passwd root) 
+read -t 20 -p "$prompt" PASSWD_INPUT || PASSWD_INPUT=$DEFAULT_PASSWD
+: ${PASSWD_INPUT:=$DEFAULT_PASSWD}
+echo -e "$PASSWD_INPUT\n$PASSWD_INPUT" | (passwd root) 
 
 echo "关闭X11转发和修改端口"
 sed -i s'/^X11Forwarding yes$/#X11Forwarding yes/' /etc/ssh/sshd_config 
@@ -222,6 +222,6 @@ net.ipv6.conf.default.disable_ipv6 = 1
 net.ipv6.conf.lo.disable_ipv6 = 1
 TEMPEOF
 sysctl -p
-echo "成功调整SSH端口为32123，密码为：$USER_INPUT 开启主机密码登录"
+echo "成功调整SSH端口为32123，密码为：$PASSWD_INPUT 开启主机密码登录"
 }
 chang_sysctl
