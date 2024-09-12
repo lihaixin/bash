@@ -44,16 +44,16 @@ get_system_info () {
 
     # 检测本机系统
     source /etc/os-release
-    OS=""
-    if [[ $ID == "debian" ]]; then
+    export OS=""
+    if grep -q "Armbian" /etc/*release*; then
+        echo "当前系统是Armbian"
+        OS=armbian
+    elif [[ $ID == "debian" ]]; then
         echo "当前系统是Debian"
         OS=debian
     elif [[ $ID == "ubuntu" ]]; then
         echo "当前系统是Ubuntu"
         OS=ubuntu
-    elif grep -q "Armbian" /etc/*release*; then
-        echo "当前系统是Armbian"
-        OS=armbian
     else
         echo "错误：未能直接识别系统类型，本脚本不支持，脚本退出"
         exit 1
