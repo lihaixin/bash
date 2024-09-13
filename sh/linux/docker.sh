@@ -16,9 +16,10 @@ if [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" = "cn" ]; then
     echo "现在安装docker-ce 使用Aliyun镜像"
     # curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun --version 24.0.9
     # curl -fsSL https://bash.15099.net/linux/online_install_docker.sh | bash -s docker --mirror Aliyun --version 24.0.9
-    curl -fsSL https://bash.15099.net/linux/online_install_docker.sh > /tmp/online_install_docker.sh
-    bash /tmp/online_install_docker.sh --mirror Aliyun --version 26.0.0
-    rm -rf /tmp/online_install_docker.sh
+    # curl -fsSL https://bash.15099.net/linux/online_install_docker.sh > /tmp/online_install_docker.sh
+    # bash /tmp/online_install_docker.sh --mirror Aliyun --version 26.0.0
+    # rm -rf /tmp/online_install_docker.sh
+    apt install docker.io
     echo "成功安装docker-ce,可使用docker info查看版本信息"
     mkdir -p /etc/docker 
 cat <<EOF > /etc/docker/daemon.json
@@ -42,9 +43,10 @@ else
     echo "现在安装docker-ce"
     # curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun --version 24.0.9
     # curl -fsSL https://bash.15099.net/linux/online_install_docker.sh | bash -s docker --mirror Aliyun --version 24.0.9
-    curl -fsSL https://bash.15099.net/linux/online_install_docker.sh > /tmp/online_install_docker.sh
-    bash /tmp/online_install_docker.sh --mirror Aliyun --version 26.0.0
-    rm -rf /tmp/online_install_docker.sh
+    # curl -fsSL https://bash.15099.net/linux/online_install_docker.sh > /tmp/online_install_docker.sh
+    # bash /tmp/online_install_docker.sh --mirror Aliyun --version 26.0.0
+    # rm -rf /tmp/online_install_docker.sh
+    apt install docker.io
     echo "成功安装docker-ce,可使用docker info查看版本信息"
     mkdir -p /etc/docker 
 cat <<EOF > /etc/docker/daemon.json
