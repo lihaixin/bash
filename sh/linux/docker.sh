@@ -19,7 +19,7 @@ if [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" = "cn" ]; then
     # curl -fsSL https://bash.15099.net/linux/online_install_docker.sh > /tmp/online_install_docker.sh
     # bash /tmp/online_install_docker.sh --mirror Aliyun --version 26.0.0
     # rm -rf /tmp/online_install_docker.sh
-    apt install docker.io
+    apt install docker.io -y
     echo "成功安装docker-ce,可使用docker info查看版本信息"
     mkdir -p /etc/docker 
 cat <<EOF > /etc/docker/daemon.json
@@ -46,7 +46,7 @@ else
     # curl -fsSL https://bash.15099.net/linux/online_install_docker.sh > /tmp/online_install_docker.sh
     # bash /tmp/online_install_docker.sh --mirror Aliyun --version 26.0.0
     # rm -rf /tmp/online_install_docker.sh
-    apt install docker.io
+    apt install docker.io -y
     echo "成功安装docker-ce,可使用docker info查看版本信息"
     mkdir -p /etc/docker 
 cat <<EOF > /etc/docker/daemon.json
