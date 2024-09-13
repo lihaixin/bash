@@ -21,12 +21,13 @@ prompt="请输入内容Y/N，10秒内无输入将采用默认值(Y): "
 
 # 使用read的-t选项及命令替换特性
 read -t 10 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
-: ${USER_INPUT:$DEFAULT_VALUE}"
+: ${USER_INPUT:$DEFAULT_VALUE}
 
 if [ "$USER_INPUT" = "Y" ]; then
     echo "正在重启系统..."
     reboot
 elif [ "$USER_INPUT" = "N" ]; then
+    echo "重启访问vnc可以进入爱快安装界面"
     echo "返回主菜单..."
     # 这里假设main_menu是一个可执行脚本或命令
     sub_main_menu
