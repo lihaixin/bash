@@ -35,6 +35,7 @@ cat <<EOF > /etc/systemd/system/docker.service.d/clear_mount_propagation_flags.c
 [Service]
 MountFlags=shared
 EOF
+    systemctl daemon-reload
     systemctl restart docker
 else
     echo "现在安装docker-ce"
@@ -61,6 +62,7 @@ cat <<EOF > /etc/systemd/system/docker.service.d/clear_mount_propagation_flags.c
 [Service]
 MountFlags=shared
 EOF
+    systemctl daemon-reload
     systemctl restart docker
 fi
 }
