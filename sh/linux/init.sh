@@ -99,7 +99,7 @@ chang_dns_time
 #######################################################chang_hostname########################################################################################
 chang_hostname() {
 echo "调整系统主机名"
-DEFAULT_VALUE="qq_hk20_000_gost"
+DEFAULT_VALUE="qq-hk20-000-gost"
 prompt="请输入内容(厂家_国别+编号_用户编号_用途 | qq_hk20_000_gost)，20秒内无输入将采用默认值( $DEFAULT_VALUE ): "
 # 使用read的-t选项及命令替换特性
 read -t 20 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
