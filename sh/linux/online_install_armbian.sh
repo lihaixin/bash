@@ -42,6 +42,7 @@ images_urls=(
     "https://armbian.chi.auroradev.org/dl/uefi-x86/archive/Armbian_24.8.1_Uefi-x86_jammy_current_6.6.47.img.xz"
     "https://dl.armbian.com/uefi-x86/Jammy_current_server"
     "https://dl.armbian.com/uefi-x86/Noble_current_server"
+    "https://dl.armbian.com/uefi-x86/Noble_current_xfce"
 )
 
 # 显示镜像选项
