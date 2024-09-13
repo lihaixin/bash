@@ -3,6 +3,7 @@ echo "准备安装Portainer 图像界面..."
 
 #######################################################install_portainer########################################################################################
 install_portainer() {
+echo ""
 echo "开始安装Portainer 图像界面"
 DEFAULT_PASSWD="@china1234567"
 prompt="请输入admin密码，长度不低于12位，20秒内无输入将采用默认值( $DEFAULT_PASSWD ): "
