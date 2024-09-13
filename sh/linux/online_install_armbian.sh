@@ -37,8 +37,9 @@ fi
 # 镜像文件在线地址列表
 images_urls=(
     "https://pan-1.15099.net/d/L/Armbian_24.5.1_Uefi-x86_noble_current_6.6.31.img.xz"
-    "https://pan-1.15099.net/d/L/Armbian_24.5.5_Uefi-x86_noble_current_6.6.42.img.xz"
+    "https://mirrors.bfsu.edu.cn/armbian-releases/uefi-x86/archive/Armbian_24.8.1_Uefi-x86_noble_current_6.6.47.img.xz"
     "https://mirrors.tuna.tsinghua.edu.cn/armbian-releases/uefi-x86/archive/Armbian_24.8.1_Uefi-x86_noble_current_6.6.47.img.xz"
+    "https://armbian.chi.auroradev.org/dl/uefi-x86/archive/Armbian_24.8.1_Uefi-x86_jammy_current_6.6.47.img.xz"
 )
 
 # 显示镜像选项
