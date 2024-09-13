@@ -14,7 +14,10 @@ read -t 20 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
 
 if [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" = "cn" ]; then
     echo "现在安装docker-ce 使用Aliyun镜像"
-    curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun --version 26.0.0
+    # curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun --version 24.0.9
+    curl -fsSL https://get.docker.com > /tmp/dockeronline.sh
+    bash /tmp/dockeronline.sh --mirror Aliyun --version 26.0.0
+    rm -rf /tmp/dockeronline.sh
     echo "成功安装docker-ce,可使用docker info查看版本信息"
     mkdir -p /etc/docker 
 cat <<EOF > /etc/docker/daemon.json
@@ -35,7 +38,10 @@ EOF
     systemctl restart docker
 else
     echo "现在安装docker-ce"
-    curl -fsSL https://get.docker.com | bash -s docker --version 26.0.0
+    # curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun --version 24.0.9
+    curl -fsSL https://get.docker.com > /tmp/dockeronline.sh
+    bash /tmp/dockeronline.sh --mirror Aliyun --version 26.0.0
+    rm -rf /tmp/dockeronline.sh
     echo "成功安装docker-ce,可使用docker info查看版本信息"
     mkdir -p /etc/docker 
 cat <<EOF > /etc/docker/daemon.json
