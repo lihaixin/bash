@@ -3,11 +3,12 @@ echo "准备初始化linux"
 
 #######################################################chang_repo_update########################################################################################
 chang_repo() {
+echo ""
 echo "调整仓库信息、系统升级、安装基本包"
 DEFAULT_VALUE="Y"
-prompt="请输入内容(Y/N)，20秒内无输入将采用默认值( $DEFAULT_VALUE ): "
+prompt="请输入内容(Y/N)，10秒内无输入将采用默认值( $DEFAULT_VALUE ): "
 # 使用read的-t选项及命令替换特性
-read -t 20 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
+read -t 10 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
 : ${USER_INPUT:=$DEFAULT_VALUE}
 
 if [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" = "cn" ]; then
@@ -67,11 +68,12 @@ fi
 chang_repo
 #######################################################chang_dns_time########################################################################################
 chang_dns_time() {
+echo ""
 echo "调整系统DNS和时区和时间"
 DEFAULT_VALUE="Y"
-prompt="请输入内容(Y/N)，20秒内无输入将采用默认值( $DEFAULT_VALUE ): "
+prompt="请输入内容(Y/N)，10秒内无输入将采用默认值( $DEFAULT_VALUE ): "
 # 使用read的-t选项及命令替换特性
-read -t 20 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
+read -t 10 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
 : ${USER_INPUT:=$DEFAULT_VALUE}
 if [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" = "cn" ]; then
     echo "现在调整DNS为国内DNS解析"
@@ -98,6 +100,7 @@ EOF
 chang_dns_time
 #######################################################chang_hostname########################################################################################
 chang_hostname() {
+echo ""
 echo "调整系统主机名"
 DEFAULT_VALUE="qq-hk20-000-gost"
 prompt="请输入内容(厂家-国别+编号-用户编号-用途 | qq-hk20-000-gost)，20秒内无输入将采用默认值( $DEFAULT_VALUE ): "
@@ -111,11 +114,12 @@ hostname $HNAME
 chang_hostname
 #######################################################chang_ssh########################################################################################
 chang_ssh() {
+echo ""
 echo "调整系统SSH配置信息"
 DEFAULT_PASSWD="!passWord"
-prompt="请输入root密码)，20秒内无输入将采用默认值( $DEFAULT_PASSWD ): "
+prompt="请输入root密码)，10秒内无输入将采用默认值( $DEFAULT_PASSWD ): "
 # 使用read的-t选项及命令替换特性
-read -t 20 -p "$prompt" PASSWD_INPUT || PASSWD_INPUT=$DEFAULT_PASSWD
+read -t 10 -p "$prompt" PASSWD_INPUT || PASSWD_INPUT=$DEFAULT_PASSWD
 : ${PASSWD_INPUT:=$DEFAULT_PASSWD}
 echo -e "$PASSWD_INPUT\n$PASSWD_INPUT" | (passwd root) 
 
@@ -132,6 +136,7 @@ chang_ssh
 
 #######################################################chang_wireguard########################################################################################
 chang_wireguard() {
+echo ""
 echo "调整仓库安装Wireguard内核支持"
 DEFAULT_VALUE="N"
 prompt="请输入内容(Y/N)，20秒内无输入将采用默认值( $DEFAULT_VALUE ): "
@@ -186,6 +191,7 @@ fi
 chang_wireguard
 #######################################################chang_sysctl########################################################################################
 chang_sysctl() {
+echo ""
 echo "调整系统sysctl信息"
 cat > /etc/sysctl.conf << TEMPEOF
 ##提高整个系统的文件限制
