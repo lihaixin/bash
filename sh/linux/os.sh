@@ -8,7 +8,7 @@ sub1_main_menu() {
     echo "#   主机IP地址: $WANIP        IP所属国家: $COUNTRY               "
     echo "################################################################"
     echo "请选择一个操作:"
-    echo "1) Linux换成Debian11纯版本"
+    echo "1) Linux换成Debian12纯版本"
     echo "2) 灌爱快系统"
     echo "3) 一键物理机安装armbian"
     echo "0) 返回上级菜单"
@@ -29,7 +29,7 @@ sub1_run_script1() {
     curl -sL https://bash.15099.net/linux/online_install_linux.sh > /tmp/online_install_linux.sh
     bash /tmp/online_install_linux.sh
     rm -rf /tmp/online_install_linux.sh
-    echo "Linux换成Debian11纯版本系统执行完毕，按回车键继续。"
+    echo "Linux换成Debian12纯版本系统执行完毕，按回车键继续。"
     read
     sub1_main_menu
 }
