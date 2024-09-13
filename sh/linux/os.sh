@@ -2,13 +2,13 @@
 sub1_main_menu() {
     clear
     echo "################################################################"
-    echo "#   欢迎访问 https://bash.15099.net 脚本OS管理系统               #"
-    echo "#   主机是否为虚拟平台：$VIRTUAL_PLATFORM                        #"
-    echo "#   主机内存大小(MB): $MEM_TOTAL 磁盘大小: $DISK_TOTAL           #"
-    echo "#   主机IP地址: $WANIP        IP所属国家: $COUNTRY               #"
+    echo "#   欢迎访问 https://bash.15099.net 脚本OS管理系统               "
+    echo "#   主机是否为虚拟平台：$VIRTUAL_PLATFORM                        "
+    echo "#   主机内存大小(MB): $MEM_TOTAL 磁盘大小: $DISK_TOTAL           "
+    echo "#   主机IP地址: $WANIP        IP所属国家: $COUNTRY               "
     echo "################################################################"
     echo "请选择一个操作:"
-    echo "1) Linux换成Debian11纯版本、、"
+    echo "1) Linux换成Debian11纯版本"
     echo "2) 灌爱快系统"
     echo "3) 一键物理机安装armbian"
     echo "0) 返回上级菜单"
