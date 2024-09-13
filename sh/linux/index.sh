@@ -1,13 +1,13 @@
 #!/bin/bash
 main_menu() {
     clear
-    echo "################################################################"
-    echo "#   欢迎访问  https://bash.15099.net 脚本管理系统                #"
-    echo "#   当前程序只支持debian | ubutun | armbian 其他发行版未适配      #"
-    echo "#   主机是否为虚拟平台：$VIRTUAL_PLATFORM  系统：$OS              #"
-    echo "#   主机内存大小(MB): $MEM_TOTAL 磁盘大小: $DISK_TOTAL           #"
-    echo "#   主机IP地址: $WANIP        IP所属国家: $COUNTRY               #"
-    echo "################################################################"
+    echo "##################################################################################"
+    echo "#   欢迎访问  https://bash.15099.net 脚本管理系统                "
+    echo "#   当前程序只支持debian | ubutun | armbian 其他发行版未适配      "
+    echo "#   主机是否为虚拟平台：$VIRTUAL_PLATFORM  系统：$OS              "
+    echo "#   主机内存大小(MB): $MEM_TOTAL 磁盘大小: $DISK_TOTAL           "
+    echo "#   主机IP地址: $WANIP        IP所属国家: $COUNTRY               "
+    echo "##################################################################################"
     echo "请选择一个操作:"
     echo "1) 在线更换系统|Linux换其他版本、灌爱快系统、一键物理机安装armbian"
     echo "2) Linux初始化|升级、repo、时区、时间、主机名等"
