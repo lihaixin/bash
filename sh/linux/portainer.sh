@@ -4,11 +4,11 @@ echo "准备安装Portainer 图像界面..."
 #######################################################install_portainer########################################################################################
 install_portainer() {
 echo "开始安装Portainer 图像界面"
-DEFAULT_VALUE="@china1234567"
-prompt="请输入admin密码，20秒内无输入将采用默认值( $DEFAULT_VALUE ): "
+DEFAULT_PASSWD="@china1234567"
+prompt="请输入admin密码，长度不低于12位，20秒内无输入将采用默认值( $DEFAULT_PASSWD ): "
 # 使用read的-t选项及命令替换特性
-read -t 20 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
-: ${USER_INPUT:=$DEFAULT_VALUE}
+read -t 20 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_PASSWD
+: ${USER_INPUT:=$DEFAULT_PASSWD}
 docker stop ui 1> /dev/null 2>&1
 docker rm ui 1> /dev/null 2>&1
 docker pull lihaixin/portainer:ce-2.19.5
