@@ -38,7 +38,7 @@ fi
 images_urls=(
     "https://pan-1.15099.net/d/L/Armbian_24.5.1_Uefi-x86_noble_current_6.6.31.img.xz"
     "https://pan-1.15099.net/d/L/Armbian_24.5.5_Uefi-x86_noble_current_6.6.42.img.xz"
-    "http://example.com/mirror3.iso"
+    "https://mirrors.tuna.tsinghua.edu.cn/armbian-releases/uefi-x86/archive/Armbian_24.8.1_Uefi-x86_noble_current_6.6.47.img.xz"
 )
 
 # 显示镜像选项
