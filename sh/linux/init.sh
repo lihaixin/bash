@@ -126,7 +126,7 @@ sed -i s'/^Port 22$/Port 32123/' /etc/ssh/sshd_config
 sed -i s'/^#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config 
 sed -i s'/^PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
 service ssh restart
-echo "成功调整SSH端口为32123，密码为：$USER_INPUT 开启主机密码登录"
+echo "成功调整SSH端口为32123，密码为：$PASSWD_INPUT 开启主机密码登录"
 }
 chang_ssh
 
