@@ -40,6 +40,7 @@ images_urls=(
     "https://mirrors.bfsu.edu.cn/armbian-releases/uefi-x86/archive/Armbian_24.8.1_Uefi-x86_noble_current_6.6.47.img.xz"
     "https://mirrors.tuna.tsinghua.edu.cn/armbian-releases/uefi-x86/archive/Armbian_24.8.1_Uefi-x86_noble_current_6.6.47.img.xz"
     "https://armbian.chi.auroradev.org/dl/uefi-x86/archive/Armbian_24.8.1_Uefi-x86_jammy_current_6.6.47.img.xz"
+    "https://dl.armbian.com/uefi-x86/Jammy_current_server"
 )
 
 # 显示镜像选项
