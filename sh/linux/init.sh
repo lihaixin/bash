@@ -30,8 +30,8 @@ if [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" = "cn" ]; then
             ;;
         armbian)
             echo "执行针对Armbian的操作..."
-            systemctl enable armbian-resize-filesystem
-            systemctl start armbian-resize-filesystem
+            #systemctl enable armbian-resize-filesystem
+            #systemctl start armbian-resize-filesystem
             sed -i.bak 's#http://apt.armbian.com#https://mirrors.tuna.tsinghua.edu.cn/armbian#g' /etc/apt/sources.list.d/armbian.list
             sed -i 's#http://archive.ubuntu.com#https://mirrors.tuna.tsinghua.edu.cn#g' /etc/apt/sources.list
             apt update -y && apt upgrade -y
