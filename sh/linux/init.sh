@@ -200,6 +200,7 @@ net.core.rmem_max = 67108864
 net.core.wmem_max = 67108864
 net.core.netdev_max_backlog = 250000
 net.core.somaxconn = 32400
+fs.fanotify.max_queued_events = 65536
 ##调整内核打开数
 net.ipv4.tcp_syncookies = 1
 net.ipv4.ip_forward=1
