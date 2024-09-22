@@ -25,3 +25,5 @@ curl -sL https://bash.15099.net > my.sh && bash my.sh;rm -rf my.sh
 
 通过脚本运行后，后续操作都是在[Portainer](https://hub.docker.com/r/lihaixin/portainer)界面上操作
 
+![portainer](./portainer.png)
+
