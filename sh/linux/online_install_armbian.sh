@@ -36,10 +36,7 @@ fi
 
 # 镜像文件在线地址列表
 images_urls=(
-    "https://pan-1.15099.net/d/L/Armbian_24.5.1_Uefi-x86_noble_current_6.6.31.img.xz"
-    "https://mirrors.bfsu.edu.cn/armbian-releases/uefi-x86/archive/Armbian_24.8.1_Uefi-x86_noble_current_6.6.47.img.xz"
-    "https://mirrors.tuna.tsinghua.edu.cn/armbian-releases/uefi-x86/archive/Armbian_24.8.1_Uefi-x86_noble_current_6.6.47.img.xz"
-    "https://armbian.chi.auroradev.org/dl/uefi-x86/archive/Armbian_24.8.1_Uefi-x86_jammy_current_6.6.47.img.xz"
+    "https://dl.armbian.com/uefi-x86/Bookworm_current_server"
     "https://dl.armbian.com/uefi-x86/Jammy_current_server"
     "https://dl.armbian.com/uefi-x86/Noble_current_server"
     "https://dl.armbian.com/uefi-x86/Noble_current_xfce"
@@ -57,7 +54,7 @@ read -p "请输入镜像编号: " choice
 # 检查输入是否有效
 if ((choice > 0 &&choice <= ${#images_urls[@]})); then
     url=${images_urls[$((choice-1))]}
-    filename=$(basename "$url")
+    filename=armbian.img.xz
 
     # 检查镜像文件是否已下载
     if [ -f "$filename" ]; then
@@ -76,8 +73,8 @@ if ((choice > 0 &&choice <= ${#images_urls[@]})); then
     sync
     # 执行写入操作到磁盘
     echo "正在将 $filename 写入磁盘 $target_disk，请稍候..."
-    unxz -c $filename > newfilename
-    dd if=./newfilename of="$target_disk" bs=4M status=progress oflag=direct conv=fdatasync
+    unxz -c $filename > /tmp/newfilename
+    dd if=/tmp/newfilename of="$target_disk" bs=4M status=progress oflag=direct conv=fdatasync
     
     if [ $? -eq 0 ]; then
         echo "写入操作完成。"
