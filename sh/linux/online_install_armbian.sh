@@ -73,8 +73,8 @@ if ((choice > 0 &&choice <= ${#images_urls[@]})); then
     sync
     # 执行写入操作到磁盘
     echo "正在将 $filename 写入磁盘 $target_disk，请稍候..."
-    unxz -c $filename > /tmp/newfilename
-    dd if=/tmp/newfilename of="$target_disk" bs=4M status=progress oflag=direct conv=fdatasync
+    # unxz -c $filename > /tmp/newfilename
+    dd if=$filename | unxz -c  | of="$target_disk" bs=128K status=progress oflag=direct conv=noerror,sync
     
     if [ $? -eq 0 ]; then
         echo "写入操作完成。"
