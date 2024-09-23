@@ -87,7 +87,7 @@ else
 fi
 
 # 清理下载的镜像文件（可选）
-rm  newfilename
+rm  $filename
 
 # 记录操作日志（示例，实际需指定日志文件路径）
 echo "$(date) - 成功将$filename写入$target_disk" >> /var/log/image_writer.log
