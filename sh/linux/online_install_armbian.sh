@@ -34,18 +34,20 @@ if [[ ! -b $target_disk ]]; then
     exit 1
 fi
 
-# 镜像文件在线地址列表
+# 镜像文件在线地址列表及大小备注
 images_urls=(
-    "https://dl.armbian.com/uefi-x86/Bookworm_current_server"
-    "https://dl.armbian.com/uefi-x86/Jammy_current_server"
-    "https://dl.armbian.com/uefi-x86/Noble_current_server"
-    "https://dl.armbian.com/uefi-x86/Noble_current_xfce"
+    "https://dl.armbian.com/uefi-x86/Bookworm_current_server 0.7G"
+    "https://dl.armbian.com/uefi-x86/Jammy_current_server 0.9G"
+    "https://dl.armbian.com/uefi-x86/Noble_current_server 0.9G"
+    "https://dl.armbian.com/uefi-x86/Noble_current_xfce 1.9G"
 )
 
-# 显示镜像选项
-echo "请选择要下载并写入的镜像文件："
+# 显示镜像选项及其大小
+echo "请选择要下载并写入的镜像文件及其大小："
 for ((i=0; i<${#images_urls[@]}; i++)); do
-    echo "$((i+1)). ${images_urls[i]}"
+    size=${images_urls[i]##* }
+    url=${images_urls[i]% *}
+    echo "$((i+1)). URL: $url, 镜像容量大小: $size 主机内存要两倍$size才能成功安装"
 done
 
 # 读取用户选择
@@ -53,7 +55,7 @@ read -p "请输入镜像编号: " choice
 
 # 检查输入是否有效
 if ((choice > 0 &&choice <= ${#images_urls[@]})); then
-    url=${images_urls[$((choice-1))]}
+    url=${images_urls[$((choice-1))]% *}
     filename=/tmp/armbian.img.xz
 
     # 检查镜像文件是否已下载
@@ -73,7 +75,6 @@ if ((choice > 0 &&choice <= ${#images_urls[@]})); then
     sync
     # 执行写入操作到磁盘
     echo "正在将 $filename 写入磁盘 $target_disk，请稍候..."
-    # unxz -c $filename > /tmp/newfilename
     unxz -c $filename | dd of="$target_disk" bs=128K status=progress oflag=direct iflag=fullblock conv=noerror,sync | pv
     
     if [ $? -eq 0 ]; then
