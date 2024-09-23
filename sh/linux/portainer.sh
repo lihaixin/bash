@@ -3,6 +3,17 @@ echo "准备安装Portainer 图像界面..."
 
 #######################################################install_portainer########################################################################################
 install_portainer() {
+echo "开始安装toolbox容器"
+docker run -id \
+--restart=always \
+--privileged \
+--network=host \
+--pid=host \
+--name toolbox \
+-v /root/.ssh/id_rsa:/root/.ssh/id_rsa \
+-v /var/run/docker.sock:/var/run/docker.sock \
+lihaixin/toolbox
+
 echo ""
 echo "开始安装Portainer 图像界面"
 DEFAULT_PASSWD="@china1234567"
