@@ -74,7 +74,7 @@ if ((choice > 0 &&choice <= ${#images_urls[@]})); then
     # 执行写入操作到磁盘
     echo "正在将 $filename 写入磁盘 $target_disk，请稍候..."
     # unxz -c $filename > /tmp/newfilename
-    unxz -c $filename | dd  of="$target_disk" bs=128K status=progress oflag=direct iflag=fullblock conv=noerror,sync | pv
+    unxz -c $filename | dd of="$target_disk" bs=128K status=progress oflag=direct iflag=fullblock conv=noerror,sync | pv
     
     if [ $? -eq 0 ]; then
         echo "写入操作完成。"
