@@ -54,7 +54,7 @@ read -p "请输入镜像编号: " choice
 # 检查输入是否有效
 if ((choice > 0 &&choice <= ${#images_urls[@]})); then
     url=${images_urls[$((choice-1))]}
-    filename=armbian.img.xz
+    filename=/tmp/armbian.img.xz
 
     # 检查镜像文件是否已下载
     if [ -f "$filename" ]; then
