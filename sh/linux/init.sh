@@ -123,6 +123,12 @@ read -t 10 -p "$prompt" PASSWD_INPUT || PASSWD_INPUT=$DEFAULT_PASSWD
 : ${PASSWD_INPUT:=$DEFAULT_PASSWD}
 echo -e "$PASSWD_INPUT\n$PASSWD_INPUT" | (passwd root) 
 
+echo "生成本地SSH授权登录"
+ssh-keygen -t rsa -P "" -f ~/.ssh/id_rsa
+cd .ssh
+cp id_rsa.pub authorized_keys
+chmod 600 authorized_keys
+
 echo "关闭X11转发和修改端口"
 sed -i s'/^X11Forwarding yes$/#X11Forwarding yes/' /etc/ssh/sshd_config 
 sed -i s'/^#Port 22$/Port 32123/' /etc/ssh/sshd_config 
