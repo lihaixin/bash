@@ -24,7 +24,7 @@ if [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" = "cn" ]; then
     mkdir -p /etc/docker 
 cat <<EOF > /etc/docker/daemon.json
 {
-  "registry-mirrors": ["https://hub.15099.net"],
+  "registry-mirrors": ["https://docker.1panel.live","https://docker.ketches.cn","https://hub.15099.net"],
   "log-driver": "json-file", 
   "log-opts": { 
   "max-size": "20m", "max-file": "3" 
