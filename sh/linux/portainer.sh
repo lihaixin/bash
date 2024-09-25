@@ -4,6 +4,9 @@ echo "准备安装Portainer 图像界面..."
 #######################################################install_portainer########################################################################################
 install_portainer() {
 echo "开始安装toolbox容器"
+docker stop toolbox 1> /dev/null 2>&1
+docker rm toolbox 1> /dev/null 2>&1
+docker pull lihaixin/toolbox
 docker run -id \
 --restart=always \
 --privileged \
@@ -17,14 +20,25 @@ lihaixin/toolbox
 echo ""
 echo "开始安装Portainer 图像界面"
 DEFAULT_PASSWD="@china1234567"
-prompt="请输入admin密码，长度不低于12位，20秒内无输入将采用默认值( $DEFAULT_PASSWD ): "
-read -t 20 -p "$prompt" USER_PASSWD || USER_PASSWD=$DEFAULT_PASSWD
-: ${USER_PASSWD:=$DEFAULT_PASSWD}
+prompt="请输入admin密码，长度不低于12位，20秒内无输入或密码长度不足将重新提示，默认值( $DEFAULT_PASSWD ): "
+USER_PASSWD=""
+while [[ ${#USER_PASSWD} -lt 12 ]]; do
+    read -t 20 -p "$prompt" USER_PASSWD
+    if [[ -z $USER_PASSWD ]]; then
+        USER_PASSWD=$DEFAULT_PASSWD
+        echo "未输入密码，将采用默认密码: $DEFAULT_PASSWD"
+        break
+    elif [[ ${#USER_PASSWD} -lt 12 ]]; then
+        echo "密码长度不足12位，请重新输入。"
+    fi
+done
+echo "将使用密码: $USER_PASSWD 进行安装。"
 
 DEFAULT_TEMPLATES="https://dockerfile.15099.net/index.json"
 prompt="请输入你自动的模板地址，40秒内无输入将采用默认值( $DEFAULT_TEMPLATES ): "
 read -t 40 -p "$prompt" USER_TEMPLATES || USER_TEMPLATES=$DEFAULT_TEMPLATES
 : ${USER_TEMPLATES:=$DEFAULT_TEMPLATES}
+echo "将使用模板地址: $USER_TEMPLATES 进行安装。"
 
 docker stop ui 1> /dev/null 2>&1
 docker rm ui 1> /dev/null 2>&1
