@@ -20,7 +20,7 @@ lihaixin/toolbox
 echo ""
 echo "开始安装Portainer 图像界面"
 DEFAULT_PASSWD="@china1234567"
-prompt="请输入admin密码（直接回车使用默认值@$DEFAULT_PASSWD，长度需不低于12位）: "
+prompt="请输入admin密码（直接回车使用默认值 $DEFAULT_PASSWD ）: "
 USER_PASSWD=""
 while true; do
     read -t 20 -p "$prompt" USER_PASSWD
@@ -52,7 +52,7 @@ docker run -d \
 -v /var/portainer_data:/data \
 -e TPORT=8000 \
 -e COUNTRY=cn \
--e PASSWORD=${USER_INPUT} \
+-e PASSWORD=${USER_PASSWD} \
 -e TEMPLATES=${USER_TEMPLATES} \
 --name ui \
 --restart=always \
