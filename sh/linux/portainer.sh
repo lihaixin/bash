@@ -9,7 +9,7 @@ NETWORK_NAME=vlan                                                  # 定义网�
 : ${VNAME:=$(ip route | grep "default via" |awk '{ print $5}')}    # MAC VLAN父设备名称
 
 # 检查 网络是否已存在
-EXISTING_NETWORK=$(docker network inspect "$NETWORK_NAME" 2>/dev/null)
+EXISTING_NETWORK=$(docker network ls --format "{{.Name}}" | grep -w "^$NETWORK_NAME$")
 
 if [ -z "$EXISTING_NETWORK" ]; then
     # 如果网络不存在，则创建网络
@@ -28,7 +28,7 @@ fi
 
 NETWORK_NAME=cbridge                                                 # 定义网络名称
 # 检查 网络是否已存在
-EXISTING_NETWORK=$(docker network inspect "$NETWORK_NAME" 2>/dev/null)
+EXISTING_NETWORK=$(docker network ls --format "{{.Name}}" | grep -w "^$NETWORK_NAME$")
 if [ -z "$EXISTING_NETWORK" ]; then
     # 如果网络不存在，则创建网络
     docker network create -d bridge \
