@@ -20,19 +20,21 @@ lihaixin/toolbox
 echo ""
 echo "开始安装Portainer 图像界面"
 DEFAULT_PASSWD="@china1234567"
-prompt="请输入admin密码，长度不低于12位，20秒内无输入或密码长度不足将重新提示，默认值( $DEFAULT_PASSWD ): "
+prompt="请输入admin密码（直接回车使用默认值@$DEFAULT_PASSWD，长度需不低于12位）: "
 USER_PASSWD=""
-while [[ ${#USER_PASSWD} -lt 12 ]]; do
+while true; do
     read -t 20 -p "$prompt" USER_PASSWD
-    if [[ -z $USER_PASSWD ]]; then
+    if [ -z "$USER_PASSWD" ]; then
         USER_PASSWD=$DEFAULT_PASSWD
-        echo "未输入密码，将采用默认密码: $DEFAULT_PASSWD"
+        echo "将使用默认密码: $DEFAULT_PASSWD 进行安装。"
         break
-    elif [[ ${#USER_PASSWD} -lt 12 ]]; then
+    elif [ ${#USER_PASSWD} -ge 12 ]; then
+        echo "将使用密码: $USER_PASSWD 进行安装。"
+        break
+    else
         echo "密码长度不足12位，请重新输入。"
     fi
 done
-echo "将使用密码: $USER_PASSWD 进行安装。"
 
 DEFAULT_TEMPLATES="https://dockerfile.15099.net/index.json"
 prompt="请输入你自动的模板地址，40秒内无输入将采用默认值( $DEFAULT_TEMPLATES ): "
