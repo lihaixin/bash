@@ -4,18 +4,40 @@ echo "准备安装Portainer 图像界面..."
 #######################################################install_portainer########################################################################################
 install_portainer() {
 echo "开启安装macvlan和自定义桥接网络"
-: ${VNAME:=$(ip route | grep "default via" |awk '{ print $5}')}
-docker network create -d macvlan \
-  --subnet=172.19.0.0/24 \
-  --gateway=172.19.0.254 \
-  --ip-range=172.19.0.1/25 \
-  -o macvlan_mode=bridge \
-  -o parent=$VNAME vlan 1> /dev/null 2>&1
 
-docker network create -d bridge \
+NETWORK_NAME=vlan                                                  # 定义网络名称
+: ${VNAME:=$(ip route | grep "default via" |awk '{ print $5}')}    # MAC VLAN父设备名称
+
+# 检查 网络是否已存在
+EXISTING_NETWORK=$(docker network inspect "$NETWORK_NAME" 2>/dev/null)
+
+if [ -z "$EXISTING_NETWORK" ]; then
+    # 如果网络不存在，则创建网络
+    docker network create \
+      -d macvlan \
+      --subnet=172.19.0.0/24 \
+      --gateway=172.19.0.254 \
+      --ip-range=172.19.0.1/25 \
+      -o macvlan_mode=bridge \
+      -o parent=$VNAME \
+      "$NETWORK_NAME" > /dev/null 2>&1
+else
+    echo "网络 $NETWORK_NAME 已存在，跳过创建。"
+fi
+
+NETWORK_NAME=cbridge                                                 # 定义网络名称
+# 检查 网络是否已存在
+EXISTING_NETWORK=$(docker network inspect "$NETWORK_NAME" 2>/dev/null)
+if [ -z "$EXISTING_NETWORK" ]; then
+    # 如果网络不存在，则创建网络
+    docker network create -d bridge \
     --subnet=10.21.1.0/24 \
     --gateway=10.21.1.254 \
- cbridge 1> /dev/null 2>&1
+    cbridge 1> /dev/null 2>&1
+else
+    echo "网络 $NETWORK_NAME 已存在，跳过创建。"
+fi
+
 
 echo "开始安装toolbox容器"
 docker stop toolbox 1> /dev/null 2>&1
