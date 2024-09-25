@@ -40,7 +40,8 @@ MountFlags=shared
 EOF
     systemctl daemon-reload
     systemctl restart docker
-else
+    
+elif [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" != "cn" ]; then
     echo "现在安装docker-ce"
     # curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun --version 24.0.9
     # curl -fsSL https://bash.15099.net/linux/online_install_docker.sh | bash -s docker --mirror Aliyun --version 24.0.9
@@ -70,6 +71,8 @@ MountFlags=shared
 EOF
     systemctl daemon-reload
     systemctl restart docker
+else
+    echo "取消安装docker-ce"
 fi
 }
 install_docker
