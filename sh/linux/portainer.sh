@@ -54,7 +54,7 @@ docker run -d \
 -e COUNTRY=cn \
 -e PASSWORD=${USER_PASSWD} \
 -e TEMPLATES=${USER_TEMPLATES} \
--e NO=9999210012301280102 \
+-e NO=9999210012301280103 \
 --name ui \
 --restart=always \
 lihaixin/portainer:ce-2.19.5
