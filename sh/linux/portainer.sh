@@ -23,7 +23,7 @@ DEFAULT_PASSWD="@china1234567"
 prompt="请输入admin密码（直接回车使用默认值 $DEFAULT_PASSWD ）: "
 USER_PASSWD=""
 while true; do
-    read -t 20 -p "$prompt" USER_PASSWD
+    read -t 40 -p "$prompt" USER_PASSWD
     if [ -z "$USER_PASSWD" ]; then
         USER_PASSWD=$DEFAULT_PASSWD
         echo "将使用默认密码: $DEFAULT_PASSWD 进行安装。"
@@ -37,8 +37,8 @@ while true; do
 done
 
 DEFAULT_TEMPLATES="https://dockerfile.15099.net/index.json"
-prompt="请输入你自动的模板地址，40秒内无输入将采用默认值( $DEFAULT_TEMPLATES ): "
-read -t 40 -p "$prompt" USER_TEMPLATES || USER_TEMPLATES=$DEFAULT_TEMPLATES
+prompt="请输入你自动的模板地址，60秒内无输入将采用默认值( $DEFAULT_TEMPLATES ): "
+read -t 60 -p "$prompt" USER_TEMPLATES || USER_TEMPLATES=$DEFAULT_TEMPLATES
 : ${USER_TEMPLATES:=$DEFAULT_TEMPLATES}
 echo "将使用模板地址: $USER_TEMPLATES 进行安装。"
 
