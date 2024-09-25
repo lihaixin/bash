@@ -21,6 +21,7 @@ if [ -z "$EXISTING_NETWORK" ]; then
       -o macvlan_mode=bridge \
       -o parent=$VNAME \
       "$NETWORK_NAME" > /dev/null 2>&1
+      echo "网络 $NETWORK_NAME 已成功创建。"
 else
     echo "网络 $NETWORK_NAME 已存在，跳过创建。"
 fi
@@ -34,6 +35,7 @@ if [ -z "$EXISTING_NETWORK" ]; then
     --subnet=10.21.1.0/24 \
     --gateway=10.21.1.254 \
     cbridge 1> /dev/null 2>&1
+    echo "网络 $NETWORK_NAME 已成功创建。"
 else
     echo "网络 $NETWORK_NAME 已存在，跳过创建。"
 fi
