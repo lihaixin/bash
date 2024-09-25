@@ -3,6 +3,20 @@ echo "准备安装Portainer 图像界面..."
 
 #######################################################install_portainer########################################################################################
 install_portainer() {
+echo "开启安装macvlan和自定义桥接网络"
+: ${VNAME:=$(ip route | grep "default via" |awk '{ print $5}')}
+docker network create -d macvlan \
+  --subnet=172.19.0.0/24 \
+  --gateway=172.19.0.254 \
+  --ip-range=172.19.0.1/25 \
+  -o macvlan_mode=bridge \
+  -o parent=$VNAME vlan 1> /dev/null 2>&1
+
+docker network create -d bridge \
+    --subnet=10.21.1.0/24 \
+    --gateway=10.21.1.254 \
+ cbridge 1> /dev/null 2>&1
+
 echo "开始安装toolbox容器"
 docker stop toolbox 1> /dev/null 2>&1
 docker rm toolbox 1> /dev/null 2>&1
