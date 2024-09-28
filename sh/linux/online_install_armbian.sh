@@ -40,6 +40,9 @@ images_urls=(
     "https://dl.armbian.com/uefi-x86/Jammy_current_server 0.9G"
     "https://dl.armbian.com/uefi-x86/Noble_current_server 0.9G"
     "https://dl.armbian.com/uefi-x86/Noble_current_xfce 1.9G"
+    "https://mirror.iscas.ac.cn/armbian-releases/uefi-x86/archive/Armbian_24.8.1_Uefi-x86_bookworm_current_6.6.47.img.xz 0.7G"
+    "https://mirror.iscas.ac.cn/armbian-releases/uefi-x86/archive/Armbian_24.8.1_Uefi-x86_noble_current_6.6.47.img.xz 0.9G"
+    "https://mirror.iscas.ac.cn/armbian-releases/uefi-x86/archive/Armbian_24.8.1_Uefi-x86_jammy_current_6.6.47.img.xz 0.9G"
 )
 
 # 显示镜像选项及其大小
