@@ -21,7 +21,7 @@ get_system_info () {
     echo "IP所属国家: $COUNTRY"
 
     # 获取内存大小
-    export MEM_INFO=""
+    export MEM_TOTAL=""
     MEM_INFO=$(free -m)
     MEM_TOTAL=$(echo "$MEM_INFO" | grep Mem | awk '{print $2}')
     echo "内存大小(MB): $MEM_TOTAL"
