@@ -7,7 +7,7 @@ echo "开启安装macvlan和自定义桥接网络"
 
 NETWORK_NAME=vlan                                                  # 定义网络名称
 : ${VNAME:=$(ip route | grep "default via" |awk '{ print $5}')}    # MAC VLAN父设备名称
-
+$(( (RANDOM % 53) + 201 ))
 # 检查 网络是否已存在
 EXISTING_NETWORK=$(docker network ls --format "{{.Name}}" | grep -w "^$NETWORK_NAME$")
 
@@ -16,8 +16,7 @@ if [ -z "$EXISTING_NETWORK" ]; then
     docker network create \
       -d macvlan \
       --subnet=172.19.0.0/24 \
-      --gateway=172.19.0.254 \
-      --ip-range=172.19.0.1/25 \
+      --gateway=172.19.0.$(( (RANDOM % 53) + 201 )) \
       -o macvlan_mode=bridge \
       -o parent=$VNAME \
       "$NETWORK_NAME" > /dev/null 2>&1
@@ -33,7 +32,7 @@ if [ -z "$EXISTING_NETWORK" ]; then
     # 如果网络不存在，则创建网络
     docker network create -d bridge \
     --subnet=172.20.0.0/24 \
-    --gateway=172.20.0.254 \
+    --gateway=172.20.0.$(( (RANDOM % 53) + 201 )) \
     cbridge 1> /dev/null 2>&1
     echo "网络 $NETWORK_NAME 已成功创建。"
 else
