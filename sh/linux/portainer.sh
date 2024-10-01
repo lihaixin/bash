@@ -32,8 +32,8 @@ EXISTING_NETWORK=$(docker network ls --format "{{.Name}}" | grep -w "^$NETWORK_N
 if [ -z "$EXISTING_NETWORK" ]; then
     # 如果网络不存在，则创建网络
     docker network create -d bridge \
-    --subnet=10.21.1.0/24 \
-    --gateway=10.21.1.254 \
+    --subnet=172.20.0.0/24 \
+    --gateway=172.20.0.254 \
     cbridge 1> /dev/null 2>&1
     echo "网络 $NETWORK_NAME 已成功创建。"
 else
