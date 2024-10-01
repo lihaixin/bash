@@ -7,7 +7,6 @@ echo "开启安装macvlan和自定义桥接网络"
 
 NETWORK_NAME=vlan                                                  # 定义网络名称
 : ${VNAME:=$(ip route | grep "default via" |awk '{ print $5}')}    # MAC VLAN父设备名称
-$(( (RANDOM % 53) + 201 ))
 # 检查 网络是否已存在
 EXISTING_NETWORK=$(docker network ls --format "{{.Name}}" | grep -w "^$NETWORK_NAME$")
 
