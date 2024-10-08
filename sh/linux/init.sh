@@ -175,12 +175,12 @@ else
     echo "不调正仓库，直接升级,安装基本包"
     case $OS in
         debian)
-            echo "执行针对Debian的操作..."
-            echo 'deb http://ftp.debian.org/debian buster-backports main' | tee /etc/apt/sources.list.d/buster-backports.list
-            apt update -y
-            apt install linux-headers-$(uname -r) -y
-            apt install wireguard -y
-            modprobe wireguard && lsmod | grep wireguard
+            # echo "执行针对Debian的操作..."
+            # echo 'deb http://ftp.debian.org/debian buster-backports main' | tee /etc/apt/sources.list.d/buster-backports.list
+            # apt update -y
+            # apt install linux-headers-$(uname -r) -y
+            # apt install wireguard -y
+            # modprobe wireguard && lsmod | grep wireguard
             ;;
         ubuntu)
             echo "执行针对Ubuntu的操作..."
