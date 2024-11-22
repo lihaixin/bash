@@ -49,14 +49,17 @@ else
         debian)
             echo "执行针对Debian的操作..."
             apt update -y && apt upgrade -y
+            apt-get install net-tools wget ntpdate ntp xz-utils -y
             ;;
         ubuntu)
             echo "执行针对Ubuntu的操作..."
             apt update -y && apt upgrade -y
+            apt-get install net-tools wget ntpdate ntp xz-utils -y
             ;;
         armbian)
             echo "执行针对Armbian的操作..."
             apt update -y && apt upgrade -y
+            apt-get install net-tools wget ntpdate ntp xz-utils -y
             ;;
         *)
             echo "未知的系统类型: $OS"
