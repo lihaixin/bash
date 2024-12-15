@@ -80,7 +80,7 @@ echo "将使用模板地址: $USER_TEMPLATES 进行安装。"
 
 docker stop ui 1> /dev/null 2>&1
 docker rm ui 1> /dev/null 2>&1
-docker pull lihaixin/portainer:ce-2.19.5
+docker pull lihaixin/ui:ce-2.19.5
 docker run -d \
 -p 9443:9443 \
 -p 8000:8000 \
@@ -93,7 +93,7 @@ docker run -d \
 -e NO=9999210012301280103 \
 --name ui \
 --restart=always \
-lihaixin/portainer:ce-2.19.5
+lihaixin/ui:ce-2.19.5
 echo "Portainer成功安装，访问：https://${WANIP}:9443 账号：admin 密码：${USER_PASSWD} "
 }
 install_portainer
