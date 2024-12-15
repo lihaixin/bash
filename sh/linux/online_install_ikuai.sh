@@ -16,7 +16,7 @@ echo "复制文件到根目录"
 cp -rpf /mnt/boot /
 
 echo "准备重启，然后在腾讯云&阿里云的等云主机操作页面打开VNC界面"
-DEFAULT_VALUE="Y"
+DEFAULT_VALUE="N"
 prompt="请输入内容Y/N，10秒内无输入将采用默认值(Y): "
 
 # 使用read的-t选项及命令替换特性
@@ -27,7 +27,6 @@ if [ "$USER_INPUT" = "Y" ]; then
     echo "正在重启系统..."
     reboot
 elif [ "$USER_INPUT" = "N" ]; then
-    echo "重启访问vnc可以进入爱快安装界面"
     echo "返回主菜单..."
     # 这里假设main_menu是一个可执行脚本或命令
     sub_main_menu
