@@ -119,6 +119,12 @@ chang_hostname
 chang_ssh() {
 echo ""
 echo "调整系统SSH配置信息"
+DEFAULT_VALUE="N"
+prompt="请输入内容(Y/N)，10秒内无输入将采用默认值( $DEFAULT_VALUE ): "
+# 使用read的-t选项及命令替换特性
+read -t 10 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
+: ${USER_INPUT:=$DEFAULT_VALUE}
+if [ "$USER_INPUT" = "Y" ]; then
 DEFAULT_PASSWD="!passWord"
 prompt="请输入root密码)，10秒内无输入将采用默认值( $DEFAULT_PASSWD ): "
 # 使用read的-t选项及命令替换特性
@@ -140,6 +146,7 @@ sed -i s'/^#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/ssh
 sed -i s'/^PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
 service ssh restart
 echo "成功调整SSH端口为32123，密码为：$PASSWD_INPUT 开启主机密码登录"
+fi
 }
 chang_ssh
 
@@ -238,6 +245,6 @@ net.ipv6.conf.default.disable_ipv6 = 1
 net.ipv6.conf.lo.disable_ipv6 = 1
 TEMPEOF
 sysctl -p
-echo "成功调整SSH端口为32123，密码为：$PASSWD_INPUT 开启主机密码登录"
+echo "成功调整内核参数，开启BBR"
 }
 chang_sysctl
