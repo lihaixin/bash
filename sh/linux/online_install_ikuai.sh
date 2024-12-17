@@ -17,7 +17,7 @@ cp -rpf /mnt/boot /
 
 echo "准备重启，然后在腾讯云&阿里云的等云主机操作页面打开VNC界面"
 DEFAULT_VALUE="N"
-prompt="请输入内容Y/N，10秒内无输入将采用默认值(Y): "
+prompt="请输入内容Y/N，10秒内无输入将采用默认值(N): "
 
 # 使用read的-t选项及命令替换特性
 read -t 10 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
