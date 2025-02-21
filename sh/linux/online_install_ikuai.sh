@@ -3,10 +3,10 @@ echo "准备在线灌ikuai路由系统"
 echo "当前主机内存大小(MB): $MEM_TOTAL"
 if [ "$MEM_TOTAL" -lt 2024 ]; then
     echo "当前主机内存小于2G,爱快系统架构选择x32"
-    wget https://www.ikuai8.com/download.php?n=/3.x/iso/iKuai8_x32_3.7.14_Build202408011011.iso -O /tmp/ikuai8.iso
+    wget https://www.ikuai8.com/download.php?n=/3.x/iso/iKuai8_x32_3.6.13_Build202301131532.iso -O /tmp/ikuai8.iso
 else
     echo "当前主机内存大于2G，爱快系统架构选择x64"
-    wget https://www.ikuai8.com/download.php?n=/3.x/iso/iKuai8_x64_3.7.14_Build202408011011.iso -O /tmp/ikuai8.iso
+    wget https://www.ikuai8.com/download.php?n=/3.x/iso/iKuai8_x64_3.6.13_Build202301131532.iso -O /tmp/ikuai8.iso
 fi
 
 
