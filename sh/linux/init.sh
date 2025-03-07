@@ -8,7 +8,7 @@ echo "调整仓库信息、系统升级、安装基本包"
 DEFAULT_VALUE="Y"
 prompt="请输入内容(Y/N)，10秒内无输入将采用默认值( $DEFAULT_VALUE ): "
 # 使用read的-t选项及命令替换特性
-read -t 10 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
+read -t 20 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
 : ${USER_INPUT:=$DEFAULT_VALUE}
 
 if [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" = "cn" ]; then
@@ -76,7 +76,7 @@ echo "调整系统DNS和时区和时间"
 DEFAULT_VALUE="Y"
 prompt="请输入内容(Y/N)，10秒内无输入将采用默认值( $DEFAULT_VALUE ): "
 # 使用read的-t选项及命令替换特性
-read -t 10 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
+read -t 20 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
 : ${USER_INPUT:=$DEFAULT_VALUE}
 if [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" = "cn" ]; then
     echo "现在调整DNS为国内DNS解析"
@@ -122,13 +122,13 @@ echo "调整系统SSH配置信息"
 DEFAULT_VALUE="N"
 prompt="请输入内容(Y/N)，10秒内无输入将采用默认值( $DEFAULT_VALUE ): "
 # 使用read的-t选项及命令替换特性
-read -t 10 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
+read -t 20 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
 : ${USER_INPUT:=$DEFAULT_VALUE}
 if [ "$USER_INPUT" = "Y" ]; then
 DEFAULT_PASSWD="!passWord"
 prompt="请输入root密码)，10秒内无输入将采用默认值( $DEFAULT_PASSWD ): "
 # 使用read的-t选项及命令替换特性
-read -t 10 -p "$prompt" PASSWD_INPUT || PASSWD_INPUT=$DEFAULT_PASSWD
+read -t 20 -p "$prompt" PASSWD_INPUT || PASSWD_INPUT=$DEFAULT_PASSWD
 : ${PASSWD_INPUT:=$DEFAULT_PASSWD}
 echo -e "$PASSWD_INPUT\n$PASSWD_INPUT" | (passwd root) 
 
