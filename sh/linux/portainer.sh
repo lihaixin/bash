@@ -74,7 +74,7 @@ done
 
 DEFAULT_TEMPLATES="https://dockerfile.15099.net/index.json"
 prompt="请输入你自定义的模板地址，60秒内无输入将采用默认值( $DEFAULT_TEMPLATES ): "
-read -t 60 -p "$prompt" USER_TEMPLATES || USER_TEMPLATES=$DEFAULT_TEMPLATES
+read -t 120 -p "$prompt" USER_TEMPLATES || USER_TEMPLATES=$DEFAULT_TEMPLATES
 : ${USER_TEMPLATES:=$DEFAULT_TEMPLATES}
 echo "将使用模板地址: $USER_TEMPLATES 进行安装。"
 
