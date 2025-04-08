@@ -6,6 +6,7 @@ install_docker() {
 echo "准备安装doceker-ce"
 # debian10/11 ver: 20.10 docker.io
 # armbian 24.5 ver: 20.10 docker.io
+# alpine 3.16 ver: 20.10.20 docker
 DEFAULT_VALUE="Y"
 prompt="请输入内容(Y/N)确定是否现在安装docker-ce，20秒内无输入将采用默认值( $DEFAULT_VALUE ): "
 # 使用read的-t选项及命令替换特性
@@ -19,8 +20,14 @@ if [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" = "cn" ]; then
     # curl -fsSL https://bash.15099.net/linux/online_install_docker.sh > /tmp/online_install_docker.sh
     # bash /tmp/online_install_docker.sh --mirror Aliyun --version 26.0.0
     # rm -rf /tmp/online_install_docker.sh
-    apt install docker.io -y
-    echo "成功安装docker-ce,可使用docker info查看版本信息"
+    if [ "$ID" = "alpine" ]; then
+        apk add docker docker-cli-compose
+        rc-update add docker
+        service docker start
+    else
+        apt install docker.io -y
+    fi
+    echo "成功安装docker,可使用docker info查看版本信息"
     mkdir -p /etc/docker 
 cat <<EOF > /etc/docker/daemon.json
 {
@@ -48,8 +55,14 @@ elif [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" != "cn" ]; then
     # curl -fsSL https://bash.15099.net/linux/online_install_docker.sh > /tmp/online_install_docker.sh
     # bash /tmp/online_install_docker.sh --mirror Aliyun --version 26.0.0
     # rm -rf /tmp/online_install_docker.sh
-    apt install docker.io -y
-    echo "成功安装docker-ce,可使用docker info查看版本信息"
+    if [ "$ID" = "alpine" ]; then
+        apk add docker docker-cli-compose
+        rc-update add docker
+        service docker start
+    else
+        apt install docker.io -y
+    fi
+    echo "成功安装docker,可使用docker info查看版本信息"
     mkdir -p /etc/docker 
 cat <<EOF > /etc/docker/daemon.json
 {
