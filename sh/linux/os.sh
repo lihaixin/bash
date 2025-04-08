@@ -62,8 +62,8 @@ sub1_run_script4() {
     echo "正在运行在线一键物理机安装飞牛nas"
     # 插入脚本4的执行逻辑
     curl -sL https://gh.15099.net/https://raw.githubusercontent.com/bin456789/reinstall/main/reinstall.sh > /tmp/online_install_fnos.sh
-    bash /tmp/online_install_fnos.sh
-    rm -rf /tmp/online_install_fnos.sh fnos
+    bash /tmp/online_install_fnos.sh fnos
+    rm -rf /tmp/online_install_fnos.sh 
     echo "在线一键物理机安装fnos执行完毕，按回车键继续。"
     read
     sub1_main_menu
