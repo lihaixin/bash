@@ -11,12 +11,14 @@ sub1_main_menu() {
     echo "1) Linux换成Debian12纯版本"
     echo "2) 灌爱快系统"
     echo "3) 一键物理机安装armbian"
+    echo "4) 一键物理机安装飞牛NAS"
     echo "0) 返回上级菜单"
     read -p "输入选项: " choice
     case $choice in
         1) sub1_run_script1 ;;
         2) sub1_run_script2 ;;
         3) sub1_run_script3 ;;
+        4) sub1_run_script4 ;;
         0) exit 0 ;;
         *) echo "无效的选项，请重新选择。"; sleep 2; main_menu ;;
     esac
@@ -56,6 +58,16 @@ sub1_run_script3() {
     sub1_main_menu
 }
 
+sub1_run_script4() {
+    echo "正在运行在线一键物理机安装飞牛nas"
+    # 插入脚本4的执行逻辑
+    curl -sL https://gh.15099.net/https://raw.githubusercontent.com/bin456789/reinstall/main/reinstall.sh > /tmp/online_install_fnos.sh
+    bash /tmp/online_install_fnos.sh
+    rm -rf /tmp/online_install_fnos.sh fnos
+    echo "在线一键物理机安装fnos执行完毕，按回车键继续。"
+    read
+    sub1_main_menu
+}
 clear
 while true; do
     sub1_main_menu
