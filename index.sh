@@ -54,6 +54,9 @@ get_system_info () {
     elif [[ $ID == "ubuntu" ]]; then
         echo "当前系统是Ubuntu"
         OS=ubuntu
+    elif [[ $ID == "alpine" ]]; then
+        echo "当前系统是alpine"
+        OS=alpine
     else
         echo "错误：未能直接识别系统类型，本脚本不支持，脚本退出"
         exit 1
