@@ -39,6 +39,21 @@ if [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" = "cn" ]; then
             systemctl disable --now ssh.socket
             systemctl enable --now ssh.service
             ;;
+        alpine)
+            echo "执行针对alpine的操作..."
+            # Alpine 默认是没有启用tun功能的，所以需要自行开启
+            modprobe tun
+            echo "tun" >>/etc/modules
+
+            # 检查是否生效
+            lsmod | grep tun
+            apk upgrade --no-cache --available
+            # 安装qemu-guest-agent tzdata
+            # 添加到默认启动
+            # 要检查 Alpine Linux 上启用的系统启动服务
+            apk add qemu-guest-agent tzdata
+            rc-update add qemu-guest-agent
+            rc-status -a
         *)
             echo "未知的系统类型: $OS"
             ;;
@@ -61,6 +76,21 @@ else
             apt update -y && apt upgrade -y
             apt-get install net-tools wget ntpdate ntp xz-utils -y
             ;;
+        alpine)
+            echo "执行针对alpine的操作..."
+            # Alpine 默认是没有启用tun功能的，所以需要自行开启
+            modprobe tun
+            echo "tun" >>/etc/modules
+
+            # 检查是否生效
+            lsmod | grep tun
+            apk upgrade --no-cache --available
+            # 安装qemu-guest-agent tzdata
+            # 添加到默认启动
+            # 要检查 Alpine Linux 上启用的系统启动服务
+            apk add qemu-guest-agent tzdata
+            rc-update add qemu-guest-agent
+            rc-status -a
         *)
             echo "未知的系统类型: $OS"
             ;;
