@@ -1,5 +1,10 @@
 FROM nginx:stable-alpine
 ARG TARGETARCH
+LABEL vendor="15099.net" \
+      release-date="2025-4-8" \
+      version="0.1.2" \
+      maintainer=noreply@15099.net
+      
 EXPOSE 80
 RUN apk update && apk add pandoc bash
 COPY --chmod=755 ./sh /usr/share/nginx/html/
