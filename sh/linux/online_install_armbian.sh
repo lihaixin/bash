@@ -14,7 +14,7 @@ if [ $mounted -gt 0 ]; then
     mount_point=$(mount | grep "$target_disk" | cut -d' ' -f3)
     if [ -n "$mount_point" ]; then
         echo "卸载挂载点: $mount_point"
-        sudo umount "$mount_point" || { echo "卸载失败，请手动卸载并重试。"; exit 1; }
+        umount "$mount_point" || { echo "卸载失败，请手动卸载并重试。"; exit 1; }
     else
         echo "未能确定挂载点，无法自动卸载。"
         exit 1
