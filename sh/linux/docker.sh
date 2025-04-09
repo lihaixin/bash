@@ -20,7 +20,7 @@ if [ "$USER_INPUT" = "Y" ] && [ "$COUNTRY" = "cn" ]; then
     # curl -fsSL https://bash.15099.net/linux/online_install_docker.sh > /tmp/online_install_docker.sh
     # bash /tmp/online_install_docker.sh --mirror Aliyun --version 26.0.0
     # rm -rf /tmp/online_install_docker.sh
-    if [ "$ID" = "alpine" ]; then
+    if [ "$OS" = "alpine" ]; then
         apk add docker docker-cli-compose
         rc-update add docker
         service docker start
@@ -55,7 +55,7 @@ elif [ "$USER_INPUT" = "Y" ] && [ "$COUNTRY" != "cn" ]; then
     # curl -fsSL https://bash.15099.net/linux/online_install_docker.sh > /tmp/online_install_docker.sh
     # bash /tmp/online_install_docker.sh --mirror Aliyun --version 26.0.0
     # rm -rf /tmp/online_install_docker.sh
-    if [ "$ID" = "alpine" ]; then
+    if [ "$OS" = "alpine" ]; then
         apk add docker docker-cli-compose
         rc-update add docker
         service docker start
