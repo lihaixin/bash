@@ -66,6 +66,7 @@ if ((choice > 0 && choice <= ${#images_urls[@]})); then
         wget -c "$url" -O "$filename"
         if [ $? -ne 0 ]; then
             echo "Failed to download the image file."
+            rm -rf /tmp/armbian.img.xz
             exit 1
         fi
         echo "Image file downloaded successfully."
