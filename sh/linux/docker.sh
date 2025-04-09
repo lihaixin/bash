@@ -1,20 +1,20 @@
 #!/bin/bash
-echo "准备初始化docker..."
+echo "Preparing to initialize Docker..."
 
 #######################################################install_docker########################################################################################
 install_docker() {
-echo "准备安装doceker-ce"
+echo "Preparing to install Docker CE"
 # debian10/11 ver: 20.10 docker.io
 # armbian 24.5 ver: 20.10 docker.io
 # alpine 3.16 ver: 20.10.20 docker
 DEFAULT_VALUE="Y"
-prompt="请输入内容(Y/N)确定是否现在安装docker-ce，20秒内无输入将采用默认值( $DEFAULT_VALUE ): "
-# 使用read的-t选项及命令替换特性
+prompt="Please enter (Y/N) to confirm if you want to install Docker CE now, the default value ($DEFAULT_VALUE) will be used if no input is provided within 20 seconds: "
+# Use the -t option of read and command substitution
 read -t 10 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
 : ${USER_INPUT:=$DEFAULT_VALUE}
 
-if [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" = "cn" ]; then
-    echo "现在安装docker-ce 使用Aliyun镜像"
+if [ "$USER_INPUT" = "Y" ] && [ "$COUNTRY" = "cn" ]; then
+    echo "Now installing Docker CE using Aliyun mirror"
     # curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun --version 24.0.9
     # curl -fsSL https://bash.15099.net/linux/online_install_docker.sh | bash -s docker --mirror Aliyun --version 24.0.9
     # curl -fsSL https://bash.15099.net/linux/online_install_docker.sh > /tmp/online_install_docker.sh
@@ -27,7 +27,7 @@ if [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" = "cn" ]; then
     else
         apt install docker.io -y
     fi
-    echo "成功安装docker,可使用docker info查看版本信息"
+    echo "Docker installed successfully, you can check the version using docker info"
     mkdir -p /etc/docker 
 cat <<EOF > /etc/docker/daemon.json
 {
@@ -48,8 +48,8 @@ EOF
     systemctl daemon-reload
     systemctl restart docker
     
-elif [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" != "cn" ]; then
-    echo "现在安装docker-ce"
+elif [ "$USER_INPUT" = "Y" ] && [ "$COUNTRY" != "cn" ]; then
+    echo "Now installing Docker CE"
     # curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun --version 24.0.9
     # curl -fsSL https://bash.15099.net/linux/online_install_docker.sh | bash -s docker --mirror Aliyun --version 24.0.9
     # curl -fsSL https://bash.15099.net/linux/online_install_docker.sh > /tmp/online_install_docker.sh
@@ -62,7 +62,7 @@ elif [ "$USER_INPUT" = "Y" ] &&[ "$COUNTRY" != "cn" ]; then
     else
         apt install docker.io -y
     fi
-    echo "成功安装docker,可使用docker info查看版本信息"
+    echo "Docker installed successfully, you can check the version using docker info"
     mkdir -p /etc/docker 
 cat <<EOF > /etc/docker/daemon.json
 {
@@ -85,7 +85,7 @@ EOF
     systemctl daemon-reload
     systemctl restart docker
 else
-    echo "取消安装docker-ce"
+    echo "Docker CE installation canceled"
 fi
 }
 install_docker
