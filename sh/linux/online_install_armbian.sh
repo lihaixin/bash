@@ -1,40 +1,39 @@
-
-# 列出所有块设备
-echo "可用磁盘列表:"
+# List all block devices
+echo "Available disk list:"
 lsblk -d -o NAME,SIZE,TYPE
 
-# 请用户输入要写入的磁盘名称（例如 /dev/sdx）
-read -p "请输入目标磁盘的完整路径（如 /dev/sdb）: " target_disk
+# Prompt user to input the target disk name (e.g., /dev/sdx)
+read -p "Please enter the full path of the target disk (e.g., /dev/sdb): " target_disk
 
-# 检查磁盘是否挂载，如果挂载则尝试卸载
+# Check if the disk is mounted, if mounted then try to unmount
 mounted=$(grep -c "^$target_disk" /proc/mounts)
 if [ $mounted -gt 0 ]; then
-    echo "警告：目标磁盘已挂载，脚本将尝试自动卸载。"
-    # 尝试查找挂载点
+    echo "Warning: The target disk is mounted, the script will try to unmount it automatically."
+    # Try to find the mount point
     mount_point=$(mount | grep "$target_disk" | cut -d' ' -f3)
     if [ -n "$mount_point" ]; then
-        echo "卸载挂载点: $mount_point"
-        umount "$mount_point" || { echo "卸载失败，请手动卸载并重试。"; exit 1; }
+        echo "Unmounting mount point: $mount_point"
+        umount "$mount_point" || { echo "Unmount failed, please unmount manually and try again."; exit 1; }
     else
-        echo "未能确定挂载点，无法自动卸载。"
+        echo "Unable to determine the mount point, cannot unmount automatically."
         exit 1
     fi
 fi
 
-# 确认用户输入
-read -p "您确定要将选定的镜像文件写入到 $target_disk 吗？(y/n): " confirm
+# Confirm user input
+read -p "Are you sure you want to write the selected image file to $target_disk? (y/n): " confirm
 if [ "$confirm" != "y" ]; then
-    echo "操作已取消。"
+    echo "Operation canceled."
     exit 1
 fi
 
-# 检查目标设备是否存在且不是标准输入输出
+# Check if the target device exists and is not standard input/output
 if [[ ! -b $target_disk ]]; then
-    echo "错误：指定的设备路径不存在或不是块设备。"
+    echo "Error: The specified device path does not exist or is not a block device."
     exit 1
 fi
 
-# 镜像文件在线地址列表及大小备注
+# List of image file URLs and size remarks
 images_urls=(
     "https://dl.armbian.com/uefi-x86/Bookworm_current_server 0.7G"
     "https://dl.armbian.com/uefi-x86/Jammy_current_server 0.9G"
@@ -45,56 +44,56 @@ images_urls=(
     "https://mirror.iscas.ac.cn/armbian-releases/uefi-x86/archive/Armbian_24.8.1_Uefi-x86_jammy_current_6.6.47.img.xz 0.9G"
 )
 
-# 显示镜像选项及其大小
-echo "请选择要下载并写入的镜像文件及其大小："
+# Display image options and their sizes
+echo "Please select the image file to download and write, along with its size:"
 for ((i=0; i<${#images_urls[@]}; i++)); do
     size=${images_urls[i]##* }
     url=${images_urls[i]% *}
-    echo "$((i+1)). URL: $url, 镜像容量大小: $size 主机内存要两倍$size才能成功安装"
+    echo "$((i+1)). URL: $url, Image size: $size (Host memory should be twice the size to install successfully)"
 done
 
-# 读取用户选择
-read -p "请输入镜像编号: " choice
+# Read user choice
+read -p "Please enter the image number: " choice
 
-# 检查输入是否有效
-if ((choice > 0 &&choice <= ${#images_urls[@]})); then
+# Check if the input is valid
+if ((choice > 0 && choice <= ${#images_urls[@]})); then
     url=${images_urls[$((choice-1))]% *}
     filename=/tmp/armbian.img.xz
 
-    # 检查镜像文件是否已下载
+    # Check if the image file is already downloaded
     if [ -f "$filename" ]; then
-        echo "镜像文件 $filename 已经存在本地，跳过下载。"
+        echo "Image file $filename already exists locally, skipping download."
     else
-        # 下载镜像文件
+        # Download the image file
         wget -c "$url" -O "$filename"
         if [ $? -ne 0 ]; then
-            echo "下载镜像文件失败。"
+            echo "Failed to download the image file."
             exit 1
         fi
-        echo "镜像文件下载完成。"
+        echo "Image file downloaded successfully."
     fi
     
-    # 开始执行前同步文件系统缓存
+    # Sync filesystem caches before starting
     sync
-    # 执行写入操作到磁盘
-    echo "正在将 $filename 写入磁盘 $target_disk，请稍候..."
+    # Write the image file to disk
+    echo "Writing $filename to disk $target_disk, please wait..."
     unxz -c $filename | dd of="$target_disk" bs=128K status=progress oflag=direct iflag=fullblock conv=noerror,sync | pv
     
     if [ $? -eq 0 ]; then
-        echo "写入操作完成。"
+        echo "Write operation completed."
     else
-        echo "写入过程中发生错误。"
+        echo "An error occurred during the write operation."
     fi
 else
-    echo "无效的输入。"
+    echo "Invalid input."
 fi
 
-# 清理下载的镜像文件（可选）
-rm  $filename
+# Clean up the downloaded image file (optional)
+rm $filename
 
-# 记录操作日志（示例，实际需指定日志文件路径）
-echo "$(date) - 成功将$filename写入$target_disk" >> /var/log/image_writer.log
+# Log the operation (example, specify the actual log file path)
+echo "$(date) - Successfully wrote $filename to $target_disk" >> /var/log/image_writer.log
 
-echo "操作日志已记录，请检查系统日志以确认操作无误。"
+echo "Operation log recorded, please check the system log to confirm the operation is successful."
 
-# 注意：此脚本执行涉及磁盘级操作，务必谨慎使用，确保数据安全。
+# Note: This script involves disk-level operations, please use it with caution to ensure data safety.
