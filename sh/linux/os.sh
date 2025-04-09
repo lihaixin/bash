@@ -2,69 +2,69 @@
 sub1_main_menu() {
     clear
     echo "################################################################"
-    echo "#   欢迎访问 https://bash.15099.net 脚本OS管理系统               "
-    echo "#   主机是否为虚拟平台：$VIRTUAL_PLATFORM                        "
-    echo "#   主机内存大小(MB): $MEM_TOTAL 磁盘大小: $DISK_TOTAL           "
-    echo "#   主机IP地址: $WANIP        IP所属国家: $COUNTRY               "
+    echo "#   Welcome to https://bash.15099.net OS Management System      "
+    echo "#   Is the host a virtual platform: $VIRTUAL_PLATFORM            "
+    echo "#   Host memory size (MB): $MEM_TOTAL Disk size: $DISK_TOTAL     "
+    echo "#   Host IP address: $WANIP        IP country: $COUNTRY          "
     echo "################################################################"
-    echo "请选择一个操作:"
-    echo "1) Linux换成Debian12纯版本"
-    echo "2) 灌爱快系统"
-    echo "3) 一键物理机安装armbian"
-    echo "4) 一键物理机安装飞牛NAS"
-    echo "0) 返回上级菜单"
-    read -p "输入选项: " choice
+    echo "Please select an operation:"
+    echo "1) Replace Linux with pure Debian 12"
+    echo "2) Install iKuai system"
+    echo "3) One-click install Armbian on physical machine"
+    echo "4) One-click install Feiniu NAS on physical machine"
+    echo "0) Return to previous menu"
+    read -p "Enter choice: " choice
     case $choice in
         1) sub1_run_script1 ;;
         2) sub1_run_script2 ;;
         3) sub1_run_script3 ;;
         4) sub1_run_script4 ;;
         0) exit 0 ;;
-        *) echo "无效的选项，请重新选择。"; sleep 2; main_menu ;;
+        *) echo "Invalid option, please try again."; sleep 2; main_menu ;;
     esac
 }
 
 sub1_run_script1() {
-    echo "正在运行在线Linux换成Debian11纯版本系统"
-    # 这里放置执行脚本1的代码，例如通过curl或wget获取并执行
-    # 示例：curl -sL https://someurl/script1.sh | bash
+    echo "Running script to replace Linux with pure Debian 12"
+    # Insert the code to execute script 1 here, e.g., download and execute via curl or wget
+    # Example: curl -sL https://someurl/script1.sh | bash
     curl -sL https://bash.15099.net/linux/online_install_linux.sh > /tmp/online_install_linux.sh
     bash /tmp/online_install_linux.sh
     rm -rf /tmp/online_install_linux.sh
-    echo "Linux换成Debian12纯版本系统执行完毕，按回车键继续。"
+    echo "Replacing Linux with pure Debian 12 system completed, press Enter to continue."
     read
     sub1_main_menu
 }
 
 sub1_run_script2() {
-    echo "正在运行在线灌爱快系统"
-    # 同样，这里插入脚本2的执行逻辑
+    echo "Running script to install iKuai system"
+    # Insert the logic to execute script 2 here
     curl -sL https://bash.15099.net/linux/online_install_ikuai.sh > /tmp/online_install_ikuai.sh
     bash /tmp/online_install_ikuai.sh
-    rm -rf //tmp/online_install_ikuai.sh
-    echo "在线灌爱快系统执行完毕，按回车键继续。"
+    rm -rf /tmp/online_install_ikuai.sh
+    echo "Installing iKuai system completed, press Enter to continue."
     read
     sub1_main_menu
 }
 
 sub1_run_script3() {
-    echo "正在运行在线一键物理机安装armbian"
-    # 插入脚本3的执行逻辑
+    echo "Running script to install Armbian on physical machine"
+    # Insert the logic to execute script 3 here
     curl -sL https://bash.15099.net/linux/online_install_armbian.sh > /tmp/online_install_armbian.sh
     bash /tmp/online_install_armbian.sh
     rm -rf /tmp/online_install_armbian.sh
-    echo "在线一键物理机安装armbian执行完毕，按回车键继续。"
+    echo "Installing Armbian on physical machine completed, press Enter to continue."
     read
     sub1_main_menu
 }
 
 sub1_run_script4() {
-    echo "正在运行在线一键物理机安装飞牛nas"
-    # 插入脚本4的执行逻辑
+    echo "Running script to install Feiniu NAS on physical machine"
+    # Insert the logic to execute script 4 here
     curl -sL https://gh.15099.net/https://raw.githubusercontent.com/bin456789/reinstall/main/reinstall.sh > /tmp/online_install_fnos.sh
     bash /tmp/online_install_fnos.sh fnos
     rm -rf /tmp/online_install_fnos.sh 
-    echo "在线一键物理机安装fnos执行完毕，按回车键继续。"
+    echo "Installing Feiniu NAS on physical machine completed, press Enter to continue."
     read
     sub1_main_menu
 }
