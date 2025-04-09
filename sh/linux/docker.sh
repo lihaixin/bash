@@ -82,8 +82,15 @@ cat <<EOF > /etc/systemd/system/docker.service.d/clear_mount_propagation_flags.c
 [Service]
 MountFlags=shared
 EOF
-    systemctl daemon-reload
-    systemctl restart docker
+    case $OS in
+        debian | ubuntu | armbian )
+                systemctl daemon-reload
+                systemctl restart docker
+                ;;
+        *)
+                echo "Unknown system type: $OS"
+                ;;
+    esac        
 else
     echo "Docker CE installation canceled"
 fi
