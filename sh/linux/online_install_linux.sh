@@ -1,8 +1,8 @@
 #!/bin/bash
-echo "准备在线安装Debian 12 纯系统"
+echo "Preparing to install pure Debian 12 system online"
 
 DEFAULT_VALUE="password"
-prompt="请输入安装后密码，10秒内无输入将采用默认值( $DEFAULT_VALUE ): "
+prompt="Please enter the installation password, using the default value ( $DEFAULT_VALUE ) if no input within 10 seconds: "
 read -t 10 -p "$prompt" PASSWORD || PASSWORD=$DEFAULT_VALUE
 : ${PASSWORD:=$DEFAULT_VALUE}
 
