@@ -1,5 +1,4 @@
 #!/bin/bash
-echo "Preparing to install Portainer graphical interface..."
 
 #######################################################install_portainer########################################################################################
 install_portainer() {
@@ -95,4 +94,33 @@ docker run -d \
 lihaixin/ui:ce-2.19.5
 echo "Portainer has been successfully installed, visit: https://${WANIP}:9443 Username: admin Password: ${USER_PASSWD}"
 }
+
+install_portainer_agent(){
+docker run -d \
+  -p 9001:9001 \
+  --name portainer_agent \
+  --restart=always \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /var/lib/docker/volumes:/var/lib/docker/volumes \
+  -v /:/host \
+  portainer/agent:2.19.5
+echo "Portainer agent has been successfully installed, visit: ADD https://${WANIP}:9001 from portainer UI "
+}
+
+echo "Preparing to install Portainer graphical interface..."
+DEFAULT_VALUE="N"
+prompt="Enter content (Y/N), default value will be used if no input within 10 seconds ( $DEFAULT_VALUE ): "
+read -t 20 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
+: ${USER_INPUT:=$DEFAULT_VALUE}
+if [ "$USER_INPUT" = "Y" ]; then
 install_portainer
+fi
+
+echo "Preparing to install Portainer Agent..."
+DEFAULT_VALUE="N"
+prompt="Enter content (Y/N), default value will be used if no input within 10 seconds ( $DEFAULT_VALUE ): "
+read -t 20 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
+: ${USER_INPUT:=$DEFAULT_VALUE}
+if [ "$USER_INPUT" = "Y" ]; then
+install_portainer_agent
+fi
