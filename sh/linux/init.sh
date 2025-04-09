@@ -92,6 +92,7 @@ else
             apk add qemu-guest-agent tzdata
             rc-update add qemu-guest-agent
             rc-status -a
+            ;;
         *)
             echo "未知的系统类型: $OS"
             ;;
