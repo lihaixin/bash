@@ -9,7 +9,7 @@ sub1_main_menu() {
     echo "################################################################"
     echo "Please select an operation:"
     echo "1) Replace Linux with pure Debian 12"
-    echo "2) Install iKuai system"
+    echo "2) One-click install iKuai system"
     echo "3) One-click install Armbian on physical machine"
     echo "4) One-click install Feiniu NAS on physical machine"
     echo "0) Return to previous menu"
