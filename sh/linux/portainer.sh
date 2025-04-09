@@ -1,17 +1,17 @@
 #!/bin/bash
-echo "准备安装Portainer 图像界面..."
+echo "Preparing to install Portainer graphical interface..."
 
 #######################################################install_portainer########################################################################################
 install_portainer() {
-echo "开启安装macvlan和自定义桥接网络"
+echo "Starting installation of macvlan and custom bridge network"
 
-NETWORK_NAME=vlan                                                  # 定义网络名称
-: ${VNAME:=$(ip route | grep "default via" |awk '{ print $5}')}    # MAC VLAN父设备名称
-# 检查 网络是否已存在
+NETWORK_NAME=vlan                                                  # Define network name
+: ${VNAME:=$(ip route | grep "default via" |awk '{ print $5}')}    # MAC VLAN parent device name
+# Check if the network already exists
 EXISTING_NETWORK=$(docker network ls --format "{{.Name}}" | grep -w "^$NETWORK_NAME$")
 
 if [ -z "$EXISTING_NETWORK" ]; then
-    # 如果网络不存在，则创建网络
+    # If the network does not exist, create it
     docker network create \
       -d macvlan \
       --subnet=172.19.0.0/24 \
@@ -19,27 +19,26 @@ if [ -z "$EXISTING_NETWORK" ]; then
       -o macvlan_mode=bridge \
       -o parent=$VNAME \
       "$NETWORK_NAME" > /dev/null 2>&1
-      echo "网络 $NETWORK_NAME 已成功创建。"
+      echo "Network $NETWORK_NAME has been successfully created."
 else
-    echo "网络 $NETWORK_NAME 已存在，跳过创建。"
+    echo "Network $NETWORK_NAME already exists, skipping creation."
 fi
 
-NETWORK_NAME=cbridge                                                 # 定义网络名称
-# 检查 网络是否已存在
+NETWORK_NAME=cbridge                                                 # Define network name
+# Check if the network already exists
 EXISTING_NETWORK=$(docker network ls --format "{{.Name}}" | grep -w "^$NETWORK_NAME$")
 if [ -z "$EXISTING_NETWORK" ]; then
-    # 如果网络不存在，则创建网络
+    # If the network does not exist, create it
     docker network create -d bridge \
     --subnet=172.20.0.0/24 \
     --gateway=172.20.0.$(( (RANDOM % 53) + 201 )) \
     cbridge 1> /dev/null 2>&1
-    echo "网络 $NETWORK_NAME 已成功创建。"
+    echo "Network $NETWORK_NAME has been successfully created."
 else
-    echo "网络 $NETWORK_NAME 已存在，跳过创建。"
+    echo "Network $NETWORK_NAME already exists, skipping creation."
 fi
 
-
-echo "开始安装toolbox容器"
+echo "Starting installation of toolbox container"
 docker stop toolbox 1> /dev/null 2>&1
 docker rm toolbox 1> /dev/null 2>&1
 docker pull lihaixin/toolbox
@@ -54,29 +53,29 @@ docker run -id \
 lihaixin/toolbox
 
 echo ""
-echo "开始安装Portainer 图像界面"
+echo "Starting installation of Portainer graphical interface"
 DEFAULT_PASSWD="@china1234567"
-prompt="请输入admin密码（直接回车使用默认值 $DEFAULT_PASSWD ）: "
+prompt="Please enter admin password (press Enter to use default password $DEFAULT_PASSWD): "
 USER_PASSWD=""
 while true; do
     read -t 40 -p "$prompt" USER_PASSWD
     if [ -z "$USER_PASSWD" ]; then
         USER_PASSWD=$DEFAULT_PASSWD
-        echo "将使用默认密码: $DEFAULT_PASSWD 进行安装。"
+        echo "Using default password: $DEFAULT_PASSWD for installation."
         break
     elif [ ${#USER_PASSWD} -ge 12 ]; then
-        echo "将使用密码: $USER_PASSWD 进行安装。"
+        echo "Using password: $USER_PASSWD for installation."
         break
     else
-        echo "密码长度不足12位，请重新输入。"
+        echo "Password is less than 12 characters, please re-enter."
     fi
 done
 
 DEFAULT_TEMPLATES="https://dockerfile.15099.net/index.json"
-prompt="请输入你自定义的模板地址，60秒内无输入将采用默认值( $DEFAULT_TEMPLATES ): "
+prompt="Please enter your custom template URL, if no input within 60 seconds, the default value ($DEFAULT_TEMPLATES) will be used: "
 read -t 120 -p "$prompt" USER_TEMPLATES || USER_TEMPLATES=$DEFAULT_TEMPLATES
 : ${USER_TEMPLATES:=$DEFAULT_TEMPLATES}
-echo "将使用模板地址: $USER_TEMPLATES 进行安装。"
+echo "Using template URL: $USER_TEMPLATES for installation."
 
 docker stop ui 1> /dev/null 2>&1
 docker rm ui 1> /dev/null 2>&1
@@ -94,6 +93,6 @@ docker run -d \
 --name ui \
 --restart=always \
 lihaixin/ui:ce-2.19.5
-echo "Portainer成功安装，访问：https://${WANIP}:9443 账号：admin 密码：${USER_PASSWD} "
+echo "Portainer has been successfully installed, visit: https://${WANIP}:9443 Username: admin Password: ${USER_PASSWD}"
 }
 install_portainer
