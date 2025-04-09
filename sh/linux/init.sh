@@ -119,7 +119,6 @@ nameserver 223.5.5.5
 nameserver 114.114.114.114
 EOF
     cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
-    ntpdate cn.pool.ntp.org
 else
     echo "Now adjusting DNS to foreign DNS resolution and timezone"
     # Foreign DNS
@@ -130,7 +129,6 @@ nameserver 1.1.1.1
 EOF
     fi
     cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
-    ntpdate cn.pool.ntp.org
 }
 chang_dns_time
 #######################################################chang_hostname########################################################################################
