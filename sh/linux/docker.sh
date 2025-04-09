@@ -45,8 +45,15 @@ cat <<EOF > /etc/systemd/system/docker.service.d/clear_mount_propagation_flags.c
 [Service]
 MountFlags=shared
 EOF
-    systemctl daemon-reload
-    systemctl restart docker
+    case $OS in
+        debian | ubuntu | armbian )
+                systemctl daemon-reload
+                systemctl restart docker
+                ;;
+        *)
+                echo "Unknown system type: $OS"
+                ;;
+    esac   
     
 elif [ "$USER_INPUT" = "Y" ] && [ "$COUNTRY" != "cn" ]; then
     echo "Now installing Docker CE"
