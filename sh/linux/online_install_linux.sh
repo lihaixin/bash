@@ -2,8 +2,8 @@
 echo "Preparing to install pure Debian 12 system online"
 
 DEFAULT_VALUE="password"
-prompt="Please enter the installation password, using the default value ( $DEFAULT_VALUE ) if no input within 10 seconds: "
-read -t 10 -p "$prompt" PASSWORD || PASSWORD=$DEFAULT_VALUE
+prompt="Please enter the installation password, using the default value ( $DEFAULT_VALUE ) if no input within 20 seconds: "
+read -t 20 -p "$prompt" PASSWORD || PASSWORD=$DEFAULT_VALUE
 : ${PASSWORD:=$DEFAULT_VALUE}
 
 if [ "$COUNTRY" == "cn" ]; then
