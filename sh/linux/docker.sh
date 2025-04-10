@@ -20,13 +20,19 @@ if [ "$USER_INPUT" = "Y" ] && [ "$COUNTRY" = "cn" ]; then
     # curl -fsSL https://bash.15099.net/linux/online_install_docker.sh > /tmp/online_install_docker.sh
     # bash /tmp/online_install_docker.sh --mirror Aliyun --version 26.0.0
     # rm -rf /tmp/online_install_docker.sh
-    if [ "$OS" = "alpine" ]; then
-        apk add docker docker-cli-compose
-        rc-update add docker
-        service docker start
-    else
-        apt install docker.io -y
-    fi
+    case $OS in
+        debian | ubuntu | armbian )
+                apt install docker.io -y
+                ;;
+        alpine )
+                apk add docker docker-cli-compose
+                rc-update add docker
+                service docker start
+                ;;
+        *)
+                echo "Unknown system type: $OS"
+                ;;
+    esac 
     echo "Docker installed successfully, you can check the version using docker info"
     mkdir -p /etc/docker 
 cat <<EOF > /etc/docker/daemon.json
