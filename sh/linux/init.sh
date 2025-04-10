@@ -48,7 +48,7 @@ if [ "$USER_INPUT" = "Y" ] && [ "$COUNTRY" = "cn" ]; then
             # Check if it takes effect
             lsmod | grep tun
             sed -i s'/# http/http/g' /etc/apk/repositories
-            sed -i 's|^\(http://mirrors.hust.edu.cn/alpine/edge/\)|#\1|' /etc/apk/repositories
+            # sed -i 's|^\(http://mirrors.hust.edu.cn/alpine/edge/\)|#\1|' /etc/apk/repositories
             apk upgrade --no-cache --available
             # Install qemu-guest-agent tzdata
             # Add to default startup
@@ -87,8 +87,8 @@ else
 
             # Check if it takes effect
             lsmod | grep tun
-            sed -i s'/#http/http/g' /etc/apk/repositories
-            sed -i 's|^\(http://mirrors.hust.edu.cn/alpine/edge/\)|#\1|' /etc/apk/repositories
+            sed -i s'/# http/http/g' /etc/apk/repositories
+            # sed -i 's|^\(http://mirrors.hust.edu.cn/alpine/edge/\)|#\1|' /etc/apk/repositories
             apk upgrade --no-cache --available
             # Install qemu-guest-agent tzdata
             # Add to default startup
