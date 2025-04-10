@@ -26,8 +26,6 @@ if [ "$USER_INPUT" = "Y" ] && [ "$COUNTRY" = "cn" ]; then
                 ;;
         alpine )
                 apk add docker docker-cli-compose
-                rc-update add docker
-                service docker start
                 ;;
         *)
                 echo "Unknown system type: $OS"
@@ -56,6 +54,10 @@ EOF
                 systemctl daemon-reload
                 systemctl restart docker
                 ;;
+        alpine )
+                rc-update add docker
+                service docker start
+                ;;
         *)
                 echo "Unknown system type: $OS"
                 ;;
@@ -74,8 +76,6 @@ elif [ "$USER_INPUT" = "Y" ] && [ "$COUNTRY" != "cn" ]; then
                 ;;
         alpine )
                 apk add docker docker-cli-compose
-                rc-update add docker
-                service docker start
                 ;;
         *)
                 echo "Unknown system type: $OS"
@@ -106,6 +106,10 @@ EOF
         debian | ubuntu | armbian )
                 systemctl daemon-reload
                 systemctl restart docker
+                ;;
+        alpine )
+                rc-update add docker
+                service docker start
                 ;;
         *)
                 echo "Unknown system type: $OS"
