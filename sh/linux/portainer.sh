@@ -76,6 +76,16 @@ read -t 120 -p "$prompt" USER_TEMPLATES || USER_TEMPLATES=$DEFAULT_TEMPLATES
 : ${USER_TEMPLATES:=$DEFAULT_TEMPLATES}
 echo "Using template URL: $USER_TEMPLATES for installation."
 
+# 检查 Docker 版本
+DOCKER_VERSION=$(docker --version | grep -oP '\d+\.\d+\.\d+')
+VERSION_CHECK=$(echo -e "$DOCKER_VERSION\n26.0.0" | sort -V | head -n 1)
+
+if [ "$VERSION_CHECK" = "26.0.0" ]; then
+    IMAGE="lihaixin/ui:ce-2.21.5"
+else
+    IMAGE="lihaixin/ui:ce-2.19.5"
+fi
+    
 docker stop ui 1> /dev/null 2>&1
 docker rm ui 1> /dev/null 2>&1
 docker pull lihaixin/ui:ce-2.19.5
@@ -91,7 +101,7 @@ docker run -d \
 -e NO=9999210012301280103 \
 --name ui \
 --restart=always \
-lihaixin/ui:ce-2.19.5
+$IMAGE
 echo "Portainer has been successfully installed, visit: https://${WANIP}:9443 Username: admin Password: ${USER_PASSWD}"
 }
 
