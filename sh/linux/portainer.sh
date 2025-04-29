@@ -3,39 +3,76 @@
 #######################################################install_portainer########################################################################################
 install_portainer() {
 echo "Starting installation of macvlan and custom bridge network"
+echo "Choose the type of network you want to create:"
+echo "1) Physical LAN adapter (macvlan)"
+echo "2) Wireless LAN adapter (ipvlan)"
+echo "3) Custom bridge network(bridge)"
+read -p "Enter your choice (1/2/3): " network_choice
 
-NETWORK_NAME=vlan                                                  # Define network name
-: ${VNAME:=$(ip route | grep "default via" |awk '{ print $5}')}    # MAC VLAN parent device name
-# Check if the network already exists
-EXISTING_NETWORK=$(docker network ls --format "{{.Name}}" | grep -w "^$NETWORK_NAME$")
-
-if [ -z "$EXISTING_NETWORK" ]; then
-    # If the network does not exist, create it
-    docker network create \
-      -d macvlan \
-      --subnet=172.19.0.0/24 \
-      --gateway=172.19.0.$(( (RANDOM % 53) + 201 )) \
-      -o macvlan_mode=bridge \
-      -o parent=$VNAME \
-      "$NETWORK_NAME" > /dev/null 2>&1
-      echo "Network $NETWORK_NAME has been successfully created."
-else
-    echo "Network $NETWORK_NAME already exists, skipping creation."
-fi
-
-NETWORK_NAME=cbridge                                                 # Define network name
-# Check if the network already exists
-EXISTING_NETWORK=$(docker network ls --format "{{.Name}}" | grep -w "^$NETWORK_NAME$")
-if [ -z "$EXISTING_NETWORK" ]; then
-    # If the network does not exist, create it
-    docker network create -d bridge \
-    --subnet=172.20.0.0/24 \
-    --gateway=172.20.0.$(( (RANDOM % 53) + 201 )) \
-    cbridge 1> /dev/null 2>&1
-    echo "Network $NETWORK_NAME has been successfully created."
-else
-    echo "Network $NETWORK_NAME already exists, skipping creation."
-fi
+case $network_choice in
+  1)
+    echo "Creating macvlan network..."
+    NETWORK_NAME=vlan                                                  # Define network name
+    : ${VNAME:=$(ip route | grep "default via" |awk '{ print $5}')}    # MAC VLAN parent device name
+    # Check if the network already exists
+    EXISTING_NETWORK=$(docker network ls --format "{{.Name}}" | grep -w "^$NETWORK_NAME$")
+    
+    if [ -z "$EXISTING_NETWORK" ]; then
+        # If the network does not exist, create it
+        docker network create \
+          -d macvlan \
+          --subnet=172.19.0.0/24 \
+          --gateway=172.19.0.$(( (RANDOM % 53) + 201 )) \
+          -o macvlan_mode=bridge \
+          -o parent=$VNAME \
+          "$NETWORK_NAME" > /dev/null 2>&1
+        echo "Creating macvlan Network $NETWORK_NAME has been successfully created."
+    else
+        echo "Creating macvlan Network $NETWORK_NAME already exists, skipping creation."
+    fi
+    ;;
+  2)
+    echo "Creating ipvlan network..."
+    NETWORK_NAME=vlan                                                  # Define network name
+    : ${VNAME:=$(ip route | grep "default via" |awk '{ print $5}')}    # MAC VLAN parent device name
+    # Check if the network already exists
+    EXISTING_NETWORK=$(docker network ls --format "{{.Name}}" | grep -w "^$NETWORK_NAME$")
+    
+    if [ -z "$EXISTING_NETWORK" ]; then
+        # If the network does not exist, create it
+        docker network create \
+          -d ipvlan \
+          --subnet=172.19.0.0/24 \
+          --gateway=172.19.0.$(( (RANDOM % 53) + 201 )) \
+          -o macvlan_mode=bridge \
+          -o parent=$VNAME \
+          "$NETWORK_NAME" > /dev/null 2>&1
+        echo "Creating ipvlan Network $NETWORK_NAME has been successfully created."
+    else
+        echo "Creating ipvlan Network $NETWORK_NAME already exists, skipping creation."
+    fi
+    ;;
+  3)
+    echo "Creating custom bridge network..."
+    NETWORK_NAME=vlan                                                # Define network name
+    # Check if the network already exists
+    EXISTING_NETWORK=$(docker network ls --format "{{.Name}}" | grep -w "^$NETWORK_NAME$")
+    if [ -z "$EXISTING_NETWORK" ]; then
+        # If the network does not exist, create it
+        docker network create -d bridge \
+        --subnet=172.19.0.0/24 \
+        --gateway=172.19.0.$(( (RANDOM % 53) + 201 )) \
+        "$NETWORK_NAME" 1> /dev/null 2>&1
+        echo "Custom Network bridge $NETWORK_NAME has been successfully created."
+    else
+        echo "Network $NETWORK_NAME already exists, skipping creation."
+    fi
+    ;;
+  *)
+    echo "Invalid choice. Exiting script."
+    exit 1
+    ;;
+esac
 
 echo "Starting installation of toolbox container"
 docker stop toolbox 1> /dev/null 2>&1
