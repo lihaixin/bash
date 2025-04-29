@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # List all block devices
 echo "Available disk list:"
 lsblk -d -o NAME,SIZE,TYPE
