@@ -1,0 +1,35 @@
+name: Shellcheck Lint
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  shellcheck:
+    name: Run Shellcheck
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Shellcheck
+        run: sudo apt-get update && sudo apt-get install -y shellcheck
+
+      - name: Run Shellcheck and save output
+        run: |
+          # 创建日志目录
+          mkdir -p logs
+          # 查找所有 .sh 文件并运行 shellcheck，将结果保存到 logs/shellcheck.log
+          find ./sh/linux -type f -name "*.sh" -exec shellcheck {} + > logs/shellcheck.log
+        # 将日志文件上传为工作流的输出工件
+      - name: Upload Shellcheck logs
+        uses: actions/upload-artifact@v3
+        with:
+          name: shellcheck-logs
+          path: logs/shellcheck.log
