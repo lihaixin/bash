@@ -29,7 +29,7 @@ jobs:
           find ./sh/linux -type f -name "*.sh" -exec shellcheck {} + > logs/shellcheck.log
         # 将日志文件上传为工作流的输出工件
       - name: Upload Shellcheck logs
-        uses: actions/upload-artifact@v3.1.2
+        uses: actions/upload-artifact@v4
         with:
           name: shellcheck-logs
           path: logs/shellcheck.log
