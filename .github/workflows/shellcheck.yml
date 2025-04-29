@@ -23,6 +23,7 @@ jobs:
 
       - name: Run Shellcheck and save output
         run: |
+          set -x  # 开启调试模式
           # 创建日志目录
           mkdir -p logs
           # 查找所有 .sh 文件并运行 shellcheck，将结果保存到 logs/shellcheck.log
