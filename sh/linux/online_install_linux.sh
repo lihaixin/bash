@@ -5,8 +5,8 @@ log_message INFO "Preparing to install pure Debian 12 system online..."
 
 # 设置默认密码并提示用户输入
 DEFAULT_VALUE="password"
-prompt="Please enter the installation password, using the default value ($DEFAULT_VALUE) if no input within 20 seconds: "
-read -t 20 -p "$prompt" PASSWORD || PASSWORD=$DEFAULT_VALUE
+prompt="Please enter the installation password, using the default value ($DEFAULT_VALUE) if no input within 60 seconds: "
+read_with_message "$prompt" PASSWORD || PASSWORD=$DEFAULT_VALUE
 log_message INFO "Using installation password: $PASSWORD"
 
 # 根据国家选择下载 URL
