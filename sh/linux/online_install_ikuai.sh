@@ -48,10 +48,10 @@ fi
 log_message INFO "Preparing to reboot. Please open the VNC interface on the cloud host operation page of Tencent Cloud or Alibaba Cloud."
 
 DEFAULT_VALUE="N"
-prompt="Please enter Y/N. If no input within 10 seconds, the default value (N) will be used: "
+prompt="Please enter Y/N. If no input within 60 seconds, the default value (N) will be used: "
 
 # 等待用户输入
-read -t 10 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
+read_with_message "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
 : ${USER_INPUT:=$DEFAULT_VALUE}
 
 if [ "$USER_INPUT" = "Y" ]; then
