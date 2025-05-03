@@ -19,8 +19,9 @@ main_menu() {
     log_message INFO "5) Host bench stress test | Disk, network speed test"
     log_message INFO "6) Host unixbench stress test | CPU, memory test"
     log_message INFO "0) Exit the bash"
-
-    read_with_message "Enter option: " choice
+    DEFAULT_VALUE="0"
+    read_with_message "Enter option: " choice || choice=$DEFAULT_VALUE
+    : ${choice:=$DEFAULT_VALUE}
     case $choice in
         1)
             run_script1
