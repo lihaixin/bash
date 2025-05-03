@@ -6,8 +6,8 @@ chang_repo() {
     log_message INFO "Adjusting repository information, upgrading the system, and installing basic packages..."
 
     DEFAULT_VALUE="Y"
-    prompt="Enter content (Y/N), default value will be used if no input within 10 seconds ($DEFAULT_VALUE): "
-    read -t 20 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
+    prompt="Enter content (Y/N), default value will be used if no input within 60 seconds ($DEFAULT_VALUE): "
+    read_with_message "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
     : ${USER_INPUT:=$DEFAULT_VALUE}
 
     if [ "$USER_INPUT" = "Y" ] && [ "$COUNTRY" = "cn" ]; then
@@ -81,8 +81,8 @@ chang_dns_time() {
     log_message INFO "Adjusting system DNS and timezone..."
 
     DEFAULT_VALUE="Y"
-    prompt="Enter content (Y/N), default value will be used if no input within 10 seconds ($DEFAULT_VALUE): "
-    read -t 20 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
+    prompt="Enter content (Y/N), default value will be used if no input within 60 seconds ($DEFAULT_VALUE): "
+    read_with_message "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
     : ${USER_INPUT:=$DEFAULT_VALUE}
 
     if [ "$USER_INPUT" = "Y" ] && [ "$COUNTRY" = "cn" ]; then
