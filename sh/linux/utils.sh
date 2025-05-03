@@ -44,6 +44,3 @@ read_with_message() {
     local variable_name="$2"
     read -p "${CYAN}[$(date '+%Y-%m-%d %H:%M:%S')] ${BLUE}[INFO]${NC}$prompt_message: " -r "$variable_name"
 }
-
-# 重定向标准输出和标准错误到日志文件，同时显示在终端
-exec > >(tee -a "$LOG_FILE") 2>&1
