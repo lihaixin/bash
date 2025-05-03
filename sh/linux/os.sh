@@ -37,18 +37,18 @@ log_message() {
 sub1_main_menu() {
     clear
     log_message INFO "Displaying the OS management menu..."
-    echo "################################################################"
-    echo "#   Welcome to https://bash.15099.net OS Management System      "
-    echo "#   Is the host a virtual platform: $VIRTUAL_PLATFORM            "
-    echo "#   Host memory size (MB): $MEM_TOTAL Disk size: $DISK_TOTAL     "
-    echo "#   Host IP address: $WANIP        IP country: $COUNTRY          "
-    echo "################################################################"
-    echo "Please select an operation:"
-    echo "1) Replace Linux with pure Debian 12"
-    echo "2) One-click install iKuai system"
-    echo "3) One-click install Armbian on physical machine"
-    echo "4) One-click install Feiniu NAS on physical machine"
-    echo "0) Return to previous menu"
+    log_message INFO "################################################################"
+    log_message INFO "#   Welcome to https://bash.15099.net OS Management System      "
+    log_message INFO "#   Is the host a virtual platform: $VIRTUAL_PLATFORM            "
+    log_message INFO "#   Host memory size (MB): $MEM_TOTAL Disk size: $DISK_TOTAL     "
+    log_message INFO "#   Host IP address: $WANIP        IP country: $COUNTRY          "
+    log_message INFO "################################################################"
+    log_message INFO "Please select an operation:"
+    log_message INFO "1) Replace Linux with pure Debian 12"
+    log_message INFO "2) One-click install iKuai system"
+    log_message INFO "3) One-click install Armbian on physical machine"
+    log_message INFO "4) One-click install Feiniu NAS on physical machine"
+    log_message INFO "0) Return to previous menu"
 
     read -p "Enter choice: " choice
     case $choice in
