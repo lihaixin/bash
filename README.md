@@ -5,13 +5,14 @@
 bash <(curl -sSL https://bash.15099.net)
 ```
 ## 局限
-目前脚本只适配 Debian Ubuntu Armbian(ubuntu)
+目前脚本只适配 Alpine Debian Ubuntu Armbian(ubuntu)
 
 选择这三个发行版原因
 
-1. Debian 我个人一直使用的稳定发行版，proxmox也是基于此发行版
-2. Ubuntu 考虑大部分第一次接触linux，用的就是这个版本
-3. Armbian 主要方便物理机部署，直接DD安装，推荐使用ubuntu发行版Server / CLI，支持qcow2和img下载
+1. Alpine 占有资源非常少，迷你低耗工控机首选、也是ikuai虚拟机首选
+2. Debian 我个人一直使用的稳定发行版，proxmox fnnas 也是基于此发行版
+3. Ubuntu 考虑大部分第一次接触linux，用的就是这个版本
+4. Armbian 主要方便物理机部署，直接DD安装，推荐使用ubuntu发行版Server / CLI，支持qcow2和img下载
    
 ## 脚本内容
 
