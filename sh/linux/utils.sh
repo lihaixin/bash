@@ -21,19 +21,19 @@ log_message() {
 
     case $type in
         INFO)
-            echo -e "${CYAN}[$(date '+%Y-%m-%d %H:%M:%S')] ${BLUE}[INFO]${NC} $message"
+            echo -e "${BLUE}[INFO]${NC} $message"
             ;;
         SUCCESS)
-            echo -e "${CYAN}[$(date '+%Y-%m-%d %H:%M:%S')] ${GREEN}[SUCCESS]${NC} $message"
+            echo -e "${GREEN}[SUCCESS]${NC} $message"
             ;;
         WARNING)
-            echo -e "${CYAN}[$(date '+%Y-%m-%d %H:%M:%S')] ${YELLOW}[WARNING]${NC} $message"
+            echo -e "${YELLOW}[WARNING]${NC} $message"
             ;;
         ERROR)
-            echo -e "${CYAN}[$(date '+%Y-%m-%d %H:%M:%S')] ${RED}[ERROR]${NC} $message"
+            echo -e "${RED}[ERROR]${NC} $message"
             ;;
         *)
-            echo -e "${CYAN}[$(date '+%Y-%m-%d %H:%M:%S')] ${NC}$message"
+            echo -e "${NC}$message"
             ;;
     esac
 }
