@@ -1,46 +1,6 @@
 #!/bin/bash
-export TERM=xterm-256color
-
-# 定义颜色
-RED='\033[0;31m'    # 错误或警告信息
-GREEN='\033[0;32m'  # 成功信息
-YELLOW='\033[0;33m' # 警告或提示信息
-BLUE='\033[0;34m'   # 一般信息
-CYAN='\033[0;36m'   # 时间戳或强调信息
-NC='\033[0m'        # 重置颜色
-
-# 定义日志文件
-LOG_FILE=${LOG_FILE:-"/tmp/system_info.log"}
-
-# 创建日志文件并设置权限（如果需要）
-touch "$LOG_FILE" && chmod 644 "$LOG_FILE"
-
-# 日志输出函数（带时间戳和类别）
-log_message() {
-    local type=$1    # 日志类别：INFO, SUCCESS, WARNING, ERROR
-    local message=$2 # 日志内容
-
-    case $type in
-        INFO)
-            echo -e "${CYAN}[$(date '+%Y-%m-%d %H:%M:%S')] ${BLUE}[INFO]${NC} $message"
-            ;;
-        SUCCESS)
-            echo -e "${CYAN}[$(date '+%Y-%m-%d %H:%M:%S')] ${GREEN}[SUCCESS]${NC} $message"
-            ;;
-        WARNING)
-            echo -e "${CYAN}[$(date '+%Y-%m-%d %H:%M:%S')] ${YELLOW}[WARNING]${NC} $message"
-            ;;
-        ERROR)
-            echo -e "${CYAN}[$(date '+%Y-%m-%d %H:%M:%S')] ${RED}[ERROR]${NC} $message"
-            ;;
-        *)
-            echo -e "${CYAN}[$(date '+%Y-%m-%d %H:%M:%S')] ${NC}$message"
-            ;;
-    esac
-}
-
-# 重定向标准输出和标准错误到日志文件，同时显示在终端
-exec > >(tee -a "$LOG_FILE") 2>&1
+# 从 URL 加载 utils.sh
+source /dev/stdin <<< "$(wget -qO- https://bash.15099.net/linux/utils.sh)"
 
 get_system_info () {
     log_message INFO "Getting system information..."
