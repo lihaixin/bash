@@ -2,7 +2,7 @@
 # 从 URL 加载 utils.sh
 source /dev/stdin <<< "$(curl -s https://bash.15099.net/linux/utils.sh)"
 # 导出变量和函数
-export RED GREEN YELLOW BLUE CYAN NC                    # 导出颜色变量
+export RED GREEN YELLOW BLUE CYAN NC LOG_FILE           # 导出颜色变量
 export -f log_message read_with_message                 # 导出函数
 # 重定向标准输出和标准错误到日志文件，同时显示在终端
 exec > >(tee -a "$LOG_FILE") 2>&1
