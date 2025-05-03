@@ -1,5 +1,32 @@
 #!/bin/bash
 export TERM=xterm-256color
+# 定义颜色
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+NC='\033[0m'
+
+# 定义日志文件
+LOG_FILE=${LOG_FILE:-"$HOME/system_info.log"}
+
+# 创建日志文件并设置权限（如果需要）
+touch "$LOG_FILE" && chmod 644 "$LOG_FILE"
+
+# 重定向标准输出和标准错误到日志文件，同时显示在终端
+exec > >(tee -a "$LOG_FILE") 2>&1
+
+# 为日志添加时间戳
+log_with_timestamp() {
+    while IFS= read -r line; do
+        echo "[$(date '+%Y-%m-%d %H:%M:%S')] $line"
+    done
+}
+
+# 通过管道给日志输出添加时间戳
+exec > >(log_with_timestamp | tee -a "$LOG_FILE") 2>&1
+
 get_system_info () {
     echo "Getting system information..."
 
