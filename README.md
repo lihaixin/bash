@@ -2,7 +2,7 @@
 个人收集整理的脚本，通过主菜单调用，方便快速部署
 
 ```
-bash <(curl -sL https://bash.15099.net)
+bash <(curl -sSL https://bash.15099.net)
 ```
 ## 局限
 目前脚本只适配 Debian Ubuntu Armbian(ubuntu)
