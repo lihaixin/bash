@@ -143,6 +143,16 @@ echo "Portainer has been successfully installed, visit: https://${WANIP}:9443 Us
 }
 
 install_portainer_agent(){
+# 检查 Docker 版本
+DOCKER_VERSION=$(docker --version | grep -oP '\d+\.\d+\.\d+')
+VERSION_CHECK=$(echo -e "$DOCKER_VERSION\n26.0.0" | sort -V | head -n 1)
+
+if [ "$VERSION_CHECK" = "26.0.0" ]; then
+    IMAGE="portainer/agent:2.21.5"
+else
+    IMAGE="portainer/agent:2.19.5"
+fi
+
 docker run -d \
   -p 9001:9001 \
   --name portainer_agent \
@@ -150,7 +160,7 @@ docker run -d \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v /var/lib/docker/volumes:/var/lib/docker/volumes \
   -v /:/host \
-  portainer/agent:2.19.5
+  $IMAGE
 echo "Portainer agent has been successfully installed, visit: ADD https://${WANIP}:9001 from portainer UI "
 }
 
