@@ -27,6 +27,14 @@ log_with_timestamp() {
 # 通过管道给日志输出添加时间戳
 exec > >(log_with_timestamp | tee -a "$LOG_FILE") 2>&1
 
+# 检查用户权限
+check_user() {
+    if [[ "$(id -u)" -ne 0 ]]; then
+        echo -e "${RED}[ERROR] This script requires root privileges. Please use sudo or switch to the root user.${NC}"
+        exit 1
+    fi
+}
+
 # 检查必要工具是否安装
 check_dependencies() {
     local missing_cmds=()
@@ -45,14 +53,29 @@ check_dependencies() {
     fi
 }
 
+# 检测操作系统
+detect_os() {
+    source /etc/os-release
+    export ID
+    case "$ID" in
+        debian|ubuntu|alpine|centos|fedora|arch)
+            echo -e "${GREEN}[INFO] Current operating system: $ID${NC}"
+            ;;
+        *)
+            echo -e "${RED}[ERROR] Unsupported operating system. Please use a common Linux distribution.${NC}"
+            exit 1
+            ;;
+    esac
+}
+
 # 获取公共 IP 地址
 get_public_ip() {
     local services=("https://ipinfo.io/ip" "https://api.ipify.org" "https://ifconfig.co/ip" "https://icanhazip.com")
-    local ip=""
+    export wanip=""
     for service in "${services[@]}"; do
-        ip=$(curl --max-time 5 -s "$service")
+        wanip=$(curl --max-time 5 -s "$service")
         if [[ -n $ip ]]; then
-            echo -e "${BLUE}[INFO] Public IP address: $ip${NC}"
+            echo -e "${BLUE}[INFO] Public IP address: $wanip${NC}"
             return
         fi
     done
@@ -62,14 +85,14 @@ get_public_ip() {
 
 # 获取系统内存总量
 get_memory_info() {
-    local mem_total
+    export mem_total
     mem_total=$(free -m | awk '/Mem:/ {print $2}')
     echo -e "${CYAN}[INFO] Total memory (MB): $mem_total${NC}"
 }
 
 # 获取磁盘总量
 get_disk_info() {
-    local disk_total
+    export disk_total
     disk_total=$(df -h / | awk 'NR==2 {print $2}')
     echo -e "${CYAN}[INFO] Total disk size: $disk_total${NC}"
 }
@@ -89,27 +112,8 @@ detect_virtualization() {
     fi
 }
 
-# 检测操作系统
-detect_os() {
-    source /etc/os-release
-    case "$ID" in
-        debian|ubuntu|alpine|centos|fedora|arch)
-            echo -e "${GREEN}[INFO] Current operating system: $ID${NC}"
-            ;;
-        *)
-            echo -e "${RED}[ERROR] Unsupported operating system. Please use a common Linux distribution.${NC}"
-            exit 1
-            ;;
-    esac
-}
 
-# 检查用户权限
-check_user() {
-    if [[ "$(id -u)" -ne 0 ]]; then
-        echo -e "${RED}[ERROR] This script requires root privileges. Please use sudo or switch to the root user.${NC}"
-        exit 1
-    fi
-}
+
 
 # 主程序入口
 main() {
