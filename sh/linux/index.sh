@@ -31,6 +31,12 @@ log_message() {
             ;;
     esac
 }
+# 使用 read_with_message
+read_with_message() {
+    local prompt_message="$1"
+    local variable_name="$2"
+    read -p "${CYAN}[$(date '+%Y-%m-%d %H:%M:%S')] ${BLUE}[INFO]${NC}$prompt_message: " -r "$variable_name"
+}
 
 # 主菜单函数
 # 提供用户操作选项
@@ -53,7 +59,7 @@ main_menu() {
     log_message INFO "6) Host unixbench stress test | CPU, memory test"
     log_message INFO "0) Return to the previous menu"
 
-    read -p "Enter option: " -r choice
+    read_with_message "Enter option: " choice
     case $choice in
         1)
             run_script1
