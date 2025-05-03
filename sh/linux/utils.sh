@@ -43,7 +43,7 @@ read_with_message() {
     local prompt_message="$1"
     local variable_name="$2"
     # 打印带颜色的提示信息
-    printf "${CYAN}[$(date '+%Y-%m-%d %H:%M:%S')] ${BLUE}[INFO]${NC} $prompt_message: "
+    printf "${BLUE}[INFO]${NC} $prompt_message: "
     
     # 读取用户输入
     read -t 60 -r $variable_name
