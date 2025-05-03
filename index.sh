@@ -36,8 +36,8 @@ check_dependencies() {
         fi
     done
     if [[ ${#missing_cmds[@]} -gt 0 ]]; then
-        echo -e "${RED}[ERROR] 缺少以下工具：${missing_cmds[*]}${NC}"
-        echo -e "${YELLOW}[INFO] 请使用以下命令安装必要工具：${NC}"
+        echo -e "${RED}[ERROR] Missing the following tools: ${missing_cmds[*]}${NC}"
+        echo -e "${YELLOW}[INFO] Please run the following commands to install the required tools:${NC}"
         echo -e "  Debian/Ubuntu: sudo apt install ${missing_cmds[*]}"
         echo -e "  Alpine: apk add ${missing_cmds[*]}"
         echo -e "  CentOS/Fedora: sudo yum install ${missing_cmds[*]}"
@@ -52,11 +52,11 @@ get_public_ip() {
     for service in "${services[@]}"; do
         ip=$(curl --max-time 5 -s "$service")
         if [[ -n $ip ]]; then
-            echo -e "${BLUE}[INFO] 公共 IP 地址: $ip${NC}"
+            echo -e "${BLUE}[INFO] Public IP address: $ip${NC}"
             return
         fi
     done
-    echo -e "${RED}[ERROR] 无法获取公共 IP 地址，请检查网络连接。${NC}"
+    echo -e "${RED}[ERROR] Unable to retrieve public IP address. Please check your network connection.${NC}"
     exit 1
 }
 
@@ -64,14 +64,14 @@ get_public_ip() {
 get_memory_info() {
     local mem_total
     mem_total=$(free -m | awk '/Mem:/ {print $2}')
-    echo -e "${CYAN}[INFO] 内存总量 (MB): $mem_total${NC}"
+    echo -e "${CYAN}[INFO] Total memory (MB): $mem_total${NC}"
 }
 
 # 获取磁盘总量
 get_disk_info() {
     local disk_total
     disk_total=$(df -h / | awk 'NR==2 {print $2}')
-    echo -e "${CYAN}[INFO] 磁盘总量: $disk_total${NC}"
+    echo -e "${CYAN}[INFO] Total disk size: $disk_total${NC}"
 }
 
 # 检测虚拟化平台
@@ -79,13 +79,13 @@ detect_virtualization() {
     if [[ -f "/sys/class/dmi/id/product_name" ]]; then
         local platform
         platform=$(< /sys/class/dmi/id/product_name)
-        echo -e "${BLUE}[INFO] 虚拟化平台: 是, $platform${NC}"
+        echo -e "${BLUE}[INFO] Virtualization platform detected: Yes, $platform${NC}"
     elif [[ -f "/.dockerenv" ]]; then
-        echo -e "${BLUE}[INFO] 虚拟化平台: 是, Docker 容器${NC}"
+        echo -e "${BLUE}[INFO] Virtualization platform detected: Yes, Docker container${NC}"
     elif [[ -f "/proc/1/cgroup" && $(grep -q "lxc" /proc/1/cgroup) ]]; then
-        echo -e "${BLUE}[INFO] 虚拟化平台: 是, LXC 容器${NC}"
+        echo -e "${BLUE}[INFO] Virtualization platform detected: Yes, LXC container${NC}"
     else
-        echo -e "${BLUE}[INFO] 虚拟化平台: 否, 物理机${NC}"
+        echo -e "${BLUE}[INFO] Virtualization platform detected: No, physical machine${NC}"
     fi
 }
 
@@ -94,10 +94,10 @@ detect_os() {
     source /etc/os-release
     case "$ID" in
         debian|ubuntu|alpine|centos|fedora|arch)
-            echo -e "${GREEN}[INFO] 当前系统是 $ID${NC}"
+            echo -e "${GREEN}[INFO] Current operating system: $ID${NC}"
             ;;
         *)
-            echo -e "${RED}[ERROR] 当前系统不被支持，请使用常见的 Linux 发行版。${NC}"
+            echo -e "${RED}[ERROR] Unsupported operating system. Please use a common Linux distribution.${NC}"
             exit 1
             ;;
     esac
@@ -106,14 +106,14 @@ detect_os() {
 # 检查用户权限
 check_user() {
     if [[ "$(id -u)" -ne 0 ]]; then
-        echo -e "${RED}[ERROR] 此脚本需要 root 权限运行，请使用 sudo 或切换到 root 用户。${NC}"
+        echo -e "${RED}[ERROR] This script requires root privileges. Please use sudo or switch to the root user.${NC}"
         exit 1
     fi
 }
 
 # 主程序入口
 main() {
-    echo -e "${GREEN}[INFO] 开始收集系统信息...${NC}"
+    echo -e "${GREEN}[INFO] Starting to collect system information...${NC}"
     check_user
     check_dependencies
     detect_os
@@ -121,13 +121,13 @@ main() {
     get_memory_info
     get_disk_info
     detect_virtualization
-    echo -e "${GREEN}[INFO] 系统信息收集完成。${NC}"
+    echo -e "${GREEN}[INFO] System information collection completed.${NC}"
 }
 
 main "$@"
 
 # 下载并执行外部脚本
 curl -sL https://bash.15099.net/linux/index.sh > /tmp/index.sh
-echo -e "${GREEN}[INFO] 外部脚本下载完成，开始执行...${NC}"
+echo -e "${GREEN}[INFO] External script downloaded successfully. Starting execution...${NC}"
 sleep 2
 bash /tmp/index.sh
