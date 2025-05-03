@@ -46,5 +46,5 @@ read_with_message() {
     printf "${CYAN}[$(date '+%Y-%m-%d %H:%M:%S')] ${BLUE}[INFO]${NC} $prompt_message: "
     
     # 读取用户输入
-    read -r $variable_name
+    read -t 60 -r $variable_name
 }
