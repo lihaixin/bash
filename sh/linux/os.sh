@@ -18,7 +18,7 @@ sub1_main_menu() {
     log_message INFO "4) One-click install Feiniu NAS on physical machine"
     log_message INFO "0) Return to previous menu"
 
-    read -p "Enter choice: " choice
+    read_with_message "Enter choice: " choice
     case $choice in
         1) sub1_run_script1 ;;
         2) sub1_run_script2 ;;
@@ -40,7 +40,7 @@ sub1_run_script1() {
     else
         log_message ERROR "Failed to download or execute the script for Debian 12 replacement."
     fi
-    read -p "Press Enter to continue..."
+    # read -p "Press Enter to continue..."
     sub1_main_menu
 }
 
@@ -55,7 +55,7 @@ sub1_run_script2() {
     else
         log_message ERROR "Failed to download or execute the script for iKuai installation."
     fi
-    read -p "Press Enter to continue..."
+    # read -p "Press Enter to continue..."
     sub1_main_menu
 }
 
@@ -70,7 +70,7 @@ sub1_run_script3() {
     else
         log_message ERROR "Failed to download or execute the script for Armbian installation."
     fi
-    read -p "Press Enter to continue..."
+    # read -p "Press Enter to continue..."
     sub1_main_menu
 }
 
@@ -85,7 +85,7 @@ sub1_run_script4() {
     else
         log_message ERROR "Failed to download or execute the script for Feiniu NAS installation."
     fi
-    read -p "Press Enter to continue..."
+    # read -p "Press Enter to continue..."
     sub1_main_menu
 }
 
