@@ -87,7 +87,7 @@ install_portainer() {
     prompt="Please enter admin password (press Enter to use default password $DEFAULT_PASSWD): "
     USER_PASSWD=""
     while true; do
-        read -t 40 -p "$prompt" USER_PASSWD
+        read_with_message "$prompt" USER_PASSWD
         if [ -z "$USER_PASSWD" ]; then
             USER_PASSWD=$DEFAULT_PASSWD
             log_message INFO "Using default password: $DEFAULT_PASSWD for installation."
