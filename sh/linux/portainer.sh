@@ -2,11 +2,11 @@
 
 #######################################################install_portainer########################################################################################
 install_portainer() {
-echo "Starting installation of macvlan and custom bridge network"
+echo "Starting installation of vlan network or custom bridge network"
 echo "Choose the type of network you want to create:"
 echo "1) Physical LAN adapter (macvlan)"
 echo "2) Wireless LAN adapter (ipvlan)"
-echo "3) Custom bridge network(bridge)"
+echo "3) Cloudhost LAN network (bridge)"
 read -p "Enter your choice (1/2/3): " network_choice
 
 case $network_choice in
@@ -53,7 +53,7 @@ case $network_choice in
     fi
     ;;
   3)
-    echo "Creating custom bridge network..."
+    echo "Cloudhost LAN network (bridge)..."
     NETWORK_NAME=vlan                                                # Define network name
     # Check if the network already exists
     EXISTING_NETWORK=$(docker network ls --format "{{.Name}}" | grep -w "^$NETWORK_NAME$")
