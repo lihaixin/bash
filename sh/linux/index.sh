@@ -63,7 +63,7 @@ run_script1() {
     else
         log_message ERROR "Failed to download or execute script 1."
     fi
-    read -p "Press Enter to continue..."
+    # read -p "Press Enter to continue..."
     main_menu
 }
 
@@ -78,7 +78,7 @@ run_script2() {
     else
         log_message ERROR "Failed to download or execute script 2."
     fi
-    read -p "Press Enter to continue..."
+    # read -p "Press Enter to continue..."
     main_menu
 }
 
@@ -93,7 +93,7 @@ run_script3() {
     else
         log_message ERROR "Failed to download or execute script 3."
     fi
-    read -p "Press Enter to continue..."
+    # read -p "Press Enter to continue..."
     main_menu
 }
 
@@ -108,7 +108,7 @@ run_script4() {
     else
         log_message ERROR "Failed to download or execute script 4."
     fi
-    read -p "Press Enter to continue..."
+    # read -p "Press Enter to continue..."
     main_menu
 }
 
@@ -123,7 +123,7 @@ run_script5() {
     else
         log_message ERROR "Failed to download or execute script 5."
     fi
-    read -p "Press Enter to continue..."
+    # read -p "Press Enter to continue..."
     main_menu
 }
 
@@ -138,7 +138,7 @@ run_script6() {
     else
         log_message ERROR "Failed to download or execute script 6."
     fi
-    read -p "Press Enter to continue..."
+    # read -p "Press Enter to continue..."
     main_menu
 }
 
