@@ -33,7 +33,7 @@ log_message() {
             echo -e "${RED}[ERROR]${NC} $message"
             ;;
         *)
-            echo -e "${NC}$message"
+            echo -e "${RED}[OTHER]${NC}$message"
             ;;
     esac
 }
