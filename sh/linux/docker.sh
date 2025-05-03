@@ -6,10 +6,10 @@ install_docker() {
     
     # 设置默认值和提示信息
     DEFAULT_VALUE="Y"
-    prompt="Please enter (Y/N) to confirm if you want to install Docker CE now, the default value ($DEFAULT_VALUE) will be used if no input is provided within 20 seconds: "
+    prompt="Please enter (Y/N) to confirm if you want to install Docker CE now, the default value ($DEFAULT_VALUE) will be used if no input is provided within 60 seconds: "
 
     # 等待用户输入
-    read -t 10 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
+    read_with_message "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
     : ${USER_INPUT:=$DEFAULT_VALUE}
 
     # 用户选择安装 Docker 并判断国家
