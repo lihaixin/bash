@@ -5,7 +5,7 @@ log_message INFO "Available disk list:"
 lsblk -d -o NAME,SIZE,TYPE
 
 # 提示用户输入目标磁盘的路径
-read -p "Please enter the full path of the target disk (e.g., /dev/sdb): " target_disk
+read_with_message "Please enter the full path of the target disk (e.g., /dev/sdb): " target_disk
 
 # 检查目标磁盘是否已挂载，如果已挂载则尝试卸载
 mounted=$(grep -c "^$target_disk" /proc/mounts)
@@ -22,7 +22,7 @@ if [ $mounted -gt 0 ]; then
 fi
 
 # 确认用户输入
-read -p "Are you sure you want to write the selected image file to $target_disk? (y/n): " confirm
+read_with_message "Are you sure you want to write the selected image file to $target_disk? (y/n): " confirm
 if [ "$confirm" != "y" ]; then
     log_message WARNING "Operation canceled by the user."
     exit 1
@@ -51,7 +51,7 @@ for ((i=0; i<${#images_urls[@]}; i++)); do
 done
 
 # 读取用户选择
-read -p "Please enter the image number: " choice
+read_with_message "Please enter the image number: " choice
 
 # 验证用户输入
 if ((choice > 0 && choice <= ${#images_urls[@]})); then
