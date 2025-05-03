@@ -1,6 +1,8 @@
 #!/bin/bash
 # 从 URL 加载 utils.sh
 source /dev/stdin <<< "$(wget -qO- https://bash.15099.net/linux/utils.sh)"
+# 重定向标准输出和标准错误到日志文件，同时显示在终端
+exec > >(tee -a "$LOG_FILE") 2>&1
 
 get_system_info () {
     log_message INFO "Getting system information..."
