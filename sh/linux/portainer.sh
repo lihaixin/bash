@@ -7,8 +7,9 @@ install_portainer() {
     echo "1) Physical LAN adapter (macvlan)"
     echo "2) Wireless LAN adapter (ipvlan)"
     echo "3) Cloudhost LAN network (bridge)"
-    read -p "Enter your choice (1/2/3): " network_choice
-
+    DEFAULT_VALUE="1"
+    read_with_message "Enter your choice (1/2/3): " network_choice || network_choice=$DEFAULT_VALUE
+    : ${network_choice:=$DEFAULT_VALUE}
     case $network_choice in
         1)
             log_message INFO "Creating macvlan network..."
@@ -101,7 +102,7 @@ install_portainer() {
 
     DEFAULT_TEMPLATES="https://dockerfile.15099.net/index.json"
     prompt="Please enter your custom template URL. If no input within 60 seconds, the default value ($DEFAULT_TEMPLATES) will be used: "
-    read -t 60 -p "$prompt" USER_TEMPLATES || USER_TEMPLATES=$DEFAULT_TEMPLATES
+    read_with_message "$prompt" USER_TEMPLATES || USER_TEMPLATES=$DEFAULT_TEMPLATES
     : ${USER_TEMPLATES:=$DEFAULT_TEMPLATES}
     log_message INFO "Using template URL: $USER_TEMPLATES for installation."
 
@@ -161,8 +162,8 @@ install_portainer_agent() {
 # 主程序
 log_message INFO "Preparing to install Portainer graphical interface..."
 DEFAULT_VALUE="N"
-prompt="Enter content (Y/N). Default value will be used if no input within 10 seconds ($DEFAULT_VALUE): "
-read -t 10 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
+prompt="Enter content (Y/N). Default value will be used if no input within 60 seconds ($DEFAULT_VALUE): "
+read_with_message "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
 : ${USER_INPUT:=$DEFAULT_VALUE}
 if [ "$USER_INPUT" = "Y" ]; then
     install_portainer
@@ -170,8 +171,8 @@ fi
 
 log_message INFO "Preparing to install Portainer Agent..."
 DEFAULT_VALUE="N"
-prompt="Enter content (Y/N). Default value will be used if no input within 10 seconds ($DEFAULT_VALUE): "
-read -t 10 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
+prompt="Enter content (Y/N). Default value will be used if no input within 60 seconds ($DEFAULT_VALUE): "
+read_with_message "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
 : ${USER_INPUT:=$DEFAULT_VALUE}
 if [ "$USER_INPUT" = "Y" ]; then
     install_portainer_agent
