@@ -29,12 +29,20 @@ exec > >(log_with_timestamp | tee -a "$LOG_FILE") 2>&1
 
 # 检查必要工具是否安装
 check_dependencies() {
-    for cmd in bash curl awk free; do
+    local missing_cmds=()
+    for cmd in bash curl awk free df tee; do
         if ! command -v "$cmd" &> /dev/null; then
-            echo -e "${RED}[ERROR] 必需工具 '$cmd' 未安装，请先安装后再运行此脚本。${NC}"
-            exit 1
+            missing_cmds+=("$cmd")
         fi
     done
+    if [[ ${#missing_cmds[@]} -gt 0 ]]; then
+        echo -e "${RED}[ERROR] 缺少以下工具：${missing_cmds[*]}${NC}"
+        echo -e "${YELLOW}[INFO] 请使用以下命令安装必要工具：${NC}"
+        echo -e "  Debian/Ubuntu: sudo apt install ${missing_cmds[*]}"
+        echo -e "  Alpine: apk add ${missing_cmds[*]}"
+        echo -e "  CentOS/Fedora: sudo yum install ${missing_cmds[*]}"
+        exit 1
+    fi
 }
 
 # 获取公共 IP 地址
@@ -72,6 +80,10 @@ detect_virtualization() {
         local platform
         platform=$(< /sys/class/dmi/id/product_name)
         echo -e "${BLUE}[INFO] 虚拟化平台: 是, $platform${NC}"
+    elif [[ -f "/.dockerenv" ]]; then
+        echo -e "${BLUE}[INFO] 虚拟化平台: 是, Docker 容器${NC}"
+    elif [[ -f "/proc/1/cgroup" && $(grep -q "lxc" /proc/1/cgroup) ]]; then
+        echo -e "${BLUE}[INFO] 虚拟化平台: 是, LXC 容器${NC}"
     else
         echo -e "${BLUE}[INFO] 虚拟化平台: 否, 物理机${NC}"
     fi
@@ -81,14 +93,11 @@ detect_virtualization() {
 detect_os() {
     source /etc/os-release
     case "$ID" in
-        debian|ubuntu|alpine)
-            echo -e "${GREEN}[INFO] 当前系统是 $ID${NC}"
-            ;;
-        centos|fedora)
+        debian|ubuntu|alpine|centos|fedora|arch)
             echo -e "${GREEN}[INFO] 当前系统是 $ID${NC}"
             ;;
         *)
-            echo -e "${RED}[ERROR] 当前系统不被支持，请使用 Debian/Ubuntu/Alpine 系统。${NC}"
+            echo -e "${RED}[ERROR] 当前系统不被支持，请使用常见的 Linux 发行版。${NC}"
             exit 1
             ;;
     esac
