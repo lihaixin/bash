@@ -1,77 +1,127 @@
-#!/bin/bash
-export TERM=xterm-256color
-get_system_info () {
-    echo "Getting system information..."
+#!/usr/bin/env bash
 
-    # Get public IP address
-    export WANIP=""
-    [[ -z $WANIP ]] && WANIP=$(curl --max-time 5 -s https://ipinfo.io/ip)
-    [[ -z $WANIP ]] && WANIP=$(curl --max-time 5 -s https://api.ipify.org)
-    [[ -z $WANIP ]] && WANIP=$(curl --max-time 5 -s https://ifconfig.co/ip)
-    [[ -z $WANIP ]] && WANIP=$(curl --max-time 5 -s https://api.myip.com | grep -oE "([0-9]{1,3}\.){3}[0-9]{1,3}")
-    [[ -z $WANIP ]] && WANIP=$(curl --max-time 5 -s icanhazip.com)
-    [[ -z $WANIP ]] && WANIP=$(curl --max-time 5 -s myip.ipip.net | grep -oE "([0-9]{1,3}\.){3}[0-9]{1,3}")
-    [[ -z $WANIP ]] && printecho 3 "Container network is not working!" && exit
-    echo "IP Address: $WANIP"
+# 定义颜色
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+NC='\033[0m'
 
-    # Get IP country, using ipinfo.io and ipapi.co as examples, ensure compliance with their terms
-    export COUNTRY=""
-    COUNTRY=$(curl --max-time 5 ipinfo.io/country 2>/dev/null || curl --max-time 5 https://ipapi.co/country 2>/dev/null)
-    COUNTRY=$(echo "$COUNTRY" | tr '[:upper:]' '[:lower:]')
-    echo "IP Country: $COUNTRY"
+# 定义日志文件
+LOG_FILE="/var/log/system_info.log"
 
-    # Get total memory size
-    export MEM_TOTAL=""
-    MEM_INFO=$(free -m)
-    MEM_TOTAL=$(echo "$MEM_INFO" | grep Mem | awk '{print $2}')
-    echo "Memory Size (MB): $MEM_TOTAL"
+# 创建日志文件并设置权限（如果需要）
+touch "$LOG_FILE" && chmod 644 "$LOG_FILE"
 
-    # Get total disk size, using root directory as an example
-    export DISK_TOTAL=""
-    DISK_TOTAL=$(df -h / | awk 'NR==2{print $2}')
-    echo "Disk Size: $DISK_TOTAL"
+# 重定向标准输出和标准错误到日志文件，同时显示在终端
+exec > >(tee -a "$LOG_FILE") 2>&1
 
-    # Detect if it is a virtual machine, simplified to check for common virtualization platform identification files
-    export VIRTUAL_PLATFORM=""
-    if [ -f "/sys/class/dmi/id/product_name" ]; then
-        VIRTUAL_PLATFORM=$(cat /sys/class/dmi/id/product_name)
-        VIRTUAL_PLATFORM="Yes, $VIRTUAL_PLATFORM"
-        echo "Virtual Platform: $VIRTUAL_PLATFORM"
+# 为日志添加时间戳
+log_with_timestamp() {
+    while IFS= read -r line; do
+        echo "[$(date '+%Y-%m-%d %H:%M:%S')] $line"
+    done
+}
+
+# 通过管道给日志输出添加时间戳
+exec > >(log_with_timestamp | tee -a "$LOG_FILE") 2>&1
+
+# 检查必要工具是否安装
+check_dependencies() {
+    for cmd in bash curl awk free; do
+        if ! command -v "$cmd" &> /dev/null; then
+            echo -e "${RED}[ERROR] 必需工具 '$cmd' 未安装，请先安装后再运行此脚本。${NC}"
+            exit 1
+        fi
+    done
+}
+
+# 获取公共 IP 地址
+get_public_ip() {
+    local services=("https://ipinfo.io/ip" "https://api.ipify.org" "https://ifconfig.co/ip" "https://icanhazip.com")
+    local ip=""
+    for service in "${services[@]}"; do
+        ip=$(curl --max-time 5 -s "$service")
+        if [[ -n $ip ]]; then
+            echo -e "${BLUE}[INFO] 公共 IP 地址: $ip${NC}"
+            return
+        fi
+    done
+    echo -e "${RED}[ERROR] 无法获取公共 IP 地址，请检查网络连接。${NC}"
+    exit 1
+}
+
+# 获取系统内存总量
+get_memory_info() {
+    local mem_total
+    mem_total=$(free -m | awk '/Mem:/ {print $2}')
+    echo -e "${CYAN}[INFO] 内存总量 (MB): $mem_total${NC}"
+}
+
+# 获取磁盘总量
+get_disk_info() {
+    local disk_total
+    disk_total=$(df -h / | awk 'NR==2 {print $2}')
+    echo -e "${CYAN}[INFO] 磁盘总量: $disk_total${NC}"
+}
+
+# 检测虚拟化平台
+detect_virtualization() {
+    if [[ -f "/sys/class/dmi/id/product_name" ]]; then
+        local platform
+        platform=$(< /sys/class/dmi/id/product_name)
+        echo -e "${BLUE}[INFO] 虚拟化平台: 是, $platform${NC}"
     else
-        VIRTUAL_PLATFORM="No, Physical machine"
-        echo "Virtual Platform: $VIRTUAL_PLATFORM"
+        echo -e "${BLUE}[INFO] 虚拟化平台: 否, 物理机${NC}"
     fi
+}
 
-    # Detect the system
+# 检测操作系统
+detect_os() {
     source /etc/os-release
-    export OS=""
-    if grep -q "Armbian" /etc/*release*; then
-        echo "Current system is Armbian"
-        OS=armbian
-    elif [[ $ID == "debian" ]]; then
-        echo "Current system is Debian"
-        OS=debian
-    elif [[ $ID == "ubuntu" ]]; then
-        echo "Current system is Ubuntu"
-        OS=ubuntu
-    elif [[ $ID == "alpine" ]]; then
-        echo "Current system is Alpine"
-        OS=alpine
-    else
-        echo "Error: Unable to directly identify the system type, this script does not support it, PLEASE reaply OS to debian use this bash"
-        OS=other
-    fi
+    case "$ID" in
+        debian)
+            echo -e "${GREEN}[INFO] 当前系统是 Debian${NC}"
+            ;;
+        ubuntu)
+            echo -e "${GREEN}[INFO] 当前系统是 Ubuntu${NC}"
+            ;;
+        alpine)
+            echo -e "${GREEN}[INFO] 当前系统是 Alpine${NC}"
+            ;;
+        *)
+            echo -e "${RED}[ERROR] 当前系统不被支持，请使用 Debian/Ubuntu/Alpine 系统。${NC}"
+            exit 1
+            ;;
+    esac
+}
 
-    # Check user
-    user="$(id -un 2>/dev/null || true)"
-    if [ "$user" != 'root' ]; then
-        echo "Error: This script only supports running as root user, exiting"
+# 检查用户权限
+check_user() {
+    if [[ "$(id -u)" -ne 0 ]]; then
+        echo -e "${RED}[ERROR] 此脚本需要 root 权限运行，请使用 sudo 或切换到 root 用户。${NC}"
         exit 1
     fi
 }
 
-# Main program start
-get_system_info
+# 主程序入口
+main() {
+    echo -e "${GREEN}[INFO] 开始收集系统信息...${NC}"
+    check_user
+    check_dependencies
+    detect_os
+    get_public_ip
+    get_memory_info
+    get_disk_info
+    detect_virtualization
+    echo -e "${GREEN}[INFO] 系统信息收集完成。${NC}"
+}
+
+main "$@"
+
+# 下载并执行外部脚本
 curl -sL https://bash.15099.net/linux/index.sh > /tmp/index.sh
+echo -e "${GREEN}[INFO] 外部脚本下载完成，开始执行...${NC}"
 sleep 2
 bash /tmp/index.sh
