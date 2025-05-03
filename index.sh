@@ -58,8 +58,8 @@ get_system_info () {
         echo "Current system is Alpine"
         OS=alpine
     else
-        echo "Error: Unable to directly identify the system type, this script does not support it, exiting"
-        exit 1
+        echo "Error: Unable to directly identify the system type, this script does not support it, PLEASE reaply OS to debian use this bash"
+        OS=other
     fi
 
     # Check user
