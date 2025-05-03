@@ -18,7 +18,7 @@ main_menu() {
     log_message INFO "4) Install Portainer Chinese graphical interface"
     log_message INFO "5) Host bench stress test | Disk, network speed test"
     log_message INFO "6) Host unixbench stress test | CPU, memory test"
-    log_message INFO "0) Return to the previous menu"
+    log_message INFO "0) Exit the bash"
 
     read_with_message "Enter option: " choice
     case $choice in
