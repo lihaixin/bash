@@ -26,6 +26,6 @@ bash <(curl -sSL https://bash.15099.net)
 
 通过脚本运行后，后续操作都是在[Portainer](https://hub.docker.com/r/lihaixin/ui)界面上操作
 
-
+-----
 ![portainer](./portainer.png)
 
