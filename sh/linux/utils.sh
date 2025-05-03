@@ -42,5 +42,5 @@ log_message() {
 read_with_message() {
     local prompt_message="$1"
     local variable_name="$2"
-    read -p "${CYAN}[$(date '+%Y-%m-%d %H:%M:%S')] ${BLUE}[INFO]${NC} $prompt_message: " -r "$variable_name"
+    eval "read -p \"${CYAN}[\$(date '+%Y-%m-%d %H:%M:%S')] ${BLUE}[INFO]${NC} $prompt_message: \" -r $variable_name"
 }
