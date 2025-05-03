@@ -1,122 +1,155 @@
 #!/bin/bash
-echo "Preparing to initialize Docker..."
 
-#######################################################install_docker########################################################################################
+# 定义颜色
+RED='\033[0;31m'    # 错误或警告信息
+GREEN='\033[0;32m'  # 成功信息
+YELLOW='\033[0;33m' # 警告或提示信息
+BLUE='\033[0;34m'   # 一般信息
+CYAN='\033[0;36m'   # 时间戳或强调信息
+NC='\033[0m'        # 重置颜色
+
+# 日志输出函数（带时间戳和类别）
+log_message() {
+    local type=$1    # 日志类别：INFO, SUCCESS, WARNING, ERROR
+    local message=$2 # 日志内容
+
+    case $type in
+        INFO)
+            echo -e "${CYAN}[$(date '+%Y-%m-%d %H:%M:%S')] ${BLUE}[INFO]${NC} $message"
+            ;;
+        SUCCESS)
+            echo -e "${CYAN}[$(date '+%Y-%m-%d %H:%M:%S')] ${GREEN}[SUCCESS]${NC} $message"
+            ;;
+        WARNING)
+            echo -e "${CYAN}[$(date '+%Y-%m-%d %H:%M:%S')] ${YELLOW}[WARNING]${NC} $message"
+            ;;
+        ERROR)
+            echo -e "${CYAN}[$(date '+%Y-%m-%d %H:%M:%S')] ${RED}[ERROR]${NC} $message"
+            ;;
+        *)
+            echo -e "${CYAN}[$(date '+%Y-%m-%d %H:%M:%S')] ${NC}$message"
+            ;;
+    esac
+}
+
+# 函数：安装 Docker
+# 提供用户选择，并根据系统和国家安装 Docker
 install_docker() {
-echo "Preparing to install Docker CE"
-# debian10/11 ver: 20.10 docker.io
-# armbian 24.5 ver: 20.10 docker.io
-# alpine 3.16 ver: 20.10.20 docker
-DEFAULT_VALUE="Y"
-prompt="Please enter (Y/N) to confirm if you want to install Docker CE now, the default value ($DEFAULT_VALUE) will be used if no input is provided within 20 seconds: "
-# Use the -t option of read and command substitution
-read -t 10 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
-: ${USER_INPUT:=$DEFAULT_VALUE}
+    log_message INFO "Preparing to install Docker CE..."
+    
+    # 设置默认值和提示信息
+    DEFAULT_VALUE="Y"
+    prompt="Please enter (Y/N) to confirm if you want to install Docker CE now, the default value ($DEFAULT_VALUE) will be used if no input is provided within 20 seconds: "
 
-if [ "$USER_INPUT" = "Y" ] && [ "$COUNTRY" = "cn" ]; then
-    echo "Now installing Docker CE using Aliyun mirror"
-    # curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun --version 24.0.9
-    # curl -fsSL https://bash.15099.net/linux/online_install_docker.sh | bash -s docker --mirror Aliyun --version 24.0.9
-    # curl -fsSL https://bash.15099.net/linux/online_install_docker.sh > /tmp/online_install_docker.sh
-    # bash /tmp/online_install_docker.sh --mirror Aliyun --version 26.0.0
-    # rm -rf /tmp/online_install_docker.sh
-    case $OS in
-        debian | ubuntu | armbian )
+    # 等待用户输入
+    read -t 10 -p "$prompt" USER_INPUT || USER_INPUT=$DEFAULT_VALUE
+    : ${USER_INPUT:=$DEFAULT_VALUE}
+
+    # 用户选择安装 Docker 并判断国家
+    if [ "$USER_INPUT" = "Y" ] && [ "$COUNTRY" = "cn" ]; then
+        log_message INFO "Now installing Docker CE using Aliyun mirror..."
+        case $OS in
+            debian | ubuntu | armbian )
                 apt install docker.io -y
                 ;;
-        alpine )
+            alpine )
                 apk add docker docker-cli-compose
                 ;;
-        *)
-                echo "Unknown system type: $OS"
+            *)
+                log_message WARNING "Unknown system type: $OS"
                 ;;
-    esac 
-    echo "Docker installed successfully, you can check the version using docker info"
-    mkdir -p /etc/docker 
-cat <<EOF > /etc/docker/daemon.json
+        esac 
+
+        log_message SUCCESS "Docker installed successfully. You can check the version using 'docker info'."
+        mkdir -p /etc/docker 
+        cat <<EOF > /etc/docker/daemon.json
 {
-  "registry-mirrors": ["https://docker.1panel.live","https://docker.ketches.cn","https://hub.15099.net"],
-  "live-restore":true,
-  "log-driver": "json-file", 
-  "log-opts": { 
-  "max-size": "20m", "max-file": "3" 
+  "registry-mirrors": ["https://docker.1panel.live", "https://docker.ketches.cn", "https://hub.15099.net"],
+  "live-restore": true,
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "20m",
+    "max-file": "3"
   }
 }
 EOF
 
-mkdir -p /etc/systemd/system/docker.service.d/
-cat <<EOF > /etc/systemd/system/docker.service.d/clear_mount_propagation_flags.conf
+        mkdir -p /etc/systemd/system/docker.service.d/
+        cat <<EOF > /etc/systemd/system/docker.service.d/clear_mount_propagation_flags.conf
 [Service]
 MountFlags=shared
 EOF
-    case $OS in
-        debian | ubuntu | armbian )
+
+        case $OS in
+            debian | ubuntu | armbian )
                 systemctl daemon-reload
                 systemctl restart docker
                 ;;
-        alpine )
+            alpine )
                 rc-update add docker
                 service docker start
                 ;;
-        *)
-                echo "Unknown system type: $OS"
+            *)
+                log_message WARNING "Unknown system type: $OS"
                 ;;
-    esac   
+        esac
     
-elif [ "$USER_INPUT" = "Y" ] && [ "$COUNTRY" != "cn" ]; then
-    echo "Now installing Docker CE"
-    # curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun --version 24.0.9
-    # curl -fsSL https://bash.15099.net/linux/online_install_docker.sh | bash -s docker --mirror Aliyun --version 24.0.9
-    # curl -fsSL https://bash.15099.net/linux/online_install_docker.sh > /tmp/online_install_docker.sh
-    # bash /tmp/online_install_docker.sh --mirror Aliyun --version 26.0.0
-    # rm -rf /tmp/online_install_docker.sh
-    case $OS in
-        debian | ubuntu | armbian )
+    # 用户选择安装 Docker，非中国地区
+    elif [ "$USER_INPUT" = "Y" ] && [ "$COUNTRY" != "cn" ]; then
+        log_message INFO "Now installing Docker CE..."
+        case $OS in
+            debian | ubuntu | armbian )
                 apt install docker.io -y
                 ;;
-        alpine )
+            alpine )
                 apk add docker docker-cli-compose
                 ;;
-        *)
-                echo "Unknown system type: $OS"
+            *)
+                log_message WARNING "Unknown system type: $OS"
                 ;;
-    esac 
-    
-    echo "Docker installed successfully, you can check the version using docker info"
-    mkdir -p /etc/docker 
-cat <<EOF > /etc/docker/daemon.json
+        esac 
+
+        log_message SUCCESS "Docker installed successfully. You can check the version using 'docker info'."
+        mkdir -p /etc/docker 
+        cat <<EOF > /etc/docker/daemon.json
 {
-      "log-driver": "json-file",
-      "live-restore":true,
-      "log-opts": { 
-      "max-size": "20m", "max-file": "3" 
-      },
-      "dns" : [
-        "8.8.8.8"
-      ]
+  "log-driver": "json-file",
+  "live-restore": true,
+  "log-opts": {
+    "max-size": "20m",
+    "max-file": "3"
+  },
+  "dns": [
+    "8.8.8.8"
+  ]
 }
 EOF
 
-mkdir -p /etc/systemd/system/docker.service.d/
-cat <<EOF > /etc/systemd/system/docker.service.d/clear_mount_propagation_flags.conf
+        mkdir -p /etc/systemd/system/docker.service.d/
+        cat <<EOF > /etc/systemd/system/docker.service.d/clear_mount_propagation_flags.conf
 [Service]
 MountFlags=shared
 EOF
-    case $OS in
-        debian | ubuntu | armbian )
+
+        case $OS in
+            debian | ubuntu | armbian )
                 systemctl daemon-reload
                 systemctl restart docker
                 ;;
-        alpine )
+            alpine )
                 rc-update add docker
                 service docker start
                 ;;
-        *)
-                echo "Unknown system type: $OS"
+            *)
+                log_message WARNING "Unknown system type: $OS"
                 ;;
-    esac        
-else
-    echo "Docker CE installation canceled"
-fi
+        esac
+
+    # 用户取消安装
+    else
+        log_message WARNING "Docker CE installation canceled."
+    fi
 }
+
+# 主程序启动
 install_docker
