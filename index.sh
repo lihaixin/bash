@@ -81,14 +81,11 @@ detect_virtualization() {
 detect_os() {
     source /etc/os-release
     case "$ID" in
-        debian)
-            echo -e "${GREEN}[INFO] 当前系统是 Debian${NC}"
+        debian|ubuntu|alpine)
+            echo -e "${GREEN}[INFO] 当前系统是 $ID${NC}"
             ;;
-        ubuntu)
-            echo -e "${GREEN}[INFO] 当前系统是 Ubuntu${NC}"
-            ;;
-        alpine)
-            echo -e "${GREEN}[INFO] 当前系统是 Alpine${NC}"
+        centos|fedora)
+            echo -e "${GREEN}[INFO] 当前系统是 $ID${NC}"
             ;;
         *)
             echo -e "${RED}[ERROR] 当前系统不被支持，请使用 Debian/Ubuntu/Alpine 系统。${NC}"
