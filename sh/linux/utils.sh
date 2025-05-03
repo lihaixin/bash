@@ -42,5 +42,9 @@ log_message() {
 read_with_message() {
     local prompt_message="$1"
     local variable_name="$2"
-    eval "read -p \"${CYAN}[\$(date '+%Y-%m-%d %H:%M:%S')] ${BLUE}[INFO]${NC} $prompt_message: \" -r $variable_name"
+    # 打印带颜色的提示信息
+    echo -e "${CYAN}[$(date '+%Y-%m-%d %H:%M:%S')] ${BLUE}[INFO]${NC} $prompt_message: "
+    
+    # 读取用户输入
+    read -r $variable_name
 }
