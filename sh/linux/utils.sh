@@ -9,7 +9,7 @@ CYAN='\033[0;36m'   # 时间戳或强调信息
 NC='\033[0m'        # 重置颜色
 
 # 定义日志文件
-LOG_FILE=${LOG_FILE:-"/tmp/15099.log"}
+export LOG_FILE=${LOG_FILE:-"/tmp/15099.log"}
 
 # 创建日志文件并设置权限（如果需要）
 touch "$LOG_FILE" && chmod 644 "$LOG_FILE"
@@ -44,3 +44,6 @@ read_with_message() {
     local variable_name="$2"
     read -p "${CYAN}[$(date '+%Y-%m-%d %H:%M:%S')] ${BLUE}[INFO]${NC}$prompt_message: " -r "$variable_name"
 }
+
+# 重定向标准输出和标准错误到日志文件，同时显示在终端
+exec > >(tee -a "$LOG_FILE") 2>&1
