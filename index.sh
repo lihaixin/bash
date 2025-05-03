@@ -10,7 +10,7 @@ CYAN='\033[0;36m'   # 时间戳或强调信息
 NC='\033[0m'        # 重置颜色
 
 # 定义日志文件
-LOG_FILE=${LOG_FILE:-"$HOME/system_info.log"}
+LOG_FILE=${LOG_FILE:-"/tmp/system_info.log"}
 
 # 创建日志文件并设置权限（如果需要）
 touch "$LOG_FILE" && chmod 644 "$LOG_FILE"
