@@ -57,6 +57,7 @@ if [ "$docker_val" == "253" ]; then
             --net=host \
             -v /var/run/docker.sock:/var/run/docker.sock \
             -v portainer_data:/data \
+            -v portainer_data_conf:/usr/sbin/conf \
             -e TPORT=8002 \
             -e COUNTRY=cn \
             -e PASSWORD="${ADMIN_PASS}" \
