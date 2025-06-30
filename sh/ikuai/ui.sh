@@ -1,6 +1,7 @@
 #!/bin/bash
 # 赋值ui类型 253 为ui 252 为ui agent  251 为ui edge agent, 其他值，例如0 不运行docker run，这样打包程序小
 docker_val=253
+ADMIN_PASS=@china1234567
 
 # 如需修改 edge 相关参数，直接改下面这两个变量即可
 EDGE_ID="bf655e5b-fe77-4b4e-875a-c1be66413e14"
@@ -46,20 +47,19 @@ if [ "$docker_val" == "253" ]; then
       echo "本地已存在ikuaiui镜像，无需拉取。"
     fi
     docker run -d \
-        --net=vlan \
+        --net=host \
         -v /var/run/docker.sock:/var/run/docker.sock \
         -v portainer_data:/data \
         -e TPORT=8002 \
         -e COUNTRY=cn \
-        -e PASSWORD=@china1234567 \
+        -e PASSWORD=${ADMIN_PASS} \
         -e TEMPLATES=https://dockerfile.15099.net/index.json \
         -e NO=0000210012301280114 \
         --name ui \
-        --ip=172.19.0.253 \
         ikuaiui
 elif [ "$docker_val" == "252" ]; then
     docker run -d \
-        --net=vlan \
+        --net=host \
         -v /var/run/docker.sock:/var/run/docker.sock \
         -v ${Docker_Volumes}:/var/lib/docker/volumes \
         -v /:/host \
