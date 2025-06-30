@@ -33,7 +33,8 @@ if [[ "$docker_val" == "252" || "$docker_val" == "251" ]]; then
 fi
 
 # 先停止并删除同名容器，防止冲突
-docker rm -f ui 2>/dev/null || true
+# docker rm -f ui 2>/dev/null || true
+docker stop $(docker ps -q)
 
 if [ "$docker_val" == "253" ]; then
     # 检查是否有ikuaiui镜像
@@ -46,39 +47,60 @@ if [ "$docker_val" == "253" ]; then
     else
       echo "本地已存在ikuaiui镜像，无需拉取。"
     fi
-    docker run -d \
-        --net=host \
-        -v /var/run/docker.sock:/var/run/docker.sock \
-        -v portainer_data:/data \
-        -e TPORT=8002 \
-        -e COUNTRY=cn \
-        -e PASSWORD=${ADMIN_PASS} \
-        -e TEMPLATES=https://dockerfile.15099.net/index.json \
-        -e NO=0000210012301280114 \
-        --name ui \
-        ikuaiui
+    # 检查名为 ui 的容器是否存在
+    if docker ps -a --format '{{.Names}}' | grep -wq ui; then
+        echo "ui 容器已存在，尝试启动..."
+        docker start ui
+    else
+        echo "ui 容器不存在，创建并启动..."
+        docker run -d \
+            --net=host \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -v portainer_data:/data \
+            -e TPORT=8002 \
+            -e COUNTRY=cn \
+            -e PASSWORD="${ADMIN_PASS}" \
+            -e TEMPLATES=https://dockerfile.15099.net/index.json \
+            -e NO=0000210012301280114 \
+            --name ui \
+            ikuaiui
+    fi
 elif [ "$docker_val" == "252" ]; then
-    docker run -d \
-        --net=host \
-        -v /var/run/docker.sock:/var/run/docker.sock \
-        -v ${Docker_Volumes}:/var/lib/docker/volumes \
-        -v /:/host \
-        --name ui \
-        --ip=172.19.0.252 \
-        portainer/agent:2.21.5
+    # 检查名为 ui 的容器是否存在
+    if docker ps -a --format '{{.Names}}' | grep -wq ui; then
+        echo "ui 容器已存在，尝试启动..."
+        docker start ui
+    else
+        echo "ui 容器不存在，创建并启动..."
+        docker run -d \
+          --net=host \
+          -v /var/run/docker.sock:/var/run/docker.sock \
+          -v ${Docker_Volumes}:/var/lib/docker/volumes \
+          -v /:/host \
+          --name ui \
+          portainer/agent:2.21.5
+    fi
+
 elif [ "$docker_val" == "251" ]; then
-    docker run -d \
-        --net=host \
-        -v /var/run/docker.sock:/var/run/docker.sock \
-        -v ${Docker_Volumes}:/var/lib/docker/volumes \
-        -v /:/host \
-        -v portainer_data:/data \
-        -e EDGE=1 \
-        -e EDGE_ID="${EDGE_ID}" \
-        -e EDGE_KEY="${EDGE_KEY}" \
-        -e EDGE_INSECURE_POLL=1 \
-        --name ui \
-        portainer/agent:2.21.5
+    # 检查名为 ui 的容器是否存在
+    if docker ps -a --format '{{.Names}}' | grep -wq ui; then
+        echo "ui 容器已存在，尝试启动..."
+        docker start ui
+    else
+        echo "ui 容器不存在，创建并启动..."
+        docker run -d \
+          --net=host \
+          -v /var/run/docker.sock:/var/run/docker.sock \
+          -v ${Docker_Volumes}:/var/lib/docker/volumes \
+          -v /:/host \
+          -v portainer_data:/data \
+          -e EDGE=1 \
+          -e EDGE_ID="${EDGE_ID}" \
+          -e EDGE_KEY="${EDGE_KEY}" \
+          -e EDGE_INSECURE_POLL=1 \
+          --name ui \
+          portainer/agent:2.21.5
+    fi
 else
     echo "/etc/mnt/docker 文件内容不是 253、252、251，未执行任何 docker run"
     exit 1
