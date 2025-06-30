@@ -33,8 +33,8 @@ if [[ "$docker_val" == "252" || "$docker_val" == "251" ]]; then
 fi
 
 # 先停止并删除同名容器，防止冲突
-# docker rm -f ui 2>/dev/null || true
 docker stop $(docker ps -q)
+docker rm -f ui 2>/dev/null || true
 
 if [ "$docker_val" == "253" ]; then
     # 检查是否有ikuaiui镜像
