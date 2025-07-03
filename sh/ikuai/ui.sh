@@ -2,6 +2,7 @@
 # 赋值ui类型 253 为ui 252 为ui agent  251 为ui edge agent, 其他值，例如0 不运行docker run，这样打包程序小
 docker_val=253
 ADMIN_PASS=@china1234567
+UI_NO=0000210012301280114
 
 # 如需修改 edge 相关参数，直接改下面这两个变量即可
 EDGE_ID="bf655e5b-fe77-4b4e-875a-c1be66413e14"
@@ -62,7 +63,7 @@ if [ "$docker_val" == "253" ]; then
             -e COUNTRY=cn \
             -e PASSWORD="${ADMIN_PASS}" \
             -e TEMPLATES=https://dockerfile.15099.net/index.json \
-            -e NO=0000210012301280114 \
+            -e NO=${UI_NO} \
             --name ui \
             ikuaiui
     fi
