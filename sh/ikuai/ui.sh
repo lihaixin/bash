@@ -71,9 +71,9 @@ elif [ "$docker_val" == "252" ]; then
     # 检查是否有ikuaiuia镜像
     if ! docker image ls --format '{{.Repository}}' | grep -wq "^ikuaiuia$"; then
       echo "本地没有ikuaiuia镜像，开始拉取..."
-      docker pull portainer/agent:2.21.5 || { echo "拉取失败"; exit 1; }
-      docker tag portainer/agent:2.21.5 ikuaiuia
-      docker rmi portainer/agent:2.21.5
+      docker pull lihaixin/ui:agent-2.21.5 || { echo "拉取失败"; exit 1; }
+      docker tag lihaixin/ui:agent-2.21.5 ikuaiuia
+      docker rmi lihaixin/ui:agent-2.21.5
       echo "已拉取并重命名为ikuaiuia"
     else
       echo "本地已存在ikuaiuia镜像，无需拉取。"
@@ -97,9 +97,9 @@ elif [ "$docker_val" == "251" ]; then
     # 检查是否有ikuaiuia镜像
     if ! docker image ls --format '{{.Repository}}' | grep -wq "^ikuaiuia$"; then
       echo "本地没有ikuaiuia镜像，开始拉取..."
-      docker pull portainer/agent:2.21.5 || { echo "拉取失败"; exit 1; }
-      docker tag portainer/agent:2.21.5 ikuaiuia
-      docker rmi portainer/agent:2.21.5
+      docker pull lihaixin/ui:agent-2.21.5 || { echo "拉取失败"; exit 1; }
+      docker tag lihaixin/ui:agent-2.21.5 ikuaiuia
+      docker rmi lihaixin/ui:agent-2.21.5
       echo "已拉取并重命名为ikuaiuia"
     else
       echo "本地已存在ikuaiuia镜像，无需拉取。"
