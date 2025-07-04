@@ -1,12 +1,12 @@
 #!/bin/bash
 # 赋值ui类型 253 为ui 252 为ui agent  251 为ui edge agent, 其他值，例如0 不运行docker run，这样打包程序小
-docker_val=253
+docker_val=251
 ADMIN_PASS=@china1234567
 UI_NO=0000210012301280114
 
 # 如需修改 edge 相关参数，直接改下面这两个变量即可
-EDGE_ID="bf655e5b-fe77-4b4e-875a-c1be66413e14"
-EDGE_KEY="aHR0cHM6Ly91aS4xNTA5OS5uZXQ6ODQ0M3x1aS4xNTA5OS5uZXQ6ODAwMnw0TmhQM3dpbDhDSG5BS2M5ejIvQ1J3RkJISVhhdS80ZWZ4aW1Xc1pYQTV3PXw1NDE"
+EDGE_ID="ad78bdf1-7df4-43c6-baf8-f55eb9085b4f"
+EDGE_KEY="aHR0cHM6Ly91aS4xNTA5OS5uZXQ6OTQ0M3x1aS4xNTA5OS5uZXQ6ODAwMnw0TmhQM3dpbDhDSG5BS2M5ejIvQ1J3RkJISVhhdS80ZWZ4aW1Xc1pYQTV3PXw1NTA"
 
 # 检查名为 vlan 的网络是否已存在
 if ! docker network ls --format '{{.Name}}' | grep -wq vlan; then
@@ -68,6 +68,16 @@ if [ "$docker_val" == "253" ]; then
             ikuaiui
     fi
 elif [ "$docker_val" == "252" ]; then
+    # 检查是否有ikuaiuia镜像
+    if ! docker image ls --format '{{.Repository}}' | grep -wq "^ikuaiuia$"; then
+      echo "本地没有ikuaiuia镜像，开始拉取..."
+      docker pull portainer/agent:2.21.5 || { echo "拉取失败"; exit 1; }
+      docker tag portainer/agent:2.21.5 ikuaiuia
+      docker rmi portainer/agent:2.21.5
+      echo "已拉取并重命名为ikuaiuia"
+    else
+      echo "本地已存在ikuaiuia镜像，无需拉取。"
+    fi
     # 检查名为 ui 的容器是否存在
     if docker ps -a --format '{{.Names}}' | grep -wq ui; then
         echo "ui 容器已存在，尝试启动..."
@@ -80,10 +90,20 @@ elif [ "$docker_val" == "252" ]; then
           -v ${Docker_Volumes}:/var/lib/docker/volumes \
           -v /:/host \
           --name ui \
-          portainer/agent:2.21.5
+          ikuaiuia
     fi
 
 elif [ "$docker_val" == "251" ]; then
+    # 检查是否有ikuaiuia镜像
+    if ! docker image ls --format '{{.Repository}}' | grep -wq "^ikuaiuia$"; then
+      echo "本地没有ikuaiuia镜像，开始拉取..."
+      docker pull portainer/agent:2.21.5 || { echo "拉取失败"; exit 1; }
+      docker tag portainer/agent:2.21.5 ikuaiuia
+      docker rmi portainer/agent:2.21.5
+      echo "已拉取并重命名为ikuaiuia"
+    else
+      echo "本地已存在ikuaiuia镜像，无需拉取。"
+    fi
     # 检查名为 ui 的容器是否存在
     if docker ps -a --format '{{.Names}}' | grep -wq ui; then
         echo "ui 容器已存在，尝试启动..."
@@ -101,7 +121,7 @@ elif [ "$docker_val" == "251" ]; then
           -e EDGE_KEY="${EDGE_KEY}" \
           -e EDGE_INSECURE_POLL=1 \
           --name ui \
-          portainer/agent:2.21.5
+          ikuaiuia
     fi
 else
     echo "/etc/mnt/docker 文件内容不是 253、252、251，未执行任何 docker run"
