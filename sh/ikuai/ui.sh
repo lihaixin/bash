@@ -89,6 +89,7 @@ elif [ "$docker_val" == "252" ]; then
           -v /var/run/docker.sock:/var/run/docker.sock \
           -v ${Docker_Volumes}:/var/lib/docker/volumes \
           -v /:/host \
+          -e NO=${UI_NO} \
           --name ui \
           ikuaiuia
     fi
@@ -120,6 +121,7 @@ elif [ "$docker_val" == "251" ]; then
           -e EDGE_ID="${EDGE_ID}" \
           -e EDGE_KEY="${EDGE_KEY}" \
           -e EDGE_INSECURE_POLL=1 \
+          -e NO=${UI_NO} \
           --name ui \
           ikuaiuia
     fi
