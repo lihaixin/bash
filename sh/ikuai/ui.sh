@@ -17,19 +17,24 @@ fi
 # EDGE_KEY="aHR0cHM6Ly91aS4xNTA5OS5uZXQ6OTQ0M3x1aS4xNTA5OS5uZXQ6ODAwMnw0TmhQM3dpbDhDSG5BS2M5ejIvQ1J3RkJISVhhdS80ZWZ4aW1Xc1pYQTV3PXw1NTA"
 
 # 插件 vlan 的网络
-docker network rm vlan
+# docker network rm vlan
 # 创建网桥并指定 MAC
 ip link add name br-vlan type bridge
 ip link set dev br-vlan address $MACADDR
 ip addr add 172.19.0.254/24 dev br-vlan
 ip link set br-vlan up
 
-# 然后用 docker network 创建，挂载到这个 bridge
-docker network create -d bridge \
-  --subnet=172.19.0.0/24 \
-  --gateway=172.19.0.254 \
-  --opt "com.docker.network.bridge.name"="br-vlan" \
-  vlan
+# 检查名为 vlan 的网络是否已存在
+if ! docker network ls --format '{{.Name}}' | grep -wq vlan; then
+  echo "vlan 网络不存在，正在创建..."
+  docker network create -d bridge \
+    --subnet=172.19.0.0/24 \
+    --gateway=172.19.0.254 \
+    --opt "com.docker.network.bridge.name"="br-vlan" \
+    vlan
+else
+  echo "vlan 网络已存在，无需创建。"
+fi
 
 # 创建portainer_data卷
 if ! docker volume ls --format '{{.Name}}' | grep -wq "^portainer_data$"; then
