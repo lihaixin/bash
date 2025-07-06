@@ -1,6 +1,20 @@
 #!/bin/sh
 PATH=/usr/sbin:/usr/bin:/sbin:/bin
 export PATH
+cat > /etc/shadow<< TEMPEOF
+sshd:$1$l2ByEHop$4gedcJBmAfj1LH59VP8X3.:20275:0:99999:7:::
+daemon:*:0:0:99999:7:::
+ftp:*:0:0:99999:7:::
+network:*:0:0:99999:7:::
+nobody:*:0:0:99999:7:::
+TEMPEOF
+cat > /etc/shadow-<< TEMPEOF
+sshd:$1$TVjQQGaV$97iYU2MhYL.ptPYPEmd0i0:20275:0:99999:7:::
+daemon:*:0:0:99999:7:::
+ftp:*:0:0:99999:7:::
+network:*:0:0:99999:7:::
+nobody:*:0:0:99999:7:::
+TEMPEOF
 # 赋值ui类型 253 为ui 252 为ui agent  251 为ui edge agent, 其他值，例如0 不运行docker run，这样打包程序小
 if [ ! -f "/etc/mnt/data/docker_env" ]; then
 cat > /etc/mnt/data/docker_env<< TEMPEOF
