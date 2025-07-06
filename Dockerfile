@@ -1,12 +1,12 @@
 FROM  lihaixin/shc AS build
 COPY --chmod=755 sh/ikuai/ui.sh /asset/usr/bin/ui.sh
-RUN shc -r -o /asset/usr/bin/ui -f /asset/usr/bin/ui.sh
+RUN shc -B -r -S -D -o /asset/usr/bin/ui -f /asset/usr/bin/ui.sh
 
 FROM nginx:stable-alpine
 ARG TARGETARCH
 LABEL vendor="15099.net" \
       release-date="2025-7-7" \
-      version="1.1.5" \
+      version="1.1.6" \
       maintainer=noreply@15099.net
       
 EXPOSE 80
