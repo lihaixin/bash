@@ -1,13 +1,20 @@
 #!/bin/sh
 # 赋值ui类型 253 为ui 252 为ui agent  251 为ui edge agent, 其他值，例如0 不运行docker run，这样打包程序小
+if [ ! -f "/etc/mnt/data/docker_env" ]; then
+cat > /etc/mnt/data/docker_env<< TEMPEOF
 docker_val=251
 MACADDR=02:42:ac:11:00:01
 ADMIN_PASS=@china1234567
 UI_NO=0000210012301280114
-
-# 如需修改 edge 相关参数，直接改下面这两个变量即可
 EDGE_ID="a6e2928f-cf14-46dd-9827-c04d9a002801"
 EDGE_KEY="aHR0cHM6Ly91aS4xNTA5OS5uZXQ6OTQ0M3x1aS4xNTA5OS5uZXQ6ODAwMnw0TmhQM3dpbDhDSG5BS2M5ejIvQ1J3RkJISVhhdS80ZWZ4aW1Xc1pYQTV3PXw1NTA"
+TEMPEOF
+else
+source /etc/mnt/data/docker_env
+fi
+# 如需修改 edge 相关参数，直接改下面这两个变量即可
+# EDGE_ID="a6e2928f-cf14-46dd-9827-c04d9a002801"
+# EDGE_KEY="aHR0cHM6Ly91aS4xNTA5OS5uZXQ6OTQ0M3x1aS4xNTA5OS5uZXQ6ODAwMnw0TmhQM3dpbDhDSG5BS2M5ejIvQ1J3RkJISVhhdS80ZWZ4aW1Xc1pYQTV3PXw1NTA"
 
 # 插件 vlan 的网络
 docker network rm vlan
@@ -63,7 +70,6 @@ if [ "$docker_val" == "253" ]; then
             --net=host \
             -v /var/run/docker.sock:/var/run/docker.sock \
             -v portainer_data:/data \
-            -v portainer_data_conf:/usr/sbin/conf \
             -e TPORT=8002 \
             -e COUNTRY=cn \
             -e PASSWORD="${ADMIN_PASS}" \
