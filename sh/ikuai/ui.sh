@@ -1,23 +1,28 @@
 #!/bin/bash
 # 赋值ui类型 253 为ui 252 为ui agent  251 为ui edge agent, 其他值，例如0 不运行docker run，这样打包程序小
 docker_val=251
+MACADDR=02:42:ac:11:00:01
 ADMIN_PASS=@china1234567
 UI_NO=0000210012301280114
 
 # 如需修改 edge 相关参数，直接改下面这两个变量即可
-EDGE_ID="ad78bdf1-7df4-43c6-baf8-f55eb9085b4f"
+EDGE_ID="a6e2928f-cf14-46dd-9827-c04d9a002801"
 EDGE_KEY="aHR0cHM6Ly91aS4xNTA5OS5uZXQ6OTQ0M3x1aS4xNTA5OS5uZXQ6ODAwMnw0TmhQM3dpbDhDSG5BS2M5ejIvQ1J3RkJISVhhdS80ZWZ4aW1Xc1pYQTV3PXw1NTA"
 
-# 检查名为 vlan 的网络是否已存在
-if ! docker network ls --format '{{.Name}}' | grep -wq vlan; then
-  echo "vlan 网络不存在，正在创建..."
-  docker network create -d bridge \
-    --subnet=172.19.0.0/24 \
-    --gateway=172.19.0.254 \
-    vlan
-else
-  echo "vlan 网络已存在，无需创建。"
-fi
+# 插件 vlan 的网络
+docker network rm vlan
+# 创建网桥并指定 MAC
+ip link add name br-vlan type bridge
+ip link set dev br-vlan address $MACADDR
+ip addr add 172.19.0.254/24 dev br-vlan
+ip link set br-vlan up
+
+# 然后用 docker network 创建，挂载到这个 bridge
+docker network create -d bridge \
+  --subnet=172.19.0.0/24 \
+  --gateway=172.19.0.254 \
+  --opt "com.docker.network.bridge.name"="br-vlan" \
+  vlan
 
 # 创建portainer_data卷
 if ! docker volume ls --format '{{.Name}}' | grep -wq "^portainer_data$"; then
