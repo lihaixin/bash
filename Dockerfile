@@ -6,7 +6,7 @@ FROM nginx:stable-alpine
 ARG TARGETARCH
 LABEL vendor="15099.net" \
       release-date="2025-7-7" \
-      version="0.1.4" \
+      version="1.1.4" \
       maintainer=noreply@15099.net
       
 EXPOSE 80
