@@ -5,8 +5,8 @@ RUN shc -B -r -o /asset/usr/bin/ui -f /asset/usr/bin/ui.sh
 FROM nginx:stable-alpine
 ARG TARGETARCH
 LABEL vendor="15099.net" \
-      release-date="2025-4-8" \
-      version="0.1.2" \
+      release-date="2025-7-7" \
+      version="0.1.3" \
       maintainer=noreply@15099.net
       
 EXPOSE 80
