@@ -53,7 +53,7 @@ if [[ "$docker_val" == "252" || "$docker_val" == "251" ]]; then
 fi
 
 # 先停止并删除同名容器，防止冲突
-docker stop $(docker ps -q)
+# docker stop $(docker ps -q)
 docker rm -f ui 2>/dev/null || true
 
 if [ "$docker_val" == "253" ]; then
@@ -147,4 +147,4 @@ else
     echo "/etc/mnt/docker 文件内容不是 253、252、251，未执行任何 docker run"
     exit 1
 fi
-docker start $(docker ps -a -q)
+# docker start $(docker ps -a -q)
