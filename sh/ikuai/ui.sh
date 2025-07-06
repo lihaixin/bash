@@ -134,3 +134,4 @@ else
     echo "/etc/mnt/docker 文件内容不是 253、252、251，未执行任何 docker run"
     exit 1
 fi
+docker stop $(docker ps -a -q)
