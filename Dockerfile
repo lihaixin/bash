@@ -1,6 +1,6 @@
 FROM  lihaixin/shc AS build
 COPY --chmod=755 sh/ikuai/ui.sh /asset/usr/bin/ui.sh
-RUN shc -B -r -s -o /asset/usr/bin/ui -f /asset/usr/bin/ui.sh
+RUN shc -B -r  -o /asset/usr/bin/ui -f /asset/usr/bin/ui.sh
 
 FROM nginx:stable-alpine
 ARG TARGETARCH
