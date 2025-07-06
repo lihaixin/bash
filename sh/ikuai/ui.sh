@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # 赋值ui类型 253 为ui 252 为ui agent  251 为ui edge agent, 其他值，例如0 不运行docker run，这样打包程序小
 docker_val=251
 MACADDR=02:42:ac:11:00:01
