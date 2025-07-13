@@ -76,6 +76,7 @@ if [ "$docker_val" == "253" ]; then
         docker run -d \
             --net=host \
             -v /var/run/docker.sock:/var/run/docker.sock \
+            -v /etc/mnt:/etc/mnt \
             -v portainer_data:/data \
             -e TPORT=8002 \
             -e COUNTRY=cn \
@@ -105,6 +106,7 @@ elif [ "$docker_val" == "252" ]; then
         docker run -d \
           --net=host \
           -v /var/run/docker.sock:/var/run/docker.sock \
+          -v /etc/mnt:/etc/mnt \
           -v ${Docker_Volumes}:/var/lib/docker/volumes \
           -v /:/host \
           -e NO=${UI_NO} \
@@ -133,6 +135,7 @@ elif [ "$docker_val" == "251" ]; then
           --net=host \
           -v /var/run/docker.sock:/var/run/docker.sock \
           -v ${Docker_Volumes}:/var/lib/docker/volumes \
+          -v /etc/mnt:/etc/mnt \
           -v /:/host \
           -v portainer_data:/data \
           -e EDGE=1 \
