@@ -1,6 +1,11 @@
 #!/bin/bash
-
 if [ -d /sys/class/net/eth0 ] && [ ! -d /sys/class/net/eth1 ]; then
+    # 首次运行，后续不运行
+    if [ ! -f "/etc/mnt/data/wanip" ]; then
+      echo "wanip 文件不存在，正在创建..." > /etc/mnt/data/wanip
+    else
+      exit 0
+    fi
     echo "条件满足：eth0 存在，eth1 不存在。"
     # 1. 删除lan1上的静态IP
     ip addr del 192.168.9.1/24 dev lan1 2>/dev/null
