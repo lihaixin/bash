@@ -5,6 +5,7 @@ export PATH
 if [ ! -f "/etc/mnt/data/docker_env" ]; then
 cat > /etc/mnt/data/docker_env<< TEMPEOF
 docker_val=253
+VLAN=doc_1
 MACADDR=02:42:ac:11:00:01
 ADMIN_PASS=@china1234567
 UI_NO=9999210012301280114
@@ -27,15 +28,15 @@ ip addr add 172.19.0.254/24 dev br-vlan
 ip link set br-vlan up
 
 # 检查名为 vlan 的网络是否已存在
-if ! docker network ls --format '{{.Name}}' | grep -wq vlan; then
+if ! docker network ls --format '{{.Name}}' | grep -wq $VLAN; then
   echo "vlan 网络不存在，正在创建..."
   docker network create -d bridge \
     --subnet=172.19.0.0/24 \
     --gateway=172.19.0.254 \
     --opt "com.docker.network.bridge.name"="br-vlan" \
-    vlan
+    $VLAN
 else
-  echo "vlan 网络已存在，无需创建。"
+  echo "$VLAN 网络已存在，无需创建。"
 fi
 
 # 创建portainer_data卷
