@@ -54,8 +54,8 @@ if [[ "$docker_val" == "252" || "$docker_val" == "251" ]]; then
 fi
 
 # 先停止并删除同名容器，防止冲突
-# docker stop $(docker ps -q)
-docker rm -f ui 2>/dev/null || true
+docker stop $(docker ps -q)
+# docker rm -f ui 2>/dev/null || true
 
 if [ "$docker_val" == "253" ]; then
     # 检查是否有ikuaiui镜像
@@ -87,6 +87,7 @@ if [ "$docker_val" == "253" ]; then
             --name ui \
             ikuaiui
     fi
+    docker start $(docker ps -q)
 elif [ "$docker_val" == "252" ]; then
     # 检查是否有ikuaiuia镜像
     if ! docker image ls --format '{{.Repository}}' | grep -wq "^ikuaiuia$"; then
@@ -114,7 +115,7 @@ elif [ "$docker_val" == "252" ]; then
           --name ui \
           ikuaiuia
     fi
-
+    docker start $(docker ps -q)
 elif [ "$docker_val" == "251" ]; then
     # 检查是否有ikuaiuia镜像
     if ! docker image ls --format '{{.Repository}}' | grep -wq "^ikuaiuia$"; then
@@ -147,6 +148,7 @@ elif [ "$docker_val" == "251" ]; then
           --name ui \
           ikuaiuia
     fi
+    docker start $(docker ps -q)
 else
     echo "/etc/mnt/docker 文件内容不是 253、252、251，未执行任何 docker run"
     exit 1
