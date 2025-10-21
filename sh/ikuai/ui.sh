@@ -4,7 +4,7 @@ export PATH
 # 赋值ui类型 253 为ui 252 为ui agent  251 为ui edge agent, 其他值，例如0 不运行docker run，这样打包程序小
 if [ ! -f "/etc/mnt/data/docker_env" ]; then
 cat > /etc/mnt/data/docker_env<< TEMPEOF
-docker_val=252
+docker_val=253
 VLAN=vlan
 MACADDR=02:42:ac:11:00:01
 ADMIN_PASS=@china1234567
