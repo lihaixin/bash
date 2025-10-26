@@ -156,4 +156,5 @@ fi
 # docker start $(docker ps -a -q)
 sysctl -w net.ipv6.conf.all.disable_ipv6=1
 sysctl -w net.ipv6.conf.default.disable_ipv6=1
+sysctl -w net.ipv4.tcp_fastopen=3
 ulimit -n 65536
