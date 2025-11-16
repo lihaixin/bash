@@ -110,6 +110,7 @@ elif [ "$docker_val" == "252" ]; then
           -v /var/run/docker.sock:/var/run/docker.sock \
           -v /etc/mnt:/etc/mnt \
           -v ${Docker_Volumes}:/var/lib/docker/volumes \
+          -v portainer_data:/data \
           -v /:/host \
           -e NO=${UI_NO} \
           --name ui \
