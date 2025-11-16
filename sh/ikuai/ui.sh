@@ -82,7 +82,6 @@ if [ "$docker_val" == "253" ]; then
             -e TPORT=8002 \
             -e COUNTRY=cn \
             -e PASSWORD="${ADMIN_PASS}" \
-            -e TEMPLATES=https://dockerfile.15099.net/index.json \
             -e NO=${UI_NO} \
             --name ui \
             ikuaiui
