@@ -61,9 +61,9 @@ if [ "$docker_val" == "253" ]; then
     # 检查是否有ikuaiui镜像
     if ! docker image ls --format '{{.Repository}}' | grep -wq "^ikuaiui$"; then
       echo "本地没有ikuaiui镜像，开始拉取..."
-      docker pull lihaixin/ui:ce-2.19.5 || { echo "拉取失败"; exit 1; }
-      docker tag lihaixin/ui:ce-2.19.5 ikuaiui
-      docker rmi lihaixin/ui:ce-2.19.5
+      docker pull lihaixin/ui:ce-2.21.5 || { echo "拉取失败"; exit 1; }
+      docker tag lihaixin/ui:ce-2.21.5 ikuaiui
+      docker rmi lihaixin/ui:ce-2.21.5
       echo "已拉取并重命名为ikuaiui"
     else
       echo "本地已存在ikuaiui镜像，无需拉取。"
