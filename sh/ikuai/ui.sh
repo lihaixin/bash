@@ -159,4 +159,5 @@ sysctl -w net.ipv6.conf.default.disable_ipv6=1
 sysctl -w net.ipv4.tcp_fastopen=3
 sysctl -w net.core.rmem_max=16777216
 sysctl -w net.core.rmem_default=16777216
-ulimit -n 65536
+ulimit -Hn 65536
+ulimit -Sn 65536
